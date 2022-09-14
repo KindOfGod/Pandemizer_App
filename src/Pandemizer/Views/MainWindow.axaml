@@ -18,12 +18,35 @@
         <!--Acrylic Effects-->
         <ExperimentalAcrylicBorder IsHitTestVisible="False">
             <ExperimentalAcrylicBorder.Material>
-                <ExperimentalAcrylicMaterial
+                <ExperimentalAcrylicMaterial 
                     BackgroundSource="Digger"
-                    TintColor="Black"
+                    TintColor="{DynamicResource MainColor}"
                     TintOpacity="1"
                     MaterialOpacity="0.65" />
             </ExperimentalAcrylicBorder.Material>
         </ExperimentalAcrylicBorder>
+        
+        <!--Main Navigation-->
+        <SplitView IsPaneOpen="{Binding IsPaneOpen}"
+                   DisplayMode="CompactInline"
+                   OpenPaneLength="400">
+            
+            <SplitView.Pane>
+                <ExperimentalAcrylicBorder IsHitTestVisible="False">
+                    <ExperimentalAcrylicBorder.Material>
+                        <ExperimentalAcrylicMaterial 
+                            BackgroundSource="Digger"
+                            TintColor="{DynamicResource MainColor}"
+                            TintOpacity="1"
+                            MaterialOpacity="0.9"/>
+                    </ExperimentalAcrylicBorder.Material>
+                </ExperimentalAcrylicBorder>
+            </SplitView.Pane>
+            
+            <!--Navigation Frame-->
+            <Grid></Grid>
+            
+        </SplitView>
+        
     </Panel>
 </Window>

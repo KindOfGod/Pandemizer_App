@@ -7,6 +7,20 @@
     </Application.DataTemplates>
 
     <Application.Styles>
-        <FluentTheme Mode="Light"/>
+        <FluentTheme Mode="Dark"/>
     </Application.Styles>
+    
+    <!--include application resource dictionary's-->
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                
+                <!--color resource dictionary-->
+                <ResourceDictionary>
+                    <Color x:Key="MainColor">#471523</Color>
+                </ResourceDictionary>
+                
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

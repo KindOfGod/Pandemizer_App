@@ -3,6 +3,7 @@
         xmlns:vm="using:Pandemizer.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mi="using:Material.Icons.Avalonia"
         mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
         x:Class="Pandemizer.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -18,33 +19,99 @@
         <!--Acrylic Effects-->
         <ExperimentalAcrylicBorder IsHitTestVisible="False">
             <ExperimentalAcrylicBorder.Material>
-                <ExperimentalAcrylicMaterial 
-                    BackgroundSource="Digger"
-                    TintColor="{DynamicResource MainColor}"
-                    TintOpacity="1"
-                    MaterialOpacity="0.65" />
+                <ExperimentalAcrylicMaterial BackgroundSource="Digger" TintColor="{DynamicResource MainColor}" TintOpacity="1" MaterialOpacity="0.65" />
             </ExperimentalAcrylicBorder.Material>
         </ExperimentalAcrylicBorder>
         
         <!--Main Navigation-->
-        <SplitView IsPaneOpen="{Binding IsPaneOpen}"
-                   DisplayMode="CompactInline"
-                   OpenPaneLength="400">
+        <SplitView IsPaneOpen="{Binding IsPaneOpen}" DisplayMode="CompactInline" OpenPaneLength="300" CompactPaneLength="50">
             
             <SplitView.Pane>
-                <ExperimentalAcrylicBorder IsHitTestVisible="False">
+                <ExperimentalAcrylicBorder IsHitTestVisible="True">
                     <ExperimentalAcrylicBorder.Material>
-                        <ExperimentalAcrylicMaterial 
-                            BackgroundSource="Digger"
-                            TintColor="{DynamicResource MainColor}"
-                            TintOpacity="1"
-                            MaterialOpacity="0.9"/>
+                        <ExperimentalAcrylicMaterial BackgroundSource="Digger" TintColor="{DynamicResource MainColor}" TintOpacity="1" MaterialOpacity="0.9"/>
                     </ExperimentalAcrylicBorder.Material>
+                    
+                    <!--Pane Menu-->
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5">
+                        
+                        <StackPanel Orientation="Horizontal" Height="60">
+                            <Button Width="40" Height="40" Background="Transparent" Command="{Binding HamburgerMenuButtonClick}"
+                                    VerticalAlignment="Center">
+                                <mi:MaterialIcon Kind="{Binding HamburgerMenuIcon}" Width="35" Height="35"/>
+                            </Button>
+                            
+                            <TextBlock Text="Pandemizer" Height="25" FontWeight="Light" FontSize="20" Margin="10,0,0,0"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        
+                        <!--Pane Menu Items-->
+                        <ListBox Background="Transparent" SelectionMode="Single" CornerRadius="10">
+                            <ListBox.Styles>
+                                <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                                    <Setter Property="Background" Value="{DynamicResource AccentColorDark}"/>
+                                </Style>
+                                <Style Selector="ListBoxItem">
+                                    <Setter Property="Background" Value="LightGray" />
+                                </Style>
+                            </ListBox.Styles>
+                            <!--Items-->
+                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <mi:MaterialIcon Kind="Play" Width="30" Height="30" Margin="-7,0,0,0"/>
+                                    
+                                    <TextBlock Text="Play" Height="15" FontWeight="Light" FontSize="15" Margin="15,0,0,0"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <mi:MaterialIcon Kind="EditOutline" Width="30" Height="30" Margin="-7,0,0,0"/>
+                                    
+                                    <TextBlock Text="Sandbox" Height="15" FontWeight="Light" FontSize="15" Margin="15,0,0,0"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <mi:MaterialIcon Kind="Compare" Width="30" Height="30" Margin="-7,0,0,0"/>
+                                    
+                                    <TextBlock Text="Compare" Height="15" FontWeight="Light" FontSize="15" Margin="15,0,0,0"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <mi:MaterialIcon Kind="Virus" Width="30" Height="30" Margin="-7,0,0,0"/>
+                                    
+                                    <TextBlock Text="Viruses" Height="15" FontWeight="Light" FontSize="15" Margin="15,0,0,0"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <mi:MaterialIcon Kind="History" Width="30" Height="30" Margin="-7,0,0,0"/>
+                                    
+                                    <TextBlock Text="History" Height="15" FontWeight="Light" FontSize="15" Margin="15,0,0,0"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                        </ListBox>
+                        
+                    </StackPanel>
+                    
                 </ExperimentalAcrylicBorder>
             </SplitView.Pane>
             
             <!--Navigation Frame-->
-            <Grid></Grid>
+            <TransitioningContentControl Content="{Binding NavigationContent}">
+                <TransitioningContentControl.PageTransition>
+                    <PageSlide Orientation="Horizontal" Duration="0:00:00.500" />
+                </TransitioningContentControl.PageTransition>
+                <TransitioningContentControl.ContentTemplate>
+                    
+                </TransitioningContentControl.ContentTemplate>
+            </TransitioningContentControl>
             
         </SplitView>
         

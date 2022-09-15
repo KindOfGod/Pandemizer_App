@@ -8,6 +8,7 @@
 
     <Application.Styles>
         <FluentTheme Mode="Dark"/>
+        <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml"></StyleInclude>
     </Application.Styles>
     
     <!--include application resource dictionary's-->
@@ -18,6 +19,7 @@
                 <!--color resource dictionary-->
                 <ResourceDictionary>
                     <Color x:Key="MainColor">#471523</Color>
+                    <Color x:Key="AccentColorDark">#663642</Color>
                 </ResourceDictionary>
                 
             </ResourceDictionary.MergedDictionaries>

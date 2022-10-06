@@ -46,7 +46,8 @@
                         </StackPanel>
                         
                         <!--Pane Menu Items-->
-                        <ListBox Background="Transparent" SelectionMode="Single" CornerRadius="10">
+                        <ListBox Background="Transparent" SelectionMode="Single" CornerRadius="10" VerticalAlignment="Stretch" 
+                                 SelectedItem="{Binding SelectedMenuItem}" Height="600">
                             <ListBox.Styles>
                                 <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
                                     <Setter Property="Background" Value="{DynamicResource AccentColorDark}"/>
@@ -56,7 +57,7 @@
                                 </Style>
                             </ListBox.Styles>
                             <!--Items-->
-                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10">
+                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <mi:MaterialIcon Kind="Play" Width="30" Height="30" Margin="-7,0,0,0"/>
                                     
@@ -64,7 +65,7 @@
                                                VerticalAlignment="Center"/>
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10">
+                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <mi:MaterialIcon Kind="EditOutline" Width="30" Height="30" Margin="-7,0,0,0"/>
                                     
@@ -72,7 +73,7 @@
                                                VerticalAlignment="Center"/>
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10">
+                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <mi:MaterialIcon Kind="Compare" Width="30" Height="30" Margin="-7,0,0,0"/>
                                     
@@ -80,19 +81,19 @@
                                                VerticalAlignment="Center"/>
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10">
+                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <mi:MaterialIcon Kind="Virus" Width="30" Height="30" Margin="-7,0,0,0"/>
                                     
-                                    <TextBlock Text="Viruses" Height="15" FontWeight="Light" FontSize="15" Margin="15,0,0,0"
+                                    <TextBlock Text="Virusses" Height="15" FontWeight="Light" FontSize="15" Margin="15,0,0,0"
                                                VerticalAlignment="Center"/>
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10">
+                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                    <mi:MaterialIcon Kind="History" Width="30" Height="30" Margin="-7,0,0,0"/>
+                                    <mi:MaterialIcon Kind="Library" Width="30" Height="30" Margin="-7,0,0,0"/>
                                     
-                                    <TextBlock Text="History" Height="15" FontWeight="Light" FontSize="15" Margin="15,0,0,0"
+                                    <TextBlock Text="Library" Height="15" FontWeight="Light" FontSize="15" Margin="15,0,0,0"
                                                VerticalAlignment="Center"/>
                                 </StackPanel>
                             </ListBoxItem>

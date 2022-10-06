@@ -33,5 +33,6 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="src\Core" />
+      <Folder Include="src\Pandemizer\Services\NavigationService" />
     </ItemGroup>
 </Project>

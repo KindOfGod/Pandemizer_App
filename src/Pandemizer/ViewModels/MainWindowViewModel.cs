@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive;
+using Avalonia.Controls;
 using Material.Icons;
 using ReactiveUI;
 
@@ -11,7 +12,9 @@ namespace Pandemizer.ViewModels
 
         private bool _isPaneOpen;
 
-        private ViewModelBase _navigationContent;
+        private ViewModelBase? _navigationContent;
+        private ListBoxItem? _selectedMenuItem;
+        
         private MaterialIconKind _hamburgerMenuIcon;
         
         #endregion
@@ -23,10 +26,16 @@ namespace Pandemizer.ViewModels
             set => this.RaiseAndSetIfChanged(ref _isPaneOpen, value);
         }
 
-        public ViewModelBase NavigationContent
+        public ViewModelBase? NavigationContent
         {
             get => _navigationContent;
             set => this.RaiseAndSetIfChanged(ref _navigationContent, value);
+        }
+
+        public ListBoxItem? SelectedMenuItem
+        {
+            get => _selectedMenuItem;
+            set => this.RaiseAndSetIfChanged(ref _selectedMenuItem, value);
         }
 
         public MaterialIconKind HamburgerMenuIcon

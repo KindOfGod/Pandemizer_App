@@ -1,6 +1,6 @@
 ﻿namespace Pandemizer.ViewModels.Compare;
 
-public class CompareViewModel
+public class ComparePageViewModel : ViewModelBase
 {
     
 }

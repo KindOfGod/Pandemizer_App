@@ -1,9 +1,15 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:Pandemizer.ViewModels"
+        xmlns:v="using:Pandemizer.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mi="using:Material.Icons.Avalonia"
+        xmlns:viruses="clr-namespace:Pandemizer.Views.Viruses"
+        xmlns:sandbox="clr-namespace:Pandemizer.Views.Sandbox"
+        xmlns:compare="clr-namespace:Pandemizer.Views.Compare"
+        xmlns:library="clr-namespace:Pandemizer.Views.Library"
+        xmlns:play="clr-namespace:Pandemizer.Views.Play"
         mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
         x:Class="Pandemizer.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -57,7 +63,7 @@
                                 </Style>
                             </ListBox.Styles>
                             <!--Items-->
-                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
+                            <ListBoxItem x:Name="Play" Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <mi:MaterialIcon Kind="Play" Width="30" Height="30" Margin="-7,0,0,0"/>
                                     
@@ -65,7 +71,7 @@
                                                VerticalAlignment="Center"/>
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
+                            <ListBoxItem x:Name="Sandbox" Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <mi:MaterialIcon Kind="EditOutline" Width="30" Height="30" Margin="-7,0,0,0"/>
                                     
@@ -73,7 +79,7 @@
                                                VerticalAlignment="Center"/>
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
+                            <ListBoxItem x:Name="Compare" Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <mi:MaterialIcon Kind="Compare" Width="30" Height="30" Margin="-7,0,0,0"/>
                                     
@@ -81,15 +87,15 @@
                                                VerticalAlignment="Center"/>
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
+                            <ListBoxItem x:Name="Viruses" Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <mi:MaterialIcon Kind="Virus" Width="30" Height="30" Margin="-7,0,0,0"/>
                                     
-                                    <TextBlock Text="Virusses" Height="15" FontWeight="Light" FontSize="15" Margin="15,0,0,0"
+                                    <TextBlock Text="Viruses" Height="15" FontWeight="Light" FontSize="15" Margin="15,0,0,0"
                                                VerticalAlignment="Center"/>
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
+                            <ListBoxItem x:Name="Library" Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <mi:MaterialIcon Kind="Library" Width="30" Height="30" Margin="-7,0,0,0"/>
                                     
@@ -105,9 +111,26 @@
             </SplitView.Pane>
             
             <!--Navigation Frame-->
-            <TransitioningContentControl Content="{Binding NavigationContent}">
+            <TransitioningContentControl Content="{Binding NavigationContent}" Margin="0,30,0,0">
+                <TransitioningContentControl.DataTemplates>
+                    <DataTemplate DataType="{x:Type vm:Compare.ComparePageViewModel}">
+                        <compare:ComparePage/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:Library.LibraryPageViewModel}">
+                        <library:LibraryPage/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:Play.PlayPageViewModel}">
+                        <play:PlayPage/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:Sandbox.SandboxPageViewModel}">
+                        <sandbox:SandboxPage/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:Viruses.VirusesPageViewModel}">
+                        <viruses:VirusPage/>
+                    </DataTemplate>
+                </TransitioningContentControl.DataTemplates>
                 <TransitioningContentControl.PageTransition>
-                    <PageSlide Orientation="Horizontal" Duration="0:00:00.500" />
+                    <CrossFade Duration="0:00:00.1" />
                 </TransitioningContentControl.PageTransition>
                 <TransitioningContentControl.ContentTemplate>
                     

@@ -1,6 +1,6 @@
 ﻿namespace Pandemizer.ViewModels.Sandbox;
 
-public class SandboxViewModel
+public class SandboxPageViewModel : ViewModelBase
 {
     
 }

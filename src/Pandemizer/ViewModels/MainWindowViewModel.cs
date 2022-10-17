@@ -1,7 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reactive;
 using Avalonia.Controls;
 using Material.Icons;
+using Pandemizer.ViewModels.Compare;
+using Pandemizer.ViewModels.Library;
+using Pandemizer.ViewModels.Play;
+using Pandemizer.ViewModels.Sandbox;
+using Pandemizer.ViewModels.Viruses;
 using ReactiveUI;
 
 namespace Pandemizer.ViewModels
@@ -14,6 +21,8 @@ namespace Pandemizer.ViewModels
 
         private ViewModelBase? _navigationContent;
         private ListBoxItem? _selectedMenuItem;
+
+        private List<ViewModelBase> _navigationPageInstances;
         
         private MaterialIconKind _hamburgerMenuIcon;
         
@@ -35,7 +44,14 @@ namespace Pandemizer.ViewModels
         public ListBoxItem? SelectedMenuItem
         {
             get => _selectedMenuItem;
-            set => this.RaiseAndSetIfChanged(ref _selectedMenuItem, value);
+            set
+            {
+                if(Equals(_selectedMenuItem, value))
+                    return;
+                
+                this.RaiseAndSetIfChanged(ref _selectedMenuItem, value);
+                OnNavigationChanged();
+            }
         }
 
         public MaterialIconKind HamburgerMenuIcon
@@ -54,6 +70,7 @@ namespace Pandemizer.ViewModels
             HamburgerMenuIcon = MaterialIconKind.HamburgerMenuBack;
 
             NavigationContent = null;
+            _navigationPageInstances = new List<ViewModelBase>();
 
             HamburgerMenuButtonClick = ReactiveCommand.Create(OnHamburgerMenuClick);
         }
@@ -74,6 +91,51 @@ namespace Pandemizer.ViewModels
             HamburgerMenuIcon = HamburgerMenuIcon == MaterialIconKind.HamburgerMenu
                 ? MaterialIconKind.HamburgerMenuBack
                 : MaterialIconKind.HamburgerMenu;
+        }
+
+        private void OnNavigationChanged()
+        {
+            NavigationContent = SelectedMenuItem?.Name switch
+            {
+                "Play" => GetPageInstance(typeof(PlayPageViewModel)),
+                "Sandbox" => GetPageInstance(typeof(SandboxPageViewModel)),
+                "Viruses" => GetPageInstance(typeof(VirusesPageViewModel)),
+                "Library" => GetPageInstance(typeof(LibraryPageViewModel)),
+                "Compare" => GetPageInstance(typeof(ComparePageViewModel)),
+                _ => null
+            };
+        }
+
+        private ViewModelBase? GetPageInstance(Type type)
+        {
+            var instance = _navigationPageInstances.FirstOrDefault(p => p.GetType() == type);
+
+            if (instance != null)
+                return instance;
+
+            switch (type.Name)
+            {
+                case nameof(PlayPageViewModel):
+                    instance = new PlayPageViewModel();
+                    break;
+                case nameof(SandboxPageViewModel):
+                    instance = new SandboxPageViewModel();
+                    break;
+                case nameof(VirusesPageViewModel):
+                    instance = new VirusesPageViewModel();
+                    break;
+                case nameof(LibraryPageViewModel):
+                    instance = new LibraryPageViewModel();
+                    break;
+                case nameof(ComparePageViewModel):
+                    instance = new ComparePageViewModel();
+                    break;
+                default:
+                    return null;
+            }
+            
+            _navigationPageInstances.Add(instance);
+            return instance;
         }
 
         #endregion

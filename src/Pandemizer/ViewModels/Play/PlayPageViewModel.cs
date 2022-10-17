@@ -1,6 +1,6 @@
 ﻿namespace Pandemizer.ViewModels.Play;
 
-public class PlayViewModel
+public class PlayPageViewModel : ViewModelBase
 {
-    
+
 }

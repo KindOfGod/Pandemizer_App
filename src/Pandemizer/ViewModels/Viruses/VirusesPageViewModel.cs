@@ -1,6 +1,6 @@
 ﻿namespace Pandemizer.ViewModels.Viruses;
 
-public class VirusesPageViewModel
+public class VirusesPageViewModel : ViewModelBase
 {
     
 }

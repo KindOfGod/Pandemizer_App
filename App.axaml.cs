@@ -1,8 +1,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Pandemizer.Services.ApplicationService;
 using Pandemizer.ViewModels;
-using Pandemizer.Views;
 using MainWindow = Pandemizer.Views.MainWindow;
 
 namespace Pandemizer
@@ -25,6 +25,9 @@ namespace Pandemizer
             }
 
             base.OnFrameworkInitializationCompleted();
+            
+            //Todo: Remove
+            ApplicationService.TEST();
         }
     }
 }

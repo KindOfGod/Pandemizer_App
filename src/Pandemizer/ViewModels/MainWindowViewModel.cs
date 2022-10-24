@@ -46,9 +46,6 @@ namespace Pandemizer.ViewModels
             get => _selectedMenuItem;
             set
             {
-                if(Equals(_selectedMenuItem, value))
-                    return;
-                
                 this.RaiseAndSetIfChanged(ref _selectedMenuItem, value);
                 OnNavigationChanged();
             }
@@ -67,9 +64,8 @@ namespace Pandemizer.ViewModels
         public MainWindowViewModel()
         {
             IsPaneOpen = true;
+            
             HamburgerMenuIcon = MaterialIconKind.HamburgerMenuBack;
-
-            NavigationContent = null;
             _navigationPageInstances = new List<ViewModelBase>();
 
             HamburgerMenuButtonClick = ReactiveCommand.Create(OnHamburgerMenuClick);

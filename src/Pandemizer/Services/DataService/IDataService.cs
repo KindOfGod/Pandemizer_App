@@ -6,5 +6,5 @@ namespace Pandemizer.Services.DataService;
 
 public interface IDataService
 {
-    Task<SaveResult> AppendDataAsync(string filename, Game game);
+    Task<SaveResult> AppendDataAsync(string filename, Sim game);
 }

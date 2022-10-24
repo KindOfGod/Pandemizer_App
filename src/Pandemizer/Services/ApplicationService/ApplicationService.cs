@@ -1,4 +1,5 @@
-﻿using Pandemizer.Services.DataService;
+﻿using Avalonia.Logging;
+using Pandemizer.Services.DataService;
 using Pandemizer.Services.SimulationEngine.Datamodel;
 
 namespace Pandemizer.Services.ApplicationService
@@ -31,7 +32,7 @@ namespace Pandemizer.Services.ApplicationService
 
         public static void TEST()
         {
-            var game = new Game("myGame");
+            /*var game = new Game("myGame");
             for (var i = 0; i < 10000; i++)
             {
                 game.People.Add(new Person()
@@ -40,7 +41,7 @@ namespace Pandemizer.Services.ApplicationService
                 });
             }
 
-            _dataService.AppendDataAsync( "test", game);
+            _dataService.AppendDataAsync( "test", game);*/
         }
 
         #endregion

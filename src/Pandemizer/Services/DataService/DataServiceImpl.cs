@@ -24,7 +24,7 @@ public class DataServiceImpl : IDataService
 
     #region JSON
 
-    public async Task<SaveResult> AppendDataAsync(string filename, Game game)
+    public async Task<SaveResult> AppendDataAsync(string filename, Sim game)
     {
         var file = Path.Combine(GamesDirectory, filename);
 

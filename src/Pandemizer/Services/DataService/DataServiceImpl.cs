@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Pandemizer.Services.DataService.Enums;
 using Pandemizer.Services.SimulationEngine.Datamodel;
 
@@ -14,7 +13,6 @@ public class DataServiceImpl : IDataService
     #region Fields
 
     private const string GamesDirectory = "Games";
-    private const Formatting JsonFormat = Formatting.Indented;
 
     #endregion
     
@@ -37,20 +35,14 @@ public class DataServiceImpl : IDataService
 
             if (File.Exists(file))
                 return SaveResult.FileNameAlreadyExists;
-            
-            using(var outStream = new MemoryStream())
-            using (var zip = new ZipArchive(outStream, ZipArchiveMode.Create, true))
-            {
-                var simSettings = zip.CreateEntry("SimSettings.json", CompressionLevel.Fastest);
 
-                var content = JsonConvert.SerializeObject(sim.SimSettings, JsonFormat);
-                
-                await using (var entryStream = simSettings.Open())
-                await using (var fileToCompressStream = new MemoryStream(Encoding.ASCII.GetBytes(content)))
-                {
-                    await fileToCompressStream.CopyToAsync(entryStream);
-                }
-            }
+            var zipContent = new MemoryStream();
+            var archive = new ZipArchive(zipContent, ZipArchiveMode.Create);
+            
+            AddZipEntry("SimSettings.json", JsonSerializer.SerializeToUtf8Bytes(sim.SimSettings), archive);
+            AddZipEntry("PeopleBase.json", JsonSerializer.SerializeToUtf8Bytes(sim.PeopleBase), archive);
+
+            await File.WriteAllBytesAsync(file, zipContent.ToArray());
         }
         catch (DirectoryNotFoundException)
         {
@@ -62,6 +54,14 @@ public class DataServiceImpl : IDataService
         }
         
         return SaveResult.Successful;
+    }
+    
+    private static void AddZipEntry(string fileName, byte[] fileContent,ZipArchive archive)
+    {
+        using (var stream = archive.CreateEntry(fileName).Open())
+        {
+            stream.Write(fileContent, 0, fileContent.Length);
+        }
     }
 
     #endregion

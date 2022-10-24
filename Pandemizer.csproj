@@ -32,6 +32,6 @@
       <AdditionalFiles Include="src\Pandemizer\Views\MainWindow.axaml" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="src\Core" />
+      <Folder Include="src\Pandemizer\Helper" />
     </ItemGroup>
 </Project>

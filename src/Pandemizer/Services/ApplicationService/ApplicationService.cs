@@ -1,15 +1,16 @@
 ﻿using Avalonia.Logging;
 using Pandemizer.Services.DataService;
+using Pandemizer.Services.SimulationEngine;
 using Pandemizer.Services.SimulationEngine.Datamodel;
 
-namespace Pandemizer.Services.ApplicationService
+namespace Pandemizer.Services
 {
     public static class ApplicationService
     {
 
         #region Fields
 
-        private static IDataService _dataService;
+        public static IDataService _dataService;
         
         #endregion
         
@@ -32,16 +33,10 @@ namespace Pandemizer.Services.ApplicationService
 
         public static void TEST()
         {
-            /*var game = new Game("myGame");
-            for (var i = 0; i < 10000; i++)
+            SimService.CreateSimulation("test", new SimSettings()
             {
-                game.People.Add(new Person()
-                {
-                    Name = $"name{i}"
-                });
-            }
-
-            _dataService.AppendDataAsync( "test", game);*/
+                Scope = 10000
+            });
         }
 
         #endregion

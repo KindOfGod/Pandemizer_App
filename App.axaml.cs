@@ -1,7 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Pandemizer.Services.ApplicationService;
+using Pandemizer.Services;
 using Pandemizer.ViewModels;
 using MainWindow = Pandemizer.Views.MainWindow;
 

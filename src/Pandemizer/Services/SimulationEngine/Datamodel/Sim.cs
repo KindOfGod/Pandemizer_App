@@ -8,7 +8,7 @@ public class Sim
 {
     #region Properties
 
-    public string SimulationName;
+    public string Name;
 
     public PeopleBase PeopleBase;
     public SimSettings SimSettings;
@@ -22,7 +22,7 @@ public class Sim
 
     public Sim(string simName, SimSettings simSettings)
     {
-        SimulationName = simName;
+        Name = simName;
         SimSettings = simSettings;
 
         PeopleBase = SimHelper.GenerateInitialPeopleBase(simSettings);

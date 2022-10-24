@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.IO.Compression;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ public class DataServiceImpl : IDataService
     #region Fields
 
     private const string GamesDirectory = "Games";
+    private const Formatting JsonFormat = Formatting.Indented;
 
     #endregion
     
@@ -24,25 +26,41 @@ public class DataServiceImpl : IDataService
 
     #region JSON
 
-    public async Task<SaveResult> AppendDataAsync(string filename, Sim game)
+    public async Task<SaveResult> CreateNewSimSave(Sim sim)
     {
-        var file = Path.Combine(GamesDirectory, filename);
-
-        if (!Directory.Exists(GamesDirectory))
-            Directory.CreateDirectory(GamesDirectory);
-        
-        if(!File.Exists(file))
-            File.Create(file);
-        
-        var json = JsonConvert.SerializeObject(game, Formatting.None);
-        var bytes = Encoding.ASCII.GetBytes(json);
-
-        await using (var fileStream = File.Open(file, FileMode.Open))
-        await using (var gzip = new GZipStream(fileStream, CompressionMode.Compress, false))
+        try
         {
-            await gzip.WriteAsync(bytes);
-        }
+            var file = Path.Combine(GamesDirectory, sim.Name) + ".zip";
+      
+            if (!Directory.Exists(GamesDirectory))
+                Directory.CreateDirectory(GamesDirectory);
 
+            if (File.Exists(file))
+                return SaveResult.FileNameAlreadyExists;
+            
+            using(var outStream = new MemoryStream())
+            using (var zip = new ZipArchive(outStream, ZipArchiveMode.Create, true))
+            {
+                var simSettings = zip.CreateEntry("SimSettings.json", CompressionLevel.Fastest);
+
+                var content = JsonConvert.SerializeObject(sim.SimSettings, JsonFormat);
+                
+                await using (var entryStream = simSettings.Open())
+                await using (var fileToCompressStream = new MemoryStream(Encoding.ASCII.GetBytes(content)))
+                {
+                    await fileToCompressStream.CopyToAsync(entryStream);
+                }
+            }
+        }
+        catch (DirectoryNotFoundException)
+        {
+            return SaveResult.InvalidDirectory;
+        }
+        catch
+        {
+            return SaveResult.Failed;
+        }
+        
         return SaveResult.Successful;
     }
 

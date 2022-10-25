@@ -1,8 +1,8 @@
-﻿using System;
-using System.IO;
-using System.IO.Compression;
+﻿using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Ionic.Zip;
+using Ionic.Zlib;
 using Pandemizer.Services.DataService.Enums;
 using Pandemizer.Services.SimulationEngine.Datamodel;
 
@@ -26,23 +26,60 @@ public class DataServiceImpl : IDataService
 
     public async Task<SaveResult> CreateNewSimSave(Sim sim)
     {
+        SaveResult res;
+        
         try
         {
-            var file = Path.Combine(GamesDirectory, sim.Name) + ".zip";
-      
-            if (!Directory.Exists(GamesDirectory))
-                Directory.CreateDirectory(GamesDirectory);
+            res = await Task.Run(async () =>
+            {
 
-            if (File.Exists(file))
-                return SaveResult.FileNameAlreadyExists;
+                var file = Path.Combine(GamesDirectory, sim.Name) + ".zip";
 
-            var zipContent = new MemoryStream();
-            var archive = new ZipArchive(zipContent, ZipArchiveMode.Create);
+                if (!Directory.Exists(GamesDirectory))
+                    Directory.CreateDirectory(GamesDirectory);
+
+                if (File.Exists(file))
+                    return SaveResult.FileNameAlreadyExists;
+
+                using (var zip = new ZipFile(file))
+                {
+                    zip.CompressionLevel = CompressionLevel.BestSpeed;
+                    zip.AddEntry("SimSettings.json", JsonSerializer.SerializeToUtf8Bytes(sim.SimSettings));
+                    zip.AddEntry("PeopleBase.json", JsonSerializer.SerializeToUtf8Bytes(sim.PeopleBase));
+                    zip.Save();
+                }
+                
+                return await AppendToSimSave(sim);
+            });
+        }
+        catch (DirectoryNotFoundException)
+        {
+            res = SaveResult.InvalidDirectory;
+        }
+        catch
+        {
+            res = SaveResult.Failed;
+        }
+        
+        return res;
+    }
+
+    public async Task<SaveResult> AppendToSimSave(Sim sim)
+    {
+        try
+        {
+            await Task.Run(() =>
+            {
+                var file = Path.Combine(GamesDirectory, sim.Name) + ".zip";
             
-            AddZipEntry("SimSettings.json", JsonSerializer.SerializeToUtf8Bytes(sim.SimSettings), archive);
-            AddZipEntry("PeopleBase.json", JsonSerializer.SerializeToUtf8Bytes(sim.PeopleBase), archive);
-
-            await File.WriteAllBytesAsync(file, zipContent.ToArray());
+                using (var zip = ZipFile.Read(file))
+                {
+                    zip.CompressionLevel = CompressionLevel.BestSpeed;
+                    zip.AddEntry($"PeopleStates_{sim.Iteration}.json", JsonSerializer.SerializeToUtf8Bytes(sim.PeopleStates[sim.Iteration]));
+                    zip.AddEntry($"SimStates_{sim.Iteration}.json", JsonSerializer.SerializeToUtf8Bytes(sim.SimStates[sim.Iteration]));
+                    zip.Save();
+                }
+            });
         }
         catch (DirectoryNotFoundException)
         {
@@ -54,14 +91,6 @@ public class DataServiceImpl : IDataService
         }
         
         return SaveResult.Successful;
-    }
-    
-    private static void AddZipEntry(string fileName, byte[] fileContent,ZipArchive archive)
-    {
-        using (var stream = archive.CreateEntry(fileName).Open())
-        {
-            stream.Write(fileContent, 0, fileContent.Length);
-        }
     }
 
     #endregion

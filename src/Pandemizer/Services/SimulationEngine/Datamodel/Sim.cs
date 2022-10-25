@@ -8,6 +8,8 @@ public class Sim
 {
     #region Properties
 
+    public int Iteration = 0;
+
     public string Name;
 
     public PeopleBase PeopleBase;

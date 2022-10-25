@@ -1,4 +1,6 @@
-﻿namespace Pandemizer.Services.SimulationEngine.Datamodel;
+﻿using System.Runtime.Serialization;
+
+namespace Pandemizer.Services.SimulationEngine.Datamodel;
 /// <summary>
 /// PeopleBase contains all static information about the simulation people. It does not contain
 /// dynamic information.
@@ -6,7 +8,7 @@
 public class PeopleBase
 {
     #region Properties
-
+    
     public int[] Age;
 
     #endregion

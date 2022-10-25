@@ -1,4 +1,5 @@
 ﻿using Pandemizer.Services.SimulationEngine.Datamodel;
+using Pandemizer.Services.SimulationEngine.Enums;
 
 namespace Pandemizer.Services.SimulationEngine;
 

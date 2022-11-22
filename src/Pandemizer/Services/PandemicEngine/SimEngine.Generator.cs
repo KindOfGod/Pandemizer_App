@@ -5,10 +5,11 @@ namespace Pandemizer.Services.PandemicEngine;
 
 public static partial class SimEngine
 {
+    #region Private Methods
+
     /// <summary>
     /// Generate a Initial Simulation State with valid SimSettings
     /// </summary>
-    
     private static SimState GenerateInitialSimState(SimSettings settings)
     {
         //generate age groups
@@ -38,6 +39,9 @@ public static partial class SimEngine
         return state;
     }
 
+    /// <summary>
+    /// Adds a Attribute to a percentage popIndex. Uses alternative value for rest.
+    /// </summary>
     private static Dictionary<uint, uint> AddAttributeToAllByPercentage(Dictionary<uint, uint> popIndex, double percentage, uint attribute, uint alternative)
     {
         var resIndex = new Dictionary<uint, uint>();
@@ -54,4 +58,6 @@ public static partial class SimEngine
 
         return resIndex;
     }
+
+    #endregion
 }

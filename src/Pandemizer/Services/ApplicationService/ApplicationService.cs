@@ -3,6 +3,9 @@ using Pandemizer.Services.DataService;
 
 namespace Pandemizer.Services
 {
+    /// <summary>
+    /// Main Service which controls the Application.
+    /// </summary>
     public static class ApplicationService
     {
 

@@ -1,7 +1,5 @@
 ﻿using Avalonia.Logging;
 using Pandemizer.Services.DataService;
-using Pandemizer.Services.SimulationEngine;
-using Pandemizer.Services.SimulationEngine.Datamodel;
 
 namespace Pandemizer.Services
 {
@@ -33,10 +31,7 @@ namespace Pandemizer.Services
 
         public static void TEST()
         {
-            SimService.CreateSimulation("test", new SimSettings()
-            {
-                Scope = 10000
-            });
+            
         }
 
         #endregion

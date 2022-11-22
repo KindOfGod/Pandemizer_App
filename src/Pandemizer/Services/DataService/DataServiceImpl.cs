@@ -4,7 +4,6 @@ using Ionic.Zip;
 using Ionic.Zlib;
 using Newtonsoft.Json;
 using Pandemizer.Services.DataService.Enums;
-using Pandemizer.Services.SimulationEngine.Datamodel;
 
 namespace Pandemizer.Services.DataService;
 
@@ -24,7 +23,7 @@ public class DataServiceImpl : IDataService
 
     #region JSON
 
-    public async Task<SaveResult> CreateNewSimSave(Sim sim)
+    /*public async Task<SaveResult> SaveNewSim(Sim sim)
     {
         SaveResult res;
         
@@ -94,7 +93,7 @@ public class DataServiceImpl : IDataService
         }
         
         return SaveResult.Successful;
-    }
+    }*/
 
     #endregion
 }

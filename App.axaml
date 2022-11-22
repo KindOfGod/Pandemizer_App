@@ -18,8 +18,8 @@
                 
                 <!--color resource dictionary-->
                 <ResourceDictionary>
-                    <Color x:Key="MainColor">#471523</Color>
-                    <Color x:Key="AccentColorDark">#663642</Color>
+                    <Color x:Key="MainColor">#22354F</Color>
+                    <Color x:Key="AccentColorDark">#343F4F</Color>
                 </ResourceDictionary>
                 
             </ResourceDictionary.MergedDictionaries>

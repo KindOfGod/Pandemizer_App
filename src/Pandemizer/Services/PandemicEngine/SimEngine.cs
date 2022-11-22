@@ -10,6 +10,8 @@ namespace Pandemizer.Services.PandemicEngine
     /// </summary>
     public static partial class SimEngine
     {
+        #region Public Methods
+
         /// <summary>
         /// Create and generate new simulation with SimSettings.
         /// </summary>
@@ -49,7 +51,10 @@ namespace Pandemizer.Services.PandemicEngine
             
             CalculateStateStats(sim);
         }
+        
+        #endregion
 
+        #region Private Methods
         /// <summary>
         /// Iterates a single Pop and returns Dictionary with resulting Pops
         /// </summary>
@@ -138,5 +143,7 @@ namespace Pandemizer.Services.PandemicEngine
                 state.DeathRate = state.CntDead - prevState.CntDead;
             }
         }
+
+        #endregion
     }
 }

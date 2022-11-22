@@ -1,8 +1,10 @@
-﻿using Avalonia.Logging;
-using Pandemizer.Services.DataService;
+﻿using Pandemizer.Services.DataService;
 
 namespace Pandemizer.Services
 {
+    /// <summary>
+    /// Main Service which controls the Application.
+    /// </summary>
     public static class ApplicationService
     {
 
@@ -31,7 +33,7 @@ namespace Pandemizer.Services
 
         public static void TEST()
         {
-            
+
         }
 
         #endregion

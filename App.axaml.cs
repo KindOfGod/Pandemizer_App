@@ -18,10 +18,14 @@ namespace Pandemizer
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
+                var mainViewModel = new MainWindowViewModel();
+                
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
+                    DataContext = mainViewModel,
                 };
+
+                ApplicationService._mainWindowViewModel = mainViewModel;
             }
 
             base.OnFrameworkInitializationCompleted();

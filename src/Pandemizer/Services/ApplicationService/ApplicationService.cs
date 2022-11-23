@@ -1,4 +1,5 @@
 ﻿using Pandemizer.Services.DataService;
+using Pandemizer.ViewModels;
 
 namespace Pandemizer.Services
 {
@@ -11,6 +12,7 @@ namespace Pandemizer.Services
         #region Fields
 
         public static IDataService _dataService;
+        public static MainWindowViewModel _mainWindowViewModel;
         
         #endregion
         
@@ -23,8 +25,10 @@ namespace Pandemizer.Services
         #endregion
 
         #region Public Methods
-
-        
+        public static void ChangeFullscreenView(ViewModelBase viewModel)
+        {
+            _mainWindowViewModel.ChangeFullscreenView(viewModel);
+        }
 
         #endregion
 

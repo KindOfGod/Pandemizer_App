@@ -28,8 +28,23 @@
             </ExperimentalAcrylicBorder.Material>
         </ExperimentalAcrylicBorder>
         
+        <!--FullScreen Frame-->
+        <TransitioningContentControl Content="{Binding FullscreenContent}" Margin="0,30,0,0">
+            <TransitioningContentControl.DataTemplates>
+                <DataTemplate DataType="{x:Type vm:Compare.ComparePageViewModel}">
+                    <compare:ComparePage/>
+                </DataTemplate>
+            </TransitioningContentControl.DataTemplates>
+            <TransitioningContentControl.PageTransition>
+                <CrossFade Duration="0:00:00.1" />
+            </TransitioningContentControl.PageTransition>
+            <TransitioningContentControl.ContentTemplate>
+                    
+            </TransitioningContentControl.ContentTemplate>
+        </TransitioningContentControl>
+        
         <!--Main Navigation-->
-        <SplitView IsPaneOpen="{Binding IsPaneOpen}" DisplayMode="CompactInline" OpenPaneLength="300" CompactPaneLength="50">
+        <SplitView IsPaneOpen="{Binding IsPaneOpen}" DisplayMode="CompactInline" OpenPaneLength="300" CompactPaneLength="50" IsVisible="{Binding IsNavVisible}">
             
             <SplitView.Pane>
                 <ExperimentalAcrylicBorder IsHitTestVisible="True">
@@ -41,7 +56,7 @@
                     <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5">
                         
                         <StackPanel Orientation="Horizontal" Height="60">
-                            <Button Width="40" Height="40" Background="Transparent" Command="{Binding HamburgerMenuButtonClick}"
+                            <Button Width="40" Height="40" Background="Transparent" Command="{Binding HamburgerMenuClick}"
                                     VerticalAlignment="Center">
                                 <mi:MaterialIcon Kind="{Binding HamburgerMenuIcon}" Width="35" Height="35"/>
                             </Button>

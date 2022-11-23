@@ -18,8 +18,10 @@ namespace Pandemizer.ViewModels
         #region Fields
 
         private bool _isPaneOpen;
+        private bool _isNavVisible;
 
         private ViewModelBase? _navigationContent;
+        private ViewModelBase? _fullscreenContent;
         private ListBoxItem? _selectedMenuItem;
 
         private List<ViewModelBase> _navigationPageInstances;
@@ -34,11 +36,23 @@ namespace Pandemizer.ViewModels
             get => _isPaneOpen;
             set => this.RaiseAndSetIfChanged(ref _isPaneOpen, value);
         }
+        
+        public bool IsNavVisible
+        {
+            get => _isNavVisible;
+            set => this.RaiseAndSetIfChanged(ref _isNavVisible, value);
+        }
 
         public ViewModelBase? NavigationContent
         {
             get => _navigationContent;
             set => this.RaiseAndSetIfChanged(ref _navigationContent, value);
+        }
+        
+        public ViewModelBase? FullscreenContent
+        {
+            get => _fullscreenContent;
+            set => this.RaiseAndSetIfChanged(ref _fullscreenContent, value);
         }
 
         public ListBoxItem? SelectedMenuItem
@@ -64,21 +78,43 @@ namespace Pandemizer.ViewModels
         public MainWindowViewModel()
         {
             IsPaneOpen = true;
+            IsNavVisible = true;
             
             HamburgerMenuIcon = MaterialIconKind.HamburgerMenuBack;
             _navigationPageInstances = new List<ViewModelBase>();
 
-            HamburgerMenuButtonClick = ReactiveCommand.Create(OnHamburgerMenuClick);
+            HamburgerMenuClick = ReactiveCommand.Create(OnHamburgerMenuClick);
         }
 
         #endregion
 
         #region Commands
 
-        public ReactiveCommand<Unit, Unit> HamburgerMenuButtonClick { get; }
+        public ReactiveCommand<Unit, Unit> HamburgerMenuClick { get; }
 
         #endregion
 
+        #region Public Methods
+        /// <summary>
+        /// Sets ViewModel into FullscreenFrame and disables navigation.
+        /// </summary>
+        public void ChangeFullscreenView(ViewModelBase viewModel)
+        {
+            IsNavVisible = false;
+            FullscreenContent = viewModel;
+        }
+        
+        /// <summary>
+        /// Removes ViewModel from FullscreenFrame and enables navigation.
+        /// </summary>
+        public void ResetFullscreenView()
+        {
+            IsNavVisible = true;
+            FullscreenContent = null;
+        }
+
+        #endregion
+        
         #region Private Methods
 
         private void OnHamburgerMenuClick()

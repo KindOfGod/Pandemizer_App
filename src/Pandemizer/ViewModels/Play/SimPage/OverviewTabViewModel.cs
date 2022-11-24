@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
@@ -22,7 +23,6 @@ public class OverviewTabViewModel : ViewModelBase
         NameTextSize = 15,
         LabelsPaint = new SolidColorPaint(SKColors.White),
         NamePaint = new SolidColorPaint(SKColors.White),
-        MinLimit = 0,
         MinStep = 1
     };
 
@@ -33,7 +33,6 @@ public class OverviewTabViewModel : ViewModelBase
         NameTextSize = 15,
         LabelsPaint = new SolidColorPaint(SKColors.White),
         NamePaint = new SolidColorPaint(SKColors.White),
-        MinLimit = 0,
         MinStep = 1
     };
         
@@ -57,6 +56,14 @@ public class OverviewTabViewModel : ViewModelBase
 
     #region Public Methods
 
+    public void RefreshCharts()
+    {
+        XIncidence.First().MinLimit = null;
+        XIncidence.First().MaxLimit = null;
+        YIncidence.First().MinLimit = null;
+        YIncidence.First().MaxLimit = null;
+    }
+    
     public void Init()
     {
         IncidenceSeries = new ISeries[]

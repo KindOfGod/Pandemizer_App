@@ -154,8 +154,15 @@ public class SimulationPageViewModel : ViewModelBase
         
         //graphs
         OverviewTab.IncidenceData.Add(new ObservablePoint(stateNum, state.Incidence));
+
+        RefreshCharts();
     }
 
+    private void RefreshCharts()
+    {
+        OverviewTab.RefreshCharts();
+    }
+    
     private void Init()
     {
         OverviewTab = new OverviewTabViewModel();

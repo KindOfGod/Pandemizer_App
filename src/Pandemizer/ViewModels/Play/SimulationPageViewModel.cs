@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Threading.Tasks;
-using DynamicData;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
@@ -31,7 +30,7 @@ public class SimulationPageViewModel : ViewModelBase
     
     //graphs
     public ISeries[] _incidenceSeries;
-    private ObservableCollection<ObservablePoint> _incidenceData { get; set; } = new() { };
+    private ObservableCollection<ObservablePoint> _incidenceData { get; set; } = new();
 
     #endregion
 
@@ -71,6 +70,17 @@ public class SimulationPageViewModel : ViewModelBase
     
     
     //graphs
+    public Axis[] XAxes { get; set; } =
+    {
+        new Axis
+        {
+            Name = "Iteration",
+            NamePadding = new LiveChartsCore.Drawing.Padding(0, 5),
+            NameTextSize = 15,
+            LabelsPaint = new SolidColorPaint(SKColors.White),
+            NamePaint = new SolidColorPaint(SKColors.White)
+        }
+    };
     public ISeries[] IncidenceSeries 
     {
         get => _incidenceSeries;
@@ -80,12 +90,17 @@ public class SimulationPageViewModel : ViewModelBase
     #endregion
 
     #region Constructors
+    //default constructor for design time
+    public SimulationPageViewModel()
+    {
+        InitGraphs();
+    }
     public SimulationPageViewModel(Sim sim)
     {
         _currentSim = sim;
         
         InitGraphs();
-        RefreshUI();
+        RefreshUi();
         
         ForwardCommand = ReactiveCommand.Create(OnForwardCommand);
         ForwardCommand5 = ReactiveCommand.Create(OnForwardCommand5);
@@ -122,10 +137,10 @@ public class SimulationPageViewModel : ViewModelBase
                 SimEngine.IterateSimulation(_currentSim);
         }));
         
-        RefreshUI();
+        RefreshUi();
     }
 
-    private void RefreshUI()
+    private void RefreshUi()
     {
         var state = _currentSim.SimStates[^1];
         var stateNum = _currentSim.SimStates.Count - 1;
@@ -154,6 +169,7 @@ public class SimulationPageViewModel : ViewModelBase
                 GeometryStroke = null,
                 GeometrySize = 15,
                 Values = _incidenceData,
+                Name = "",
                 Fill = null
             }
         };

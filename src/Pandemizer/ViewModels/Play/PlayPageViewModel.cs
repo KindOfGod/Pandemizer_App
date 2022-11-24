@@ -40,7 +40,7 @@ public class PlayPageViewModel : ViewModelBase
     /// </summary>
     private void StartSimulation(Sim sim)
     {
-        ApplicationService.ChangeFullscreenView(new ComparePageViewModel());
+        ApplicationService.ChangeFullscreenView(new SimulationPageViewModel(sim));
     }
 
     #endregion

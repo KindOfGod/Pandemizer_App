@@ -21,11 +21,13 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         public long TotalInfected = 0;
         public long UnknownTotalInfected = 0;
 
-        public long CntHealthy = 0;
-        public long CntImperceptibleInfected = 0;
-        public long CntInfected = 0;
-        public long CntHeavilyInfected = 0;
-        public long CntDead = 0;
+        public long Healthy = 0;
+        public long ImperceptibleInfected = 0;
+        public long Infected = 0;
+        public long HeavilyInfected = 0;
+        public long Dead = 0;
+
+        public long Vaccinated = 0;
 
         public long Recovered = 0;
 

@@ -29,10 +29,10 @@
         </ExperimentalAcrylicBorder>
         
         <!--FullScreen Frame-->
-        <TransitioningContentControl Content="{Binding FullscreenContent}" Margin="0,30,0,0">
+        <TransitioningContentControl Content="{Binding FullscreenContent}" Margin="0,0,0,0">
             <TransitioningContentControl.DataTemplates>
-                <DataTemplate DataType="{x:Type vm:Compare.ComparePageViewModel}">
-                    <compare:ComparePage/>
+                <DataTemplate DataType="{x:Type vm:Play.SimulationPageViewModel}">
+                    <play:SimulationPage/>
                 </DataTemplate>
             </TransitioningContentControl.DataTemplates>
             <TransitioningContentControl.PageTransition>

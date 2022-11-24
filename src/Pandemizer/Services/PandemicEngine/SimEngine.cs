@@ -74,7 +74,7 @@ namespace Pandemizer.Services.PandemicEngine
                 var rateOfInfection = isEndangeredAge ? settings.EndangeredAgeInfectionRate : settings.BaseInfectionRate;
                 
                 //calculate modifier based on infection count
-                rateOfInfection = rateOfInfection + settings.InfectionSpreadRate * rateOfInfection * ((double)prevState.UnknownTotalInfected / (settings.Scope - prevState.CntDead));
+                rateOfInfection = rateOfInfection + settings.InfectionSpreadRate * rateOfInfection * ((double)prevState.UnknownTotalInfected / (settings.Scope - prevState.Dead));
                 
                 var newInfected = SimHelper.DecideCountWithDeviation(count, rateOfInfection, settings.ProbabilityDeviation);
                 
@@ -118,29 +118,29 @@ namespace Pandemizer.Services.PandemicEngine
             foreach (var (key, count) in state.PopIndex)
             {
                 if (AttributeHelper.CheckStateOfLive(key, StateOfLife.ImperceptiblyInfected))
-                    state.CntImperceptibleInfected += Convert.ToInt64(count);
+                    state.ImperceptibleInfected += Convert.ToInt64(count);
                 else if (AttributeHelper.CheckStateOfLive(key, StateOfLife.Infected))
-                    state.CntInfected += Convert.ToInt64(count);
+                    state.Infected += Convert.ToInt64(count);
                 else if (AttributeHelper.CheckStateOfLive(key, StateOfLife.HeavilyInfected))
-                    state.CntHeavilyInfected += Convert.ToInt64(count);
+                    state.HeavilyInfected += Convert.ToInt64(count);
                 else if (AttributeHelper.CheckStateOfLive(key, StateOfLife.Dead))
-                    state.CntDead += Convert.ToInt64(count);
+                    state.Dead += Convert.ToInt64(count);
                 else
-                    state.CntHealthy += Convert.ToInt64(count);
+                    state.Healthy += Convert.ToInt64(count);
 
-                state.TotalInfected = state.CntInfected + state.CntHeavilyInfected;
-                state.UnknownTotalInfected = state.CntImperceptibleInfected + state.CntInfected + state.CntHeavilyInfected;
+                state.TotalInfected = state.Infected + state.HeavilyInfected;
+                state.UnknownTotalInfected = state.ImperceptibleInfected + state.Infected + state.HeavilyInfected;
 
-                var rec = state.CntHealthy - prevState.CntHealthy;
+                var rec = state.Healthy - prevState.Healthy;
                 state.Recovered = rec >= 0 ? rec : 0;
 
-                var unknownInc = prevState.CntHealthy - state.CntHealthy;
+                var unknownInc = prevState.Healthy - state.Healthy;
                 state.UnknownIncidence = unknownInc >= 0 ? unknownInc : 0;
 
-                var inc = prevState.CntHealthy + prevState.CntImperceptibleInfected - state.CntHealthy - prevState.CntImperceptibleInfected;
+                var inc = prevState.Healthy + prevState.ImperceptibleInfected - state.Healthy - prevState.ImperceptibleInfected;
                 state.Incidence = inc >= 0 ? inc : 0;
 
-                state.DeathRate = state.CntDead - prevState.CntDead;
+                state.DeathRate = state.Dead - prevState.Dead;
             }
         }
 

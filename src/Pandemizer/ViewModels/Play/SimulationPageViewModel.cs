@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
 using LiveChartsCore;
@@ -8,6 +9,7 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using Pandemizer.Services;
 using Pandemizer.Services.PandemicEngine;
 using Pandemizer.Services.PandemicEngine.DataModel;
+using Pandemizer.ViewModels.Play.SimPage;
 using ReactiveUI;
 using SkiaSharp;
 
@@ -20,6 +22,8 @@ public class SimulationPageViewModel : ViewModelBase
     private Sim _currentSim;
 
     //base info
+    private string _iteration;
+    
     private string _healthy;
     private string _infected;
     private string _vaccinated;
@@ -27,16 +31,19 @@ public class SimulationPageViewModel : ViewModelBase
     
     //additional info
     private string _incidence;
-    
-    //graphs
-    public ISeries[] _incidenceSeries;
-    private ObservableCollection<ObservablePoint> _incidenceData { get; set; } = new();
 
+    private OverviewTabViewModel _overviewTab;
+    
     #endregion
 
     #region Properties
     
     //base info
+    public string Iteration
+    {
+        get => _iteration;
+        set => this.RaiseAndSetIfChanged(ref _iteration, value);
+    }
     public string Healthy
     {
         get => _healthy;
@@ -68,38 +75,27 @@ public class SimulationPageViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _incidence, value);
     }
     
-    
-    //graphs
-    public Axis[] XAxes { get; set; } =
-    {
-        new Axis
-        {
-            Name = "Iteration",
-            NamePadding = new LiveChartsCore.Drawing.Padding(0, 5),
-            NameTextSize = 15,
-            LabelsPaint = new SolidColorPaint(SKColors.White),
-            NamePaint = new SolidColorPaint(SKColors.White)
-        }
-    };
-    public ISeries[] IncidenceSeries 
-    {
-        get => _incidenceSeries;
-        set => this.RaiseAndSetIfChanged(ref _incidenceSeries, value);
-    }
+    //Tabs
 
+    public OverviewTabViewModel OverviewTab
+    {
+        get => _overviewTab;
+        set => this.RaiseAndSetIfChanged(ref _overviewTab, value);
+    }
+    
     #endregion
 
     #region Constructors
     //default constructor for design time
     public SimulationPageViewModel()
     {
-        InitGraphs();
+        Init();
     }
     public SimulationPageViewModel(Sim sim)
     {
         _currentSim = sim;
         
-        InitGraphs();
+        Init();
         RefreshUi();
         
         ForwardCommand = ReactiveCommand.Create(OnForwardCommand);
@@ -146,6 +142,8 @@ public class SimulationPageViewModel : ViewModelBase
         var stateNum = _currentSim.SimStates.Count - 1;
         
         //basic info
+        Iteration = ApplicationHelper.IntToFormatedNum(stateNum);
+        
         Healthy = ApplicationHelper.IntToFormatedNum((int)state.Healthy);
         Infected = ApplicationHelper.IntToFormatedNum((int)state.TotalInfected);
         Vaccinated = ApplicationHelper.IntToFormatedNum((int)state.Vaccinated);
@@ -155,24 +153,14 @@ public class SimulationPageViewModel : ViewModelBase
         Incidence = ApplicationHelper.IntToFormatedNum((int)state.Incidence);
         
         //graphs
-        _incidenceData.Add(new ObservablePoint(stateNum, state.Incidence));
+        OverviewTab.IncidenceData.Add(new ObservablePoint(stateNum, state.Incidence));
     }
 
-    private void InitGraphs()
+    private void Init()
     {
-        IncidenceSeries = new ISeries[]
-        {
-            new LineSeries<ObservablePoint>
-            {
-                Stroke = new SolidColorPaint(SKColors.Yellow, 3),
-                GeometryFill = new SolidColorPaint(SKColors.Yellow),
-                GeometryStroke = null,
-                GeometrySize = 15,
-                Values = _incidenceData,
-                Name = "",
-                Fill = null
-            }
-        };
+        OverviewTab = new OverviewTabViewModel();
+        
+        OverviewTab.Init();
     }
 
     #endregion

@@ -20,6 +20,7 @@
                 <ResourceDictionary>
                     <Color x:Key="MainColor">#22354F</Color>
                     <Color x:Key="AccentColorDark">#343F4F</Color>
+                    <Color x:Key="AccentColorLight">#5E7985</Color>
                 </ResourceDictionary>
                 
             </ResourceDictionary.MergedDictionaries>

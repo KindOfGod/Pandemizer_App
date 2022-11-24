@@ -15,6 +15,13 @@
         Title="Pandemizer"
         TransparencyLevelHint="AcrylicBlur"
         ExtendClientAreaToDecorationsHint="True">
+    
+    <!-- BUG: Windows extends fullscreen 8pix in every direction. Remove when Bug is fixed! -->
+    <Window.Styles>
+        <Style Selector="Window[WindowState=Maximized]">
+            <Setter Property="Padding" Value="8" />
+        </Style>
+    </Window.Styles>
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>

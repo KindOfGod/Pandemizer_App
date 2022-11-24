@@ -25,19 +25,19 @@
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,5,0,0">
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                     <mi:MaterialIcon Kind="SmileyExcited" Width="30" Height="30" Margin="0,0,5,0" Foreground="#3BA084"/>
-                    <TextBlock Text="{Binding Healthy}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                    <TextBlock Text="{Binding Healthy, FallbackValue=0}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0">
                     <mi:MaterialIcon Kind="Virus" Width="30" Height="30" Margin="0,0,5,0" Foreground="#E5E27F"/>
-                    <TextBlock Text="{Binding Infected}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                    <TextBlock Text="{Binding Infected, FallbackValue=0}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0">
                     <mi:MaterialIcon Kind="Syringe" Width="30" Height="30" Foreground="#77C3E5"/>
-                    <TextBlock Text="{Binding Vaccinated}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                    <TextBlock Text="{Binding Vaccinated, FallbackValue=0}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0">
                     <mi:MaterialIcon Kind="Dead" Width="30" Height="30" Foreground="#7F6743"/>
-                    <TextBlock Text="{Binding Dead}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                    <TextBlock Text="{Binding Dead, FallbackValue=0}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                 </StackPanel>
             </StackPanel>
             
@@ -45,7 +45,7 @@
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,5,0,0" Height="30">
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                     <mi:MaterialIcon Kind="GraphBar" Width="20" Height="20" Opacity="0.7"/>
-                    <TextBlock Text="{Binding Incidence}" Width="90" VerticalAlignment="Center" Margin="5,5,0,0" TextAlignment="Left" FontSize="12"/>
+                    <TextBlock Text="{Binding Incidence, FallbackValue='0'}" Width="90" VerticalAlignment="Center" Margin="5,5,0,0" TextAlignment="Left" FontSize="12"/>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                     <mi:MaterialIcon Kind="HospitalBuilding" Width="20" Height="20" Opacity="0.7"/>
@@ -69,7 +69,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     
-                    <lvc:CartesianChart Grid.Row="0" Grid.Column="0" ZoomMode="X"
+                    <lvc:CartesianChart Grid.Row="0" Grid.Column="0" ZoomMode="X" XAxes="{Binding XAxes}"
                                         Series="{Binding IncidenceSeries}"/>
                     
                 </Grid>

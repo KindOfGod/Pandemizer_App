@@ -31,7 +31,6 @@ public class DataServiceImpl : IDataService
         {
             res = await Task.Run(async () =>
             {
-
                 var file = Path.Combine(GamesDirectory, sim.Name) + ".zip";
 
                 if (!Directory.Exists(GamesDirectory))

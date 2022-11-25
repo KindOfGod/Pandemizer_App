@@ -17,12 +17,13 @@
             <RowDefinition/>
         </Grid.RowDefinitions> 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
         <!-- Heath States Chart -->
-        <Grid Grid.Row="0" Grid.Column="0" Margin="5">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="*"/>
@@ -38,13 +39,10 @@
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Heath States" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             
             <StackPanel Grid.Row="1" Grid.Column="1">
-                <StackPanel.Styles>
-                    
-                </StackPanel.Styles>
-                <ToggleSwitch IsChecked="True" Command="{Binding ToogleHealthStatesAxis}" CommandParameter="0" Content="Healthy" Foreground="{DynamicResource HealthyColor}"/>
-                <ToggleSwitch IsChecked="True" Command="{Binding ToogleHealthStatesAxis}" Content="Infected" CommandParameter="1" Foreground="{DynamicResource InfectedColor}"/>
-                <ToggleSwitch IsChecked="True" Command="{Binding ToogleHealthStatesAxis}" Content="Heavily Infected" CommandParameter="2" Foreground="{DynamicResource HeavilyInfectedColor}"/>
-                <ToggleSwitch IsChecked="True" Command="{Binding ToogleHealthStatesAxis}" Content="Dead" CommandParameter="3" Foreground="{DynamicResource DeadColor}"/>
+                <CheckBox IsChecked="True" Command="{Binding ToogleHealthStatesAxis}" CommandParameter="0" Content="Healthy" Foreground="{DynamicResource HealthyColor}"/>
+                <CheckBox IsChecked="True" Command="{Binding ToogleHealthStatesAxis}" Content="Infected" CommandParameter="1" Foreground="{DynamicResource InfectedColor}"/>
+                <CheckBox IsChecked="True" Command="{Binding ToogleHealthStatesAxis}" Content="Heavily Infected" CommandParameter="2" Foreground="{DynamicResource HeavilyInfectedColor}"/>
+                <CheckBox IsChecked="True" Command="{Binding ToogleHealthStatesAxis}" Content="Dead" CommandParameter="3" Foreground="{DynamicResource DeadColor}"/>
             </StackPanel>
             
             <chrt:CartesianChart Grid.Row="1" Grid.Column="0" ZoomMode="X" XAxes="{Binding XHealthStates}" YAxes="{Binding YHealthStates}"

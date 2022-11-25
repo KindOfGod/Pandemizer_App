@@ -29,7 +29,7 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
 
         //infection rates
         public double BaseInfectionRate { get; set; } = 0.000001; // can't be greater than 1
-        public double EndangeredAgeInfectionRate  { get; set; } = 0.00001; //can't be greater than 1
+        public double EndangeredAgeInfectionRate  { get; set; } = 0.000005; //can't be greater than 1
         public Age? EndangeredAgeGroup { get; set; } = Age.Pensioner;
         
         //infection kind
@@ -42,7 +42,7 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         public double EndangeredAgeDeathRate  { get; set; } = 0.02; //can't be greater than 1
 
         //multiplier of infection spread rate if everybody is infected
-        public double InfectionSpreadRate { get; set; } = 50000; //0 -> no influence if more people infected, x > 0 -> x-times as infective
+        public double InfectionSpreadRate { get; set; } = 100000; //0 -> no influence if more people infected, x > 0 -> x-times as infective
         
         #endregion
     }

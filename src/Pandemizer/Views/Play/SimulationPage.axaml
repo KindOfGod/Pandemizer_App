@@ -59,6 +59,11 @@
                     <TextBlock Text="{Binding Incidence, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="5,5,0,0" TextAlignment="Left" FontSize="12"/>
                 </StackPanel>
                 
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" ToolTip.Tip="Death Rate" Background="Transparent">
+                    <mi:MaterialIcon Kind="Cross" Width="20" Height="20" Opacity="0.7" Focusable="True"/>
+                    <TextBlock Text="{Binding DeathRate, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="5,5,0,0" TextAlignment="Left" FontSize="12"/>
+                </StackPanel>
+                
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" ToolTip.Tip="Available Hospital Capacity" Background="Transparent">
                     <mi:MaterialIcon Kind="HospitalBuilding" Width="20" Height="20" Opacity="0.7" Focusable="True"/>
                     <TextBlock Text="0" Width="90" VerticalAlignment="Center" Margin="5,5,0,0" TextAlignment="Left" FontSize="12"/>
@@ -68,7 +73,7 @@
         </StackPanel>
         
         <!-- Tabs -->
-        <TabControl Grid.Row="1" Grid.RowSpan="2" TabStripPlacement="Top" Margin="0,5,0,0">
+        <TabControl Grid.Row="1" Grid.RowSpan="2" TabStripPlacement="Top" Margin="0,5,0,20">
             <TabControl.DataTemplates>
                 <DataTemplate DataType="{x:Type simPage:OverviewTabViewModel}">
                     <simtabView:OverviewTab/>

@@ -66,7 +66,7 @@ namespace Pandemizer.Services.PandemicEngine
             
             var isEndangeredAge = false;
             if(settings.EndangeredAgeGroup != null)
-                isEndangeredAge = (pop & (uint)settings.EndangeredAgeGroup) > 0;
+                isEndangeredAge = AttributeHelper.CheckAge(pop, (Age)settings.EndangeredAgeGroup);
             
             //healthy
             if (AttributeHelper.CheckStateOfLive(pop, StateOfLife.Healthy))
@@ -76,6 +76,13 @@ namespace Pandemizer.Services.PandemicEngine
                 //calculate modifier based on infection count
                 rateOfInfection = rateOfInfection + settings.InfectionSpreadRate * rateOfInfection * ((double)prevState.UnknownTotalInfected / (settings.Scope - prevState.Dead));
                 
+                //rateOfInfection can be 0.1 and 0.5 in worst case
+                
+                //new features
+
+                if (rateOfInfection > 1 - settings.ProbabilityDeviation)
+                    rateOfInfection = 1 - settings.ProbabilityDeviation;
+
                 var newInfected = SimHelper.DecideCountWithDeviation(count, rateOfInfection, settings.ProbabilityDeviation);
                 
                 SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, settings.InfectionSeverity), newInfected);

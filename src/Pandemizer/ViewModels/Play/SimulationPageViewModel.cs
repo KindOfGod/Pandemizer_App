@@ -31,6 +31,7 @@ public class SimulationPageViewModel : ViewModelBase
     
     //additional info
     private string _incidence;
+    private string _deathRate;
 
     private OverviewTabViewModel _overviewTab;
     
@@ -75,6 +76,12 @@ public class SimulationPageViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _incidence, value);
     }
     
+    public string DeathRate
+    {
+        get => _deathRate;
+        set => this.RaiseAndSetIfChanged(ref _deathRate, value);
+    }
+    
     //Tabs
 
     public OverviewTabViewModel OverviewTab
@@ -96,7 +103,7 @@ public class SimulationPageViewModel : ViewModelBase
         _currentSim = sim;
         
         Init();
-        RefreshUi();
+        RefreshUi(1);
         
         ForwardCommand = ReactiveCommand.Create(OnForwardCommand);
         ForwardCommand5 = ReactiveCommand.Create(OnForwardCommand5);
@@ -133,10 +140,13 @@ public class SimulationPageViewModel : ViewModelBase
                 SimEngine.IterateSimulation(_currentSim);
         }));
         
-        RefreshUi();
+        RefreshUi(cntInt);
     }
 
-    private void RefreshUi()
+    /// <summary>
+    /// Refreshes visible information on UI. It also add the last 'cnt'-values to charts.
+    /// </summary>
+    private void RefreshUi(int cnt)
     {
         var state = _currentSim.SimStates[^1];
         var stateNum = _currentSim.SimStates.Count - 1;
@@ -151,14 +161,22 @@ public class SimulationPageViewModel : ViewModelBase
         
         //additional info
         Incidence = ApplicationHelper.IntToFormatedNum((int)state.Incidence);
+        DeathRate = ApplicationHelper.IntToFormatedNum((int)state.DeathRate);
         
-        //graphs
-        OverviewTab.IncidenceData.Add(new ObservablePoint(stateNum, state.Incidence));
-        
-        OverviewTab.HealthyData.Add(new ObservablePoint(stateNum, state.Healthy + state.ImperceptibleInfected));
-        OverviewTab.InfectedData.Add(new ObservablePoint(stateNum, state.Infected));
-        OverviewTab.HeavilyInfectedData.Add(new ObservablePoint(stateNum, state.HeavilyInfected));
-        OverviewTab.DeadData.Add(new ObservablePoint(stateNum, state.Dead));
+        //charts
+        for (var i = cnt; i > 0; i--)
+        {
+            state = _currentSim.SimStates[^i];
+            
+            stateNum = _currentSim.SimStates.Count - i;
+            
+            OverviewTab.IncidenceData.Add(new ObservablePoint(stateNum, state.Incidence));
+
+            OverviewTab.HealthyData.Add(new ObservablePoint(stateNum, state.Healthy + state.ImperceptibleInfected));
+            OverviewTab.InfectedData.Add(new ObservablePoint(stateNum, state.Infected));
+            OverviewTab.HeavilyInfectedData.Add(new ObservablePoint(stateNum, state.HeavilyInfected));
+            OverviewTab.DeadData.Add(new ObservablePoint(stateNum, state.Dead));
+        }
         
         RefreshCharts();
     }

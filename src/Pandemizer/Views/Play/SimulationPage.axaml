@@ -90,20 +90,24 @@
         
         <!-- Iteration Buttons -->
         <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,20">
+            <Button Background="{DynamicResource IterationColor}" Width="35" Height="35" VerticalAlignment="Bottom" Margin="0,0,5,0" ToolTip.Tip="Simulate to end"
+                    Command="{Binding ForwardCommand}" CommandParameter="1000" IsEnabled="{Binding IterationButtonsEnabled}">
+                <mi:MaterialIcon Kind="Goal" Width="30" Height="30"/>
+            </Button>
             <Button Background="#45625A" Width="35" Height="35" VerticalAlignment="Bottom" Margin="0,0,5,0" ToolTip.Tip="Iterate 5"
-                    Command="{Binding ForwardCommand5}">
+                    Command="{Binding ForwardCommand}" CommandParameter="5" IsEnabled="{Binding IterationButtonsEnabled}">
                 <mi:MaterialIcon Kind="FastForward5" Width="30" Height="30"/>
             </Button>
             <Button Background="#45625A" Width="35" Height="35" VerticalAlignment="Bottom" Margin="0,0,5,0" ToolTip.Tip="Iterate 15"
-                    Command="{Binding ForwardCommand15}">
+                    Command="{Binding ForwardCommand}" CommandParameter="15" IsEnabled="{Binding IterationButtonsEnabled}">
                 <mi:MaterialIcon Kind="FastForward15" Width="30" Height="30"/>
             </Button>
             <Button Background="#45625A" Width="35" Height="35" VerticalAlignment="Bottom" Margin="0,0,5,0" ToolTip.Tip="Iterate 60"
-                    Command="{Binding ForwardCommand60}">
+                    Command="{Binding ForwardCommand}" CommandParameter="60" IsEnabled="{Binding IterationButtonsEnabled}">
                 <mi:MaterialIcon Kind="FastForward60" Width="30" Height="30"/>
             </Button>
             <Button Background="#1A8869" Width="80" Height="60" Margin="5" ToolTip.Tip="Iterate"
-                    Command="{Binding ForwardCommand}">
+                    Command="{Binding ForwardCommand}" CommandParameter="1" IsEnabled="{Binding IterationButtonsEnabled}">
                 <mi:MaterialIcon Kind="FastForwardOutline" Width="45" Height="45"/>
             </Button>
         </StackPanel>

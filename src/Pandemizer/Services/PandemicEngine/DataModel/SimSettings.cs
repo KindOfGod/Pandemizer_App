@@ -10,6 +10,7 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         
         // General
         public int Scope { get; set; } = 100_000_000;
+        public int IterationLimit { get; set; } = 1_000;
 
         public double ProbabilityDeviation { get; set; } = 0.05;
 

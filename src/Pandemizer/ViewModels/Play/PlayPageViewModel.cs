@@ -38,7 +38,7 @@ public class PlayPageViewModel : ViewModelBase
     /// <summary>
     /// Starts simulation with given Sim.
     /// </summary>
-    private void StartSimulation(Sim sim)
+    private void StartSimulation(Sim? sim)
     {
         ApplicationService.ChangeFullscreenView(new SimulationPageViewModel(sim));
     }

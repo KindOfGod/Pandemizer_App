@@ -31,7 +31,7 @@ public static partial class SimEngine
             popIndex.Add(k, count);
         }
         
-        var state = new SimState(settings.Scope)
+        var state = new SimState()
         {
             PopIndex = popIndex,
             Healthy = settings.Scope - (uint)(settings.Scope * settings.InitialProportionOfInfected)

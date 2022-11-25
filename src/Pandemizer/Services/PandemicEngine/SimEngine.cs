@@ -15,7 +15,7 @@ namespace Pandemizer.Services.PandemicEngine
         /// <summary>
         /// Create and generate new simulation with SimSettings.
         /// </summary>
-        public static Sim CreateNewSim(SimSettings settings)
+        public static Sim? CreateNewSim(SimSettings settings)
         {
             return new Sim(settings, new List<SimState>{GenerateInitialSimState(settings)});
         }
@@ -31,10 +31,13 @@ namespace Pandemizer.Services.PandemicEngine
         /// <summary>
         /// Iterate Simulation to next state
         /// </summary>
-        public static void IterateSimulation(Sim sim)
+        public static void IterateSimulation(Sim? sim)
         {
-            var newState = new SimState(sim.SimSettings.Scope);
+            var newState = new SimState();
             var newPopIndex = new Dictionary<uint, uint>();
+            
+            if(sim == null)
+                return;
 
             foreach (var pop in sim.SimStates[^1].PopIndex)
             {
@@ -58,7 +61,7 @@ namespace Pandemizer.Services.PandemicEngine
         /// <summary>
         /// Iterates a single Pop and returns Dictionary with resulting Pops
         /// </summary>
-        private static Dictionary<uint, uint> IteratePip(uint pop, uint count, Sim sim)
+        private static Dictionary<uint, uint> IteratePip(uint pop, uint count, Sim? sim)
         {
             var newPopIndex = new Dictionary<uint, uint>();
             var settings = sim.SimSettings;
@@ -118,7 +121,7 @@ namespace Pandemizer.Services.PandemicEngine
         /// <summary>
         /// Calculates Stats for last SimState
         /// </summary>
-        private static void CalculateStateStats(Sim sim)
+        private static void CalculateStateStats(Sim? sim)
         {
             var prevState = sim.SimStates[^2];
             var state = sim.SimStates[^1];

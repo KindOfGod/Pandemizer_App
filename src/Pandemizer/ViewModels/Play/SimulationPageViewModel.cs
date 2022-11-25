@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
@@ -19,64 +20,66 @@ public class SimulationPageViewModel : ViewModelBase
 {
     #region Fields
 
-    private Sim _currentSim;
+    private Sim? _currentSim;
 
     //base info
-    private string _iteration;
+    private string? _iteration;
     
-    private string _healthy;
-    private string _infected;
-    private string _vaccinated;
-    private string _dead;
+    private string? _healthy;
+    private string? _infected;
+    private string? _vaccinated;
+    private string? _dead;
     
     //additional info
-    private string _incidence;
-    private string _deathRate;
+    private string? _incidence;
+    private string? _deathRate;
+    
+    private bool _iterationButtonsEnabled;
 
-    private OverviewTabViewModel _overviewTab;
+    private OverviewTabViewModel? _overviewTab;
     
     #endregion
 
     #region Properties
     
     //base info
-    public string Iteration
+    public string? Iteration
     {
         get => _iteration;
         set => this.RaiseAndSetIfChanged(ref _iteration, value);
     }
-    public string Healthy
+    public string? Healthy
     {
         get => _healthy;
         set => this.RaiseAndSetIfChanged(ref _healthy, value);
     }
     
-    public string Infected
+    public string? Infected
     {
         get => _infected;
         set => this.RaiseAndSetIfChanged(ref _infected, value);
     }
     
-    public string Vaccinated
+    public string? Vaccinated
     {
         get => _vaccinated;
         set => this.RaiseAndSetIfChanged(ref _vaccinated, value);
     }
     
-    public string Dead
+    public string? Dead
     {
         get => _dead;
         set => this.RaiseAndSetIfChanged(ref _dead, value);
     }
     
     //additional info
-    public string Incidence
+    public string? Incidence
     {
         get => _incidence;
         set => this.RaiseAndSetIfChanged(ref _incidence, value);
     }
     
-    public string DeathRate
+    public string? DeathRate
     {
         get => _deathRate;
         set => this.RaiseAndSetIfChanged(ref _deathRate, value);
@@ -84,10 +87,18 @@ public class SimulationPageViewModel : ViewModelBase
     
     //Tabs
 
-    public OverviewTabViewModel OverviewTab
+    public OverviewTabViewModel? OverviewTab
     {
         get => _overviewTab;
         set => this.RaiseAndSetIfChanged(ref _overviewTab, value);
+    }
+    
+    //rest
+    
+    public bool IterationButtonsEnabled
+    {
+        get => _iterationButtonsEnabled;
+        set => this.RaiseAndSetIfChanged(ref _iterationButtonsEnabled, value);
     }
     
     #endregion
@@ -98,49 +109,52 @@ public class SimulationPageViewModel : ViewModelBase
     {
         Init();
     }
-    public SimulationPageViewModel(Sim sim)
+    public SimulationPageViewModel(Sim? sim)
     {
         _currentSim = sim;
         
         Init();
         RefreshUi(1);
         
-        ForwardCommand = ReactiveCommand.Create(OnForwardCommand);
-        ForwardCommand5 = ReactiveCommand.Create(OnForwardCommand5);
-        ForwardCommand15 = ReactiveCommand.Create(OnForwardCommand15);
-        ForwardCommand60 = ReactiveCommand.Create(OnForwardCommand60);
+        ForwardCommand = ReactiveCommand.Create<string>(OnForwardCommand);
     }
 
     #endregion
     
     #region Commands
 
-    public ReactiveCommand<Unit, Unit> ForwardCommand { get; }
-    public ReactiveCommand<Unit, Unit> ForwardCommand5 { get; }
-    public ReactiveCommand<Unit, Unit> ForwardCommand15 { get; }
-    public ReactiveCommand<Unit, Unit> ForwardCommand60 { get; }
+    public ReactiveCommand<string, Unit>? ForwardCommand { get; }
 
     #endregion
 
     #region Private Methods
 
-    private void OnForwardCommand() { Iterate(1); }
-    private void OnForwardCommand5() { Iterate(5); }
-    private void OnForwardCommand15() { Iterate(15); }
-    private void OnForwardCommand60() { Iterate(60); }
+    private void OnForwardCommand(string parameter) {  Iterate(Convert.ToInt32(parameter)); }
 
     /// <summary>
     /// Iterates Simulation cntInt times.
     /// </summary>
     private async void Iterate(int cntInt)
     {
+        IterationButtonsEnabled = false;
+        
+        var iterations = _currentSim.SimStates.Count - 1;
+        
+        if(iterations > _currentSim.SimSettings.IterationLimit)
+            return;
+        if (iterations + cntInt > _currentSim.SimSettings.IterationLimit)
+            cntInt = _currentSim.SimSettings.IterationLimit - iterations;
+
         await Task.Run((() =>
         {
             for (var i = cntInt; i > 0; i--)
                 SimEngine.IterateSimulation(_currentSim);
         }));
-        
+
         RefreshUi(cntInt);
+        
+        if(_currentSim.SimStates.Count - 1 < _currentSim.SimSettings.IterationLimit)
+            IterationButtonsEnabled = true;
     }
 
     /// <summary>
@@ -194,6 +208,8 @@ public class SimulationPageViewModel : ViewModelBase
         OverviewTab = new OverviewTabViewModel();
         
         OverviewTab.Init();
+
+        IterationButtonsEnabled = true;
     }
 
     #endregion

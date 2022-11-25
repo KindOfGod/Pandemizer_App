@@ -33,9 +33,9 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
 
         #endregion
 
-        public SimState(int scope)
+        public SimState()
         {
-            PopIndex = new Dictionary<uint, uint>(scope / 100);
+            PopIndex = new Dictionary<uint, uint>();
         }
 
         public IEnumerator GetEnumerator()

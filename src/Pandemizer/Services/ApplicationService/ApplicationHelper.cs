@@ -10,7 +10,7 @@ public static class ApplicationHelper
     /// <summary>
     /// Returns Int as Formated string. 1000 -> 1.000
     /// </summary>
-    public static string IntToFormatedNum(int i)
+    public static string? IntToFormatedNum(int i)
     {
         return i.ToString("#,##0", _numberFormat);
     }

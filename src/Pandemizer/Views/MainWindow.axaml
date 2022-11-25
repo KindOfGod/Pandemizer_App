@@ -16,10 +16,22 @@
         TransparencyLevelHint="AcrylicBlur"
         ExtendClientAreaToDecorationsHint="True">
     
-    <!-- BUG: Windows extends fullscreen 8pix in every direction. Remove when Bug is fixed! -->
+    <!-- Global Styles for Application -->
     <Window.Styles>
+        <!-- BUG: Windows extends fullscreen 8pix in every direction. Remove when Bug is fixed! -->
         <Style Selector="Window[WindowState=Maximized]">
             <Setter Property="Padding" Value="8" />
+        </Style>
+        <!-- Toggle Switch -->
+        <Style Selector="ToggleSwitch /template/ Border">
+            <Setter Property="Background" Value="{DynamicResource AccentColorDark}"/>
+        </Style>
+        <Style Selector="ToggleSwitch:pointerover /template/ Border">
+            <Setter Property="Background" Value="{DynamicResource AccentColorLight}"/>
+        </Style>
+        <!-- List Box -->
+        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource AccentColorDark}"/>
         </Style>
     </Window.Styles>
 
@@ -75,14 +87,6 @@
                         <!--Pane Menu Items-->
                         <ListBox Background="Transparent" SelectionMode="Single" CornerRadius="10" VerticalAlignment="Stretch" 
                                  SelectedItem="{Binding SelectedMenuItem}" Height="600">
-                            <ListBox.Styles>
-                                <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
-                                    <Setter Property="Background" Value="{DynamicResource AccentColorDark}"/>
-                                </Style>
-                                <Style Selector="ListBoxItem">
-                                    <Setter Property="Background" Value="LightGray" />
-                                </Style>
-                            </ListBox.Styles>
                             <!--Items-->
                             <ListBoxItem x:Name="Play" Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">

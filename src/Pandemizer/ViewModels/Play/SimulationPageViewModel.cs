@@ -154,10 +154,18 @@ public class SimulationPageViewModel : ViewModelBase
         
         //graphs
         OverviewTab.IncidenceData.Add(new ObservablePoint(stateNum, state.Incidence));
-
+        
+        OverviewTab.HealthyData.Add(new ObservablePoint(stateNum, state.Healthy + state.ImperceptibleInfected));
+        OverviewTab.InfectedData.Add(new ObservablePoint(stateNum, state.Infected));
+        OverviewTab.HeavilyInfectedData.Add(new ObservablePoint(stateNum, state.HeavilyInfected));
+        OverviewTab.DeadData.Add(new ObservablePoint(stateNum, state.Dead));
+        
         RefreshCharts();
     }
 
+    /// <summary>
+    /// Resets all zoom and panning of charts in control
+    /// </summary>
     private void RefreshCharts()
     {
         OverviewTab.RefreshCharts();

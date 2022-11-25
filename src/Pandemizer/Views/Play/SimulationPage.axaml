@@ -25,27 +25,27 @@
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,5,0,0">
                 
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" ToolTip.Tip="Iterations" Background="Transparent">
-                    <mi:MaterialIcon Kind="CircleArrows" Width="30" Height="30" Margin="0,0,5,0" Foreground="#99093f" Focusable="True"/>
+                    <mi:MaterialIcon Kind="CircleArrows" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource IterationColor}" Focusable="True"/>
                     <TextBlock Text="{Binding Iteration, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                 </StackPanel>
                 
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Healthy" Background="Transparent">
-                    <mi:MaterialIcon Kind="SmileyExcited" Width="30" Height="30" Margin="0,0,5,0" Foreground="#3BA084" Focusable="True"/>
+                    <mi:MaterialIcon Kind="SmileyExcited" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource HealthyColor}" Focusable="True"/>
                     <TextBlock Text="{Binding Healthy, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                 </StackPanel>
                 
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Infected" Background="Transparent">
-                    <mi:MaterialIcon Kind="Virus" Width="30" Height="30" Margin="0,0,5,0" Foreground="#E5E27F" Focusable="True"/>
+                    <mi:MaterialIcon Kind="Virus" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource InfectedColor}" Focusable="True"/>
                     <TextBlock Text="{Binding Infected, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                 </StackPanel>
 
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Vaccinated" Background="Transparent">
-                    <mi:MaterialIcon Kind="Syringe" Width="30" Height="30" Foreground="#77C3E5" Focusable="True"/>
+                    <mi:MaterialIcon Kind="Syringe" Width="30" Height="30" Foreground="{DynamicResource VaccinatedColor}" Focusable="True"/>
                     <TextBlock Text="{Binding Vaccinated, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                 </StackPanel>
                 
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Dead" Background="Transparent">
-                    <mi:MaterialIcon Kind="Dead" Width="30" Height="30" Foreground="#7F6743" Focusable="True"/>
+                    <mi:MaterialIcon Kind="Dead" Width="30" Height="30" Foreground="{DynamicResource DeadColor}" Focusable="True"/>
                     <TextBlock Text="{Binding Dead, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                 </StackPanel>
                 
@@ -68,7 +68,7 @@
         </StackPanel>
         
         <!-- Tabs -->
-        <TabControl Grid.Row="1" Grid.RowSpan="2" TabStripPlacement="Top">
+        <TabControl Grid.Row="1" Grid.RowSpan="2" TabStripPlacement="Top" Margin="0,5,0,0">
             <TabControl.DataTemplates>
                 <DataTemplate DataType="{x:Type simPage:OverviewTabViewModel}">
                     <simtabView:OverviewTab/>

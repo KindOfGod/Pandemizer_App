@@ -19,11 +19,14 @@ public class OverviewTabViewModel : ViewModelBase
     private ISeries[] _incidenceSeries;
     private ISeries[] _healthStateSeries;
     private ISeries[] _deathRateSeries;
+    private ISeries[] _immuneSeries;
 
     public ObservableCollection<ObservablePoint> HealthyData { get; set; } = new();
     public ObservableCollection<ObservablePoint> InfectedData { get; set; } = new();
     public ObservableCollection<ObservablePoint> HeavilyInfectedData { get; set; } = new();
     public ObservableCollection<ObservablePoint> DeadData { get; set; } = new();
+    public ObservableCollection<ObservablePoint> ImmuneData { get; set; } = new();
+    public ObservableCollection<ObservablePoint> ImmuneRateData { get; set; } = new();
     public ObservableCollection<ObservablePoint> IncidenceData { get; set; } = new();
     public ObservableCollection<ObservablePoint> DeathRateData { get; set; } = new();
 
@@ -70,6 +73,12 @@ public class OverviewTabViewModel : ViewModelBase
         get => _deathRateSeries;
         set => this.RaiseAndSetIfChanged(ref _deathRateSeries, value);
     }
+    
+    public ISeries[] ImmuneSeries
+    {
+        get => _immuneSeries;
+        set => this.RaiseAndSetIfChanged(ref _immuneSeries, value);
+    }
 
     #endregion
 
@@ -80,6 +89,8 @@ public class OverviewTabViewModel : ViewModelBase
     public Axis[] YIncidence { get; set; } = {_peopleAxis};
     public Axis[] XDeathRate { get; set; } = {_iterationAxis};
     public Axis[] YDeathRate { get; set; } = {_peopleAxis};
+    public Axis[] XImmune { get; set; } = {_iterationAxis};
+    public Axis[] YImmune { get; set; } = {_peopleAxis};
 
     #endregion
 
@@ -115,6 +126,11 @@ public class OverviewTabViewModel : ViewModelBase
         XDeathRate.First().MaxLimit = null;
         YDeathRate.First().MinLimit = null;
         YDeathRate.First().MaxLimit = null;
+        
+        XImmune.First().MinLimit = null;
+        XImmune.First().MaxLimit = null;
+        YImmune.First().MinLimit = null;
+        YImmune.First().MaxLimit = null;
     }
     
     public void Init()
@@ -154,6 +170,16 @@ public class OverviewTabViewModel : ViewModelBase
             },
             new LineSeries<ObservablePoint>
             {
+                Stroke = new SolidColorPaint(ApplicationColors.ImmuneColor, 3),
+                GeometryFill = new SolidColorPaint(ApplicationColors.ImmuneColor),
+                GeometryStroke = null,
+                GeometrySize = 5,
+                Values = ImmuneData,
+                Name = "Immune",
+                Fill = null
+            },
+            new LineSeries<ObservablePoint>
+            {
                 Stroke = new SolidColorPaint(ApplicationColors.DeadColor, 3),
                 GeometryFill = new SolidColorPaint(ApplicationColors.DeadColor),
                 GeometryStroke = null,
@@ -188,6 +214,20 @@ public class OverviewTabViewModel : ViewModelBase
                 GeometrySize = 5,
                 Values = DeathRateData,
                 Name = "",
+                Fill = null
+            }
+        };
+        
+        ImmuneSeries = new ISeries[]
+        {
+            new LineSeries<ObservablePoint>
+            {
+                Stroke = new SolidColorPaint(ApplicationColors.ImmuneColor, 3),
+                GeometryFill = new SolidColorPaint(ApplicationColors.ImmuneColor),
+                GeometryStroke = null,
+                GeometrySize = 5,
+                Values = ImmuneRateData,
+                Name = "Immune Rate",
                 Fill = null
             }
         };

@@ -40,8 +40,13 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         
         //rate of death
         public double BaseDeathRate { get; set; } = 0.01; // can't be greater than 1
-        public double EndangeredAgeDeathRate  { get; set; } = 0.2; //can't be greater than 1
-
+        public double EndangeredAgeDeathRate  { get; set; } = 0.05; //can't be greater than 1
+        
+        //rate of immunity
+        public double BaseImmunityRate { get; set; } = 0.001; // can't be greater than 1
+        public double EndangeredImmunityRate { get; set; } = 0.0005; // can't be greater than 1
+        public double SurvivalInstinctMultiplier { get; set; } = 2; // multiplies immunity rate in life/death situation
+        
         //multiplier of infection spread rate if everybody is infected
         public double InfectionSpreadRate { get; set; } = 100000; //0 -> no influence if more people infected, x > 0 -> x-times as infective
         

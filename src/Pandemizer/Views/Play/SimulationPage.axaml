@@ -39,9 +39,9 @@
                     <TextBlock Text="{Binding Infected, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                 </StackPanel>
 
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Vaccinated" Background="Transparent">
-                    <mi:MaterialIcon Kind="Syringe" Width="30" Height="30" Foreground="{DynamicResource VaccinatedColor}" Focusable="True"/>
-                    <TextBlock Text="{Binding Vaccinated, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Immune" Background="Transparent">
+                    <mi:MaterialIcon Kind="ShieldStar" Width="30" Height="30" Foreground="{DynamicResource ImmuneColor}" Focusable="True"/>
+                    <TextBlock Text="{Binding Immune, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                 </StackPanel>
                 
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Dead" Background="Transparent">

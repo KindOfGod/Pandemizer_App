@@ -21,6 +21,7 @@ namespace Pandemizer.Services.PandemicEngine
         Infected = 3,
         HeavilyInfected = 4,
         Dead = 5,
+        Immune = 6,
         
         Compare = 7
     }

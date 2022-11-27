@@ -21,7 +21,7 @@ public class SimulationPageViewModel : ViewModelBase
     
     private string? _healthy;
     private string? _infected;
-    private string? _vaccinated;
+    private string? _immune;
     private string? _dead;
     
     //additional info
@@ -54,10 +54,10 @@ public class SimulationPageViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _infected, value);
     }
     
-    public string? Vaccinated
+    public string? Immune
     {
-        get => _vaccinated;
-        set => this.RaiseAndSetIfChanged(ref _vaccinated, value);
+        get => _immune;
+        set => this.RaiseAndSetIfChanged(ref _immune, value);
     }
     
     public string? Dead
@@ -172,9 +172,9 @@ public class SimulationPageViewModel : ViewModelBase
         
         Healthy = ApplicationHelper.IntToFormatedNum((int)state.Healthy);
         Infected = ApplicationHelper.IntToFormatedNum((int)state.TotalInfected);
-        Vaccinated = ApplicationHelper.IntToFormatedNum((int)state.Vaccinated);
+        Immune = ApplicationHelper.IntToFormatedNum((int)state.Immune);
         Dead = ApplicationHelper.IntToFormatedNum((int)state.Dead);
-        
+
         //additional info
         Incidence = ApplicationHelper.IntToFormatedNum((int)state.Incidence);
         DeathRate = ApplicationHelper.IntToFormatedNum((int)state.DeathRate);
@@ -193,6 +193,8 @@ public class SimulationPageViewModel : ViewModelBase
             OverviewTab?.InfectedData.Add(new ObservablePoint(stateNum, state.Infected));
             OverviewTab?.HeavilyInfectedData.Add(new ObservablePoint(stateNum, state.HeavilyInfected));
             OverviewTab?.DeadData.Add(new ObservablePoint(stateNum, state.Dead));
+            OverviewTab?.ImmuneData.Add(new ObservablePoint(stateNum, state.Immune));
+            OverviewTab?.ImmuneRateData.Add(new ObservablePoint(stateNum, state.ImmuneRate));
         }
         
         RefreshCharts();

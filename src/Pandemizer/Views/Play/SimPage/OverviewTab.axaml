@@ -14,8 +14,7 @@
     <Grid RowDefinitions="*,*" ColumnDefinitions="*,150,*">
 
         <!-- Heath States Chart -->
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" ColumnDefinitions="*,150"
-              RowDefinitions="20,*">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" ColumnDefinitions="*,150" RowDefinitions="20,*">
 
             <Border Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
             
@@ -25,15 +24,27 @@
                 <CheckBox IsChecked="True" Command="{Binding ToggleHealthStatesAxis}" Content="Healthy" CommandParameter="0" Foreground="{DynamicResource HealthyColor}"/>
                 <CheckBox IsChecked="True" Command="{Binding ToggleHealthStatesAxis}" Content="Infected" CommandParameter="1" Foreground="{DynamicResource InfectedColor}"/>
                 <CheckBox IsChecked="True" Command="{Binding ToggleHealthStatesAxis}" Content="Heavily Infected" CommandParameter="2" Foreground="{DynamicResource HeavilyInfectedColor}"/>
-                <CheckBox IsChecked="True" Command="{Binding ToggleHealthStatesAxis}" Content="Dead" CommandParameter="3" Foreground="{DynamicResource DeadColor}"/>
+                <CheckBox IsChecked="True" Command="{Binding ToggleHealthStatesAxis}" Content="Immune" CommandParameter="3" Foreground="{DynamicResource ImmuneColor}"/>
+                <CheckBox IsChecked="True" Command="{Binding ToggleHealthStatesAxis}" Content="Dead" CommandParameter="4" Foreground="{DynamicResource DeadColor}"/>
             </StackPanel>
             
             <chrt:CartesianChart Grid.Row="1" Grid.Column="0" ZoomMode="X" XAxes="{Binding XHealthStates}" YAxes="{Binding YHealthStates}"
                                  Series="{Binding HealthStatesSeries, FallbackValue=null}"/>
         </Grid>
         
+        <!-- Immune Chart -->
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" ColumnDefinitions="*,150" RowDefinitions="20,*">
+
+            <Border Grid.RowSpan="2" Grid.ColumnSpan="2"  Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
+            
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Immunity" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
+            
+            <chrt:CartesianChart Grid.Row="1" Grid.Column="0" ZoomMode="X" XAxes="{Binding XImmune}" YAxes="{Binding YImmune}"
+                                 Series="{Binding ImmuneSeries, FallbackValue=null}"/>
+        </Grid>
+        
         <!-- Incidence Chart -->
-        <Grid Grid.Row="1" Grid.Column="0" Margin="5" RowDefinitions="20,*">
+        <Grid Grid.Row="1" Grid.Column="2" Margin="5" RowDefinitions="20,*">
 
             <Border Grid.RowSpan="2" Grid.ColumnSpan="2"  Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
             

@@ -17,6 +17,7 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         public long UnknownIncidence = 0; // Incidence + imperceptibly infected
 
         public long DeathRate = 0;
+        public long ImmuneRate = 0;
 
         public long TotalInfected = 0;
         public long UnknownTotalInfected = 0;
@@ -26,10 +27,7 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         public long Infected = 0;
         public long HeavilyInfected = 0;
         public long Dead = 0;
-
-        public long Vaccinated = 0;
-
-        public long Recovered = 0;
+        public long Immune = 0;
 
         #endregion
 

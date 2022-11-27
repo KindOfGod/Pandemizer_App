@@ -43,7 +43,7 @@ namespace Pandemizer.Services.PandemicEngine
             {
                 //only simulate living people
                 //respect possible duplicates in dictionary
-                if(!AttributeHelper.CheckStateOfLive(pop.Key, StateOfLife.Dead))
+                if(!AttributeHelper.CheckStateOfLive(pop.Key, StateOfLife.Dead) && !AttributeHelper.CheckStateOfLive(pop.Key, StateOfLife.Immune))
                     SimHelper.MergeDictionaries(newPopIndex, IteratePip(pop.Key, pop.Value, sim));
                 else
                     SimHelper.AddValueToDictionary(newPopIndex, pop.Key, pop.Value);
@@ -77,7 +77,7 @@ namespace Pandemizer.Services.PandemicEngine
                 var rateOfInfection = isEndangeredAge ? settings.EndangeredAgeInfectionRate : settings.BaseInfectionRate;
                 
                 //calculate modifier based on infection count
-                rateOfInfection = rateOfInfection + settings.InfectionSpreadRate * rateOfInfection * ((double)prevState.UnknownTotalInfected / (settings.Scope - prevState.Dead));
+                rateOfInfection = rateOfInfection + settings.InfectionSpreadRate * rateOfInfection * ((double)prevState.UnknownTotalInfected / (settings.Scope - prevState.Dead - prevState.Immune));
                 
                 //rateOfInfection can be 0.1 and 0.5 in worst case
                 
@@ -95,24 +95,38 @@ namespace Pandemizer.Services.PandemicEngine
             else if (AttributeHelper.CheckStateOfLive(pop, StateOfLife.HeavilyInfected))
             {
                 var rateOfDead = isEndangeredAge ? settings.EndangeredAgeDeathRate : settings.BaseDeathRate;
+                var rateOfImmune = isEndangeredAge ? settings.EndangeredImmunityRate : settings.BaseImmunityRate;
                 
+                //rate of pops dying
                 var newDead = SimHelper.DecideCountWithDeviation(count, rateOfDead, settings.ProbabilityDeviation);
                 
+                //rate of pops getting immune
+                rateOfImmune = rateOfImmune * settings.SurvivalInstinctMultiplier;
+                var newImmune = SimHelper.DecideCountWithDeviation(count - newDead, rateOfImmune, settings.ProbabilityDeviation);
+
+
                 SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, StateOfLife.Dead), newDead);
-                SimHelper.AddValueToDictionary(newPopIndex, pop, count - newDead);
+                SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, StateOfLife.Immune), newImmune);
+                SimHelper.AddValueToDictionary(newPopIndex, pop, count - newDead - newImmune);
             }
-            //infected
+            //infected & imperceptible infected
             else
             {
                 var rateOfWorsening = isEndangeredAge ? settings.EndangeredAgeRateOfGettingWorse : settings.RateOfGettingWorse;
+                var rateOfImmune = isEndangeredAge ? settings.EndangeredImmunityRate : settings.BaseImmunityRate;
                 
+                //rate of getting worse
                 var newWorse = SimHelper.DecideCountWithDeviation(count, rateOfWorsening, settings.ProbabilityDeviation);
                 var severity = AttributeHelper.CheckStateOfLive(pop, StateOfLife.ImperceptiblyInfected) ?
                     StateOfLife.Infected : 
                     StateOfLife.HeavilyInfected;
+                
+                //rate of pops getting immune
+                var newImmune = SimHelper.DecideCountWithDeviation(count - newWorse, rateOfImmune, settings.ProbabilityDeviation);
 
                 SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, severity), newWorse);
-                SimHelper.AddValueToDictionary(newPopIndex, pop, count - newWorse);
+                SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, StateOfLife.Immune), newImmune);
+                SimHelper.AddValueToDictionary(newPopIndex, pop, count - newWorse - newImmune);
             }
 
             return newPopIndex;
@@ -127,6 +141,7 @@ namespace Pandemizer.Services.PandemicEngine
             var state = sim.SimStates[^1];
             foreach (var (key, count) in state.PopIndex)
             {
+                //State of Life
                 if (AttributeHelper.CheckStateOfLive(key, StateOfLife.ImperceptiblyInfected))
                     state.ImperceptibleInfected += Convert.ToInt64(count);
                 else if (AttributeHelper.CheckStateOfLive(key, StateOfLife.Infected))
@@ -135,21 +150,25 @@ namespace Pandemizer.Services.PandemicEngine
                     state.HeavilyInfected += Convert.ToInt64(count);
                 else if (AttributeHelper.CheckStateOfLive(key, StateOfLife.Dead))
                     state.Dead += Convert.ToInt64(count);
+                else if (AttributeHelper.CheckStateOfLive(key, StateOfLife.Immune))
+                    state.Immune += Convert.ToInt64(count);
                 else
                     state.Healthy += Convert.ToInt64(count);
 
+                //incidence
                 state.TotalInfected = state.Infected + state.HeavilyInfected;
                 state.UnknownTotalInfected = state.ImperceptibleInfected + state.Infected + state.HeavilyInfected;
-
-                var rec = state.Healthy - prevState.Healthy;
-                state.Recovered = rec >= 0 ? rec : 0;
+                
+                //immune
+                state.ImmuneRate = state.Immune - prevState.Immune;
 
                 var unknownInc = prevState.Healthy - state.Healthy;
                 state.UnknownIncidence = unknownInc >= 0 ? unknownInc : 0;
 
                 var inc = prevState.Healthy + prevState.ImperceptibleInfected - state.Healthy - prevState.ImperceptibleInfected;
                 state.Incidence = inc >= 0 ? inc : 0;
-
+                
+                //death
                 state.DeathRate = state.Dead - prevState.Dead;
             }
         }

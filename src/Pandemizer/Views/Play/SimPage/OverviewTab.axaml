@@ -11,38 +11,21 @@
         <play:OverviewTabViewModel/>
     </Design.DataContext>
     
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions> 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        
+    <Grid RowDefinitions="*,*" ColumnDefinitions="*,150,*">
+
         <!-- Heath States Chart -->
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="150"/>
-            </Grid.ColumnDefinitions>
-            
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" ColumnDefinitions="*,150"
+              RowDefinitions="20,*">
+
             <Border Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
             
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Heath States" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Heath States" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
             
             <StackPanel Grid.Row="1" Grid.Column="1">
-                <CheckBox IsChecked="True" Command="{Binding ToogleHealthStatesAxis}" CommandParameter="0" Content="Healthy" Foreground="{DynamicResource HealthyColor}"/>
-                <CheckBox IsChecked="True" Command="{Binding ToogleHealthStatesAxis}" Content="Infected" CommandParameter="1" Foreground="{DynamicResource InfectedColor}"/>
-                <CheckBox IsChecked="True" Command="{Binding ToogleHealthStatesAxis}" Content="Heavily Infected" CommandParameter="2" Foreground="{DynamicResource HeavilyInfectedColor}"/>
-                <CheckBox IsChecked="True" Command="{Binding ToogleHealthStatesAxis}" Content="Dead" CommandParameter="3" Foreground="{DynamicResource DeadColor}"/>
+                <CheckBox IsChecked="True" Command="{Binding ToggleHealthStatesAxis}" Content="Healthy" CommandParameter="0" Foreground="{DynamicResource HealthyColor}"/>
+                <CheckBox IsChecked="True" Command="{Binding ToggleHealthStatesAxis}" Content="Infected" CommandParameter="1" Foreground="{DynamicResource InfectedColor}"/>
+                <CheckBox IsChecked="True" Command="{Binding ToggleHealthStatesAxis}" Content="Heavily Infected" CommandParameter="2" Foreground="{DynamicResource HeavilyInfectedColor}"/>
+                <CheckBox IsChecked="True" Command="{Binding ToggleHealthStatesAxis}" Content="Dead" CommandParameter="3" Foreground="{DynamicResource DeadColor}"/>
             </StackPanel>
             
             <chrt:CartesianChart Grid.Row="1" Grid.Column="0" ZoomMode="X" XAxes="{Binding XHealthStates}" YAxes="{Binding YHealthStates}"
@@ -50,18 +33,25 @@
         </Grid>
         
         <!-- Incidence Chart -->
-        <Grid Grid.Row="1" Grid.Column="0" Margin="5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="0" Margin="5" RowDefinitions="20,*">
+
+            <Border Grid.RowSpan="2" Grid.ColumnSpan="2"  Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
             
-            <Border Grid.RowSpan="2" Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Incidence" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
             
-            <TextBlock Grid.Row="0" Text="Incidence" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            
-            <chrt:CartesianChart Grid.Row="1" ZoomMode="X" XAxes="{Binding XIncidence}" YAxes="{Binding YIncidence}"
+            <chrt:CartesianChart Grid.Row="1" Grid.Column="0" ZoomMode="X" XAxes="{Binding XIncidence}" YAxes="{Binding YIncidence}"
                                  Series="{Binding IncidenceSeries, FallbackValue=null}"/>
+        </Grid>
+        
+        <!-- Death Rate Chart -->
+        <Grid Grid.Row="0" Grid.Column="2" Margin="5" RowDefinitions="20,*">
+
+            <Border Grid.RowSpan="2" Grid.ColumnSpan="2"  Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
+            
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Death Rate" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
+            
+            <chrt:CartesianChart Grid.Row="1" Grid.Column="0" ZoomMode="X" XAxes="{Binding XDeathRate}" YAxes="{Binding YDeathRate}"
+                                 Series="{Binding DeathRateSeries, FallbackValue=null}"/>
         </Grid>
     </Grid>
 </UserControl>

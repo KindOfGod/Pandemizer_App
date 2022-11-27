@@ -2,7 +2,6 @@
 using Pandemizer.Services;
 using Pandemizer.Services.PandemicEngine;
 using Pandemizer.Services.PandemicEngine.DataModel;
-using Pandemizer.ViewModels.Compare;
 using ReactiveUI;
 
 namespace Pandemizer.ViewModels.Play;
@@ -38,7 +37,7 @@ public class PlayPageViewModel : ViewModelBase
     /// <summary>
     /// Starts simulation with given Sim.
     /// </summary>
-    private void StartSimulation(Sim? sim)
+    private static void StartSimulation(Sim sim)
     {
         ApplicationService.ChangeFullscreenView(new SimulationPageViewModel(sim));
     }

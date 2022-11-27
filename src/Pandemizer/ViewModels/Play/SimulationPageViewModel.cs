@@ -187,6 +187,7 @@ public class SimulationPageViewModel : ViewModelBase
             stateNum = _currentSim.SimStates.Count - i;
             
             OverviewTab?.IncidenceData.Add(new ObservablePoint(stateNum, state.Incidence));
+            OverviewTab?.DeathRateData.Add(new ObservablePoint(stateNum, state.DeathRate));
 
             OverviewTab?.HealthyData.Add(new ObservablePoint(stateNum, state.Healthy + state.ImperceptibleInfected));
             OverviewTab?.InfectedData.Add(new ObservablePoint(stateNum, state.Infected));

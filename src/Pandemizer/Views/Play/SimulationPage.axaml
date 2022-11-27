@@ -73,7 +73,7 @@
         </StackPanel>
         
         <!-- Tabs -->
-        <TabControl Grid.Row="1" Grid.RowSpan="2" TabStripPlacement="Top" Margin="0,5,0,20">
+        <TabControl Grid.Row="1" TabStripPlacement="Top" Margin="0,5,0,20">
             <TabControl.DataTemplates>
                 <DataTemplate DataType="{x:Type simPage:OverviewTabViewModel}">
                     <simtabView:OverviewTab/>

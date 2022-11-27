@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using Avalonia;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
-using LiveChartsCore.Drawing;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using Pandemizer.Services;
@@ -19,18 +16,20 @@ public class OverviewTabViewModel : ViewModelBase
 {
     #region Fields
 
-    public ISeries[] _incidenceSeries;
-    public ISeries[] _healthStateSeries;
+    private ISeries[] _incidenceSeries;
+    private ISeries[] _healthStateSeries;
+    private ISeries[] _deathRateSeries;
 
     public ObservableCollection<ObservablePoint> HealthyData { get; set; } = new();
     public ObservableCollection<ObservablePoint> InfectedData { get; set; } = new();
     public ObservableCollection<ObservablePoint> HeavilyInfectedData { get; set; } = new();
     public ObservableCollection<ObservablePoint> DeadData { get; set; } = new();
     public ObservableCollection<ObservablePoint> IncidenceData { get; set; } = new();
+    public ObservableCollection<ObservablePoint> DeathRateData { get; set; } = new();
 
     public long[] HealthStatePieData { get; set; } = {0, 0, 0, 0};
     
-    private static Axis _iterationAxis = new()
+    private static readonly Axis _iterationAxis = new()
     {
         Name = "Iteration",
         NamePadding = new LiveChartsCore.Drawing.Padding(0, 5),
@@ -40,7 +39,7 @@ public class OverviewTabViewModel : ViewModelBase
         MinStep = 1
     };
 
-    private static Axis _poeopleAxis = new()
+    private static readonly Axis _peopleAxis = new()
     {
         Name = "People",
         NamePadding = new LiveChartsCore.Drawing.Padding(0, 5),
@@ -65,20 +64,28 @@ public class OverviewTabViewModel : ViewModelBase
         get => _incidenceSeries;
         set => this.RaiseAndSetIfChanged(ref _incidenceSeries, value);
     }
+    
+    public ISeries[] DeathRateSeries
+    {
+        get => _deathRateSeries;
+        set => this.RaiseAndSetIfChanged(ref _deathRateSeries, value);
+    }
 
     #endregion
 
     #region Axes
     public Axis[] XHealthStates { get; set; } = {_iterationAxis};
-    public Axis[] YHealthStates { get; set; } = {_poeopleAxis};
+    public Axis[] YHealthStates { get; set; } = {_peopleAxis};
     public Axis[] XIncidence { get; set; } = {_iterationAxis};
-    public Axis[] YIncidence { get; set; } = {_poeopleAxis};
+    public Axis[] YIncidence { get; set; } = {_peopleAxis};
+    public Axis[] XDeathRate { get; set; } = {_iterationAxis};
+    public Axis[] YDeathRate { get; set; } = {_peopleAxis};
 
     #endregion
 
     #region Commands
 
-    public ReactiveCommand<string, Unit> ToogleHealthStatesAxis { get; }
+    public ReactiveCommand<string, Unit> ToggleHealthStatesAxis { get; }
 
     #endregion
 
@@ -86,7 +93,7 @@ public class OverviewTabViewModel : ViewModelBase
 
     public OverviewTabViewModel()
     {
-        ToogleHealthStatesAxis = ReactiveCommand.Create<string>(OnToogleHealthStatesAxis);
+        ToggleHealthStatesAxis = ReactiveCommand.Create<string>(OnToggleHealthStatesAxis);
     }
 
     #endregion
@@ -103,6 +110,11 @@ public class OverviewTabViewModel : ViewModelBase
         XIncidence.First().MaxLimit = null;
         YIncidence.First().MinLimit = null;
         YIncidence.First().MaxLimit = null;
+        
+        XDeathRate.First().MinLimit = null;
+        XDeathRate.First().MaxLimit = null;
+        YDeathRate.First().MinLimit = null;
+        YDeathRate.First().MaxLimit = null;
     }
     
     public void Init()
@@ -156,11 +168,25 @@ public class OverviewTabViewModel : ViewModelBase
         {
             new LineSeries<ObservablePoint>
             {
-                Stroke = new SolidColorPaint(SKColors.Yellow, 3),
-                GeometryFill = new SolidColorPaint(SKColors.Yellow),
+                Stroke = new SolidColorPaint(ApplicationColors.InfectedColor, 3),
+                GeometryFill = new SolidColorPaint(ApplicationColors.InfectedColor),
                 GeometryStroke = null,
                 GeometrySize = 5,
                 Values = IncidenceData,
+                Name = "",
+                Fill = null
+            }
+        };
+        
+        DeathRateSeries = new ISeries[]
+        {
+            new LineSeries<ObservablePoint>
+            {
+                Stroke = new SolidColorPaint(ApplicationColors.DeadColor, 3),
+                GeometryFill = new SolidColorPaint(ApplicationColors.DeadColor),
+                GeometryStroke = null,
+                GeometrySize = 5,
+                Values = DeathRateData,
                 Name = "",
                 Fill = null
             }
@@ -173,11 +199,11 @@ public class OverviewTabViewModel : ViewModelBase
 
     #region Private Methods
 
-    private void OnToogleHealthStatesAxis(string parameter)
+    private void OnToggleHealthStatesAxis(string parameter)
     {
         var p = Convert.ToInt32(parameter);
         HealthStatesSeries[p].IsVisible = !HealthStatesSeries[p].IsVisible;
     }
-
+    
     #endregion
 }

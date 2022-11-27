@@ -12,7 +12,7 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         public int Scope { get; set; } = 100_000_000;
         public int IterationLimit { get; set; } = 1_000;
 
-        public double ProbabilityDeviation { get; set; } = 0.05;
+        public double ProbabilityDeviation { get; set; } = 0.1;
 
         // Health Distribution
         public double InitialProportionOfInfected { get; set; } //evenly distributed between age groups
@@ -40,7 +40,7 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         
         //rate of death
         public double BaseDeathRate { get; set; } = 0.01; // can't be greater than 1
-        public double EndangeredAgeDeathRate  { get; set; } = 0.02; //can't be greater than 1
+        public double EndangeredAgeDeathRate  { get; set; } = 0.2; //can't be greater than 1
 
         //multiplier of infection spread rate if everybody is infected
         public double InfectionSpreadRate { get; set; } = 100000; //0 -> no influence if more people infected, x > 0 -> x-times as infective

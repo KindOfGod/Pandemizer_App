@@ -15,11 +15,9 @@ namespace Pandemizer.ViewModels.Play.SimPage;
 public class OverviewTabViewModel : ViewModelBase
 {
     #region Fields
-
-    private ISeries[] _incidenceSeries;
+    
     private ISeries[] _healthStateSeries;
-    private ISeries[] _deathRateSeries;
-    private ISeries[] _immuneSeries;
+    private ISeries[] _ratesSeries;
 
     public ObservableCollection<ObservablePoint> HealthyData { get; set; } = new();
     public ObservableCollection<ObservablePoint> InfectedData { get; set; } = new();
@@ -61,23 +59,11 @@ public class OverviewTabViewModel : ViewModelBase
         get => _healthStateSeries;
         set => this.RaiseAndSetIfChanged(ref _healthStateSeries, value);
     }
-    
-    public ISeries[] IncidenceSeries 
+
+    public ISeries[] RatesSeries
     {
-        get => _incidenceSeries;
-        set => this.RaiseAndSetIfChanged(ref _incidenceSeries, value);
-    }
-    
-    public ISeries[] DeathRateSeries
-    {
-        get => _deathRateSeries;
-        set => this.RaiseAndSetIfChanged(ref _deathRateSeries, value);
-    }
-    
-    public ISeries[] ImmuneSeries
-    {
-        get => _immuneSeries;
-        set => this.RaiseAndSetIfChanged(ref _immuneSeries, value);
+        get => _ratesSeries;
+        set => this.RaiseAndSetIfChanged(ref _ratesSeries, value);
     }
 
     #endregion
@@ -85,18 +71,15 @@ public class OverviewTabViewModel : ViewModelBase
     #region Axes
     public Axis[] XHealthStates { get; set; } = {_iterationAxis};
     public Axis[] YHealthStates { get; set; } = {_peopleAxis};
-    public Axis[] XIncidence { get; set; } = {_iterationAxis};
-    public Axis[] YIncidence { get; set; } = {_peopleAxis};
-    public Axis[] XDeathRate { get; set; } = {_iterationAxis};
-    public Axis[] YDeathRate { get; set; } = {_peopleAxis};
-    public Axis[] XImmune { get; set; } = {_iterationAxis};
-    public Axis[] YImmune { get; set; } = {_peopleAxis};
+    public Axis[] XRate { get; set; } = {_iterationAxis};
+    public Axis[] YRate { get; set; } = {_peopleAxis};
 
     #endregion
 
     #region Commands
 
     public ReactiveCommand<string, Unit> ToggleHealthStatesAxis { get; }
+    public ReactiveCommand<string, Unit> ToggleRatesAxis { get; }
 
     #endregion
 
@@ -105,6 +88,7 @@ public class OverviewTabViewModel : ViewModelBase
     public OverviewTabViewModel()
     {
         ToggleHealthStatesAxis = ReactiveCommand.Create<string>(OnToggleHealthStatesAxis);
+        ToggleRatesAxis = ReactiveCommand.Create<string>(OnToggleRatesAxis);
     }
 
     #endregion
@@ -116,21 +100,11 @@ public class OverviewTabViewModel : ViewModelBase
         XHealthStates.First().MaxLimit = null;
         YHealthStates.First().MinLimit = null;
         YHealthStates.First().MaxLimit = null;
-        
-        XIncidence.First().MinLimit = null;
-        XIncidence.First().MaxLimit = null;
-        YIncidence.First().MinLimit = null;
-        YIncidence.First().MaxLimit = null;
-        
-        XDeathRate.First().MinLimit = null;
-        XDeathRate.First().MaxLimit = null;
-        YDeathRate.First().MinLimit = null;
-        YDeathRate.First().MaxLimit = null;
-        
-        XImmune.First().MinLimit = null;
-        XImmune.First().MaxLimit = null;
-        YImmune.First().MinLimit = null;
-        YImmune.First().MaxLimit = null;
+
+        XRate.First().MinLimit = null;
+        XRate.First().MaxLimit = null;
+        YRate.First().MinLimit = null;
+        YRate.First().MaxLimit = null;
     }
     
     public void Init()
@@ -165,7 +139,7 @@ public class OverviewTabViewModel : ViewModelBase
                 GeometryStroke = null,
                 GeometrySize = 5,
                 Values = HeavilyInfectedData,
-                Name = "HeavilyInfected",
+                Name = "Heavily Infected",
                 Fill = null
             },
             new LineSeries<ObservablePoint>
@@ -189,8 +163,8 @@ public class OverviewTabViewModel : ViewModelBase
                 Fill = null
             }
         };
-
-        IncidenceSeries = new ISeries[]
+        
+        RatesSeries = new ISeries[]
         {
             new LineSeries<ObservablePoint>
             {
@@ -199,27 +173,9 @@ public class OverviewTabViewModel : ViewModelBase
                 GeometryStroke = null,
                 GeometrySize = 5,
                 Values = IncidenceData,
-                Name = "",
+                Name = "Incidence",
                 Fill = null
-            }
-        };
-        
-        DeathRateSeries = new ISeries[]
-        {
-            new LineSeries<ObservablePoint>
-            {
-                Stroke = new SolidColorPaint(ApplicationColors.DeadColor, 3),
-                GeometryFill = new SolidColorPaint(ApplicationColors.DeadColor),
-                GeometryStroke = null,
-                GeometrySize = 5,
-                Values = DeathRateData,
-                Name = "",
-                Fill = null
-            }
-        };
-        
-        ImmuneSeries = new ISeries[]
-        {
+            },
             new LineSeries<ObservablePoint>
             {
                 Stroke = new SolidColorPaint(ApplicationColors.ImmuneColor, 3),
@@ -227,7 +183,17 @@ public class OverviewTabViewModel : ViewModelBase
                 GeometryStroke = null,
                 GeometrySize = 5,
                 Values = ImmuneRateData,
-                Name = "Immune Rate",
+                Name = "Immunity Rate",
+                Fill = null
+            },
+            new LineSeries<ObservablePoint>
+            {
+                Stroke = new SolidColorPaint(ApplicationColors.DeadColor, 3),
+                GeometryFill = new SolidColorPaint(ApplicationColors.DeadColor),
+                GeometryStroke = null,
+                GeometrySize = 5,
+                Values = DeathRateData,
+                Name = "Death Rate",
                 Fill = null
             }
         };
@@ -243,6 +209,12 @@ public class OverviewTabViewModel : ViewModelBase
     {
         var p = Convert.ToInt32(parameter);
         HealthStatesSeries[p].IsVisible = !HealthStatesSeries[p].IsVisible;
+    }
+    
+    private void OnToggleRatesAxis(string parameter)
+    {
+        var p = Convert.ToInt32(parameter);
+        RatesSeries[p].IsVisible = !RatesSeries[p].IsVisible;
     }
     
     #endregion

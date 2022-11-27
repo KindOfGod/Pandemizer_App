@@ -11,7 +11,7 @@
         <play:OverviewTabViewModel/>
     </Design.DataContext>
     
-    <Grid RowDefinitions="*,*" ColumnDefinitions="*,150,*">
+    <Grid RowDefinitions="*,*" ColumnDefinitions="*,150">
 
         <!-- Heath States Chart -->
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" ColumnDefinitions="*,150" RowDefinitions="20,*">
@@ -32,37 +32,22 @@
                                  Series="{Binding HealthStatesSeries, FallbackValue=null}"/>
         </Grid>
         
-        <!-- Immune Chart -->
+        <!-- Rates Chart -->
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" ColumnDefinitions="*,150" RowDefinitions="20,*">
 
             <Border Grid.RowSpan="2" Grid.ColumnSpan="2"  Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
             
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Immunity" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Rates" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
             
-            <chrt:CartesianChart Grid.Row="1" Grid.Column="0" ZoomMode="X" XAxes="{Binding XImmune}" YAxes="{Binding YImmune}"
-                                 Series="{Binding ImmuneSeries, FallbackValue=null}"/>
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <CheckBox IsChecked="True" Command="{Binding ToggleRatesAxis}" Content="Incidence" CommandParameter="0" Foreground="{DynamicResource InfectedColor}"/>
+                <CheckBox IsChecked="True" Command="{Binding ToggleRatesAxis}" Content="Immunity Rate" CommandParameter="1" Foreground="{DynamicResource ImmuneColor}"/>
+                <CheckBox IsChecked="True" Command="{Binding ToggleRatesAxis }" Content="Death Rate" CommandParameter="2" Foreground="{DynamicResource DeadColor}"/>
+            </StackPanel>
+            
+            <chrt:CartesianChart Grid.Row="1" Grid.Column="0" ZoomMode="X" XAxes="{Binding XRate}" YAxes="{Binding YRate}"
+                                 Series="{Binding RatesSeries, FallbackValue=null}"/>
         </Grid>
-        
-        <!-- Incidence Chart -->
-        <Grid Grid.Row="1" Grid.Column="2" Margin="5" RowDefinitions="20,*">
 
-            <Border Grid.RowSpan="2" Grid.ColumnSpan="2"  Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
-            
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Incidence" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
-            
-            <chrt:CartesianChart Grid.Row="1" Grid.Column="0" ZoomMode="X" XAxes="{Binding XIncidence}" YAxes="{Binding YIncidence}"
-                                 Series="{Binding IncidenceSeries, FallbackValue=null}"/>
-        </Grid>
-        
-        <!-- Death Rate Chart -->
-        <Grid Grid.Row="0" Grid.Column="2" Margin="5" RowDefinitions="20,*">
-
-            <Border Grid.RowSpan="2" Grid.ColumnSpan="2"  Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
-            
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Death Rate" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
-            
-            <chrt:CartesianChart Grid.Row="1" Grid.Column="0" ZoomMode="X" XAxes="{Binding XDeathRate}" YAxes="{Binding YDeathRate}"
-                                 Series="{Binding DeathRateSeries, FallbackValue=null}"/>
-        </Grid>
     </Grid>
 </UserControl>

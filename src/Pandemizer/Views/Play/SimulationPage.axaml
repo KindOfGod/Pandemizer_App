@@ -13,12 +13,7 @@
         <play:SimulationPageViewModel/>
     </Design.DataContext>
     
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
-        </Grid.RowDefinitions>
+    <Grid RowDefinitions="70,*,60">
         <!--Top Bar-->
         <StackPanel Grid.Row="0" Margin="10,10,0,0" Height="30" VerticalAlignment="Top">
             <!-- Base Information -->

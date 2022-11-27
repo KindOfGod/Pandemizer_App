@@ -48,10 +48,7 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         public double SurvivalInstinctMultiplier { get; set; } = 2; // multiplies immunity rate in life/death situation
         
         //rate of losing immunity
-
-        public double ImmunityDuration { get; set; } = 100; // 1 < x < IterationLimit
-        
-        public double ImmunityLostRate { get; set; } = 0.1;
+        public double ImmunityLostRate { get; set; } = 0.01;
         
         //multiplier of infection spread rate if everybody is infected
         public double InfectionSpreadRate { get; set; } = 100000; //0 -> no influence if more people infected, x > 0 -> x-times as infective

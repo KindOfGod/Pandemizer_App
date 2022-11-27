@@ -43,7 +43,7 @@ namespace Pandemizer.Services.PandemicEngine
             {
                 //only simulate living people
                 //respect possible duplicates in dictionary
-                if(!AttributeHelper.CheckStateOfLive(pop.Key, StateOfLife.Dead) && !AttributeHelper.CheckStateOfLive(pop.Key, StateOfLife.Immune))
+                if(!AttributeHelper.CheckStateOfLive(pop.Key, StateOfLife.Dead) && ( !AttributeHelper.CheckStateOfLive(pop.Key, StateOfLife.Immune) || sim.SimSettings.ImmunityDuration < sim.SimStates.Count))
                     SimHelper.MergeDictionaries(newPopIndex, IteratePip(pop.Key, pop.Value, sim));
                 else
                     SimHelper.AddValueToDictionary(newPopIndex, pop.Key, pop.Value);
@@ -108,6 +108,17 @@ namespace Pandemizer.Services.PandemicEngine
                 SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, StateOfLife.Dead), newDead);
                 SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, StateOfLife.Immune), newImmune);
                 SimHelper.AddValueToDictionary(newPopIndex, pop, count - newDead - newImmune);
+            }
+            //immune
+            else if (AttributeHelper.CheckStateOfLive(pop, StateOfLife.Immune))
+            {
+                var susceptible = SimHelper.DecideCountWithDeviation(count, settings.ImmunityLostRate, settings.ProbabilityDeviation);
+                
+                if(susceptible > count)
+                    Console.WriteLine("x");
+                
+                SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, StateOfLife.Healthy), susceptible);
+                SimHelper.AddValueToDictionary(newPopIndex, pop, count - susceptible);
             }
             //infected & imperceptible infected
             else

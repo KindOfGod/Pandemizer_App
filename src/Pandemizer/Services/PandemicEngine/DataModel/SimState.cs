@@ -28,7 +28,7 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         public long HeavilyInfected = 0;
         public long Dead = 0;
         public long Immune = 0;
-
+        
         #endregion
 
         public SimState()

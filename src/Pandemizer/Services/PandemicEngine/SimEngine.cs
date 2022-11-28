@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Pandemizer.Services.PandemicEngine.DataModel;
 
 namespace Pandemizer.Services.PandemicEngine
@@ -36,6 +37,9 @@ namespace Pandemizer.Services.PandemicEngine
             var newState = new SimState();
             var newPopIndex = new Dictionary<uint, uint>();
             
+            var timer = new Stopwatch();
+            timer.Start();
+            
             if(sim == null)
                 return;
 
@@ -51,6 +55,9 @@ namespace Pandemizer.Services.PandemicEngine
 
             newState.PopIndex = newPopIndex;
             sim.SimStates.Add(newState);
+            
+            timer.Stop();
+            newState.IterationTime = timer.Elapsed;
             
             CalculateStateStats(sim);
         }
@@ -147,6 +154,10 @@ namespace Pandemizer.Services.PandemicEngine
         {
             var prevState = sim.SimStates[^2];
             var state = sim.SimStates[^1];
+            
+            var timer = new Stopwatch();
+            timer.Start();
+            
             foreach (var (key, count) in state.PopIndex)
             {
                 //State of Life
@@ -179,6 +190,9 @@ namespace Pandemizer.Services.PandemicEngine
                 //death
                 state.DeathRate = state.Dead - prevState.Dead;
             }
+            
+            timer.Stop();
+            state.StatsTime = timer.Elapsed;
         }
 
         #endregion

@@ -29,6 +29,9 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         public long Dead = 0;
         public long Immune = 0;
         
+        public TimeSpan IterationTime = TimeSpan.Zero;
+        public TimeSpan StatsTime = TimeSpan.Zero;
+        
         #endregion
 
         public SimState()

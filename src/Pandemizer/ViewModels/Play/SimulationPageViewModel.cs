@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reactive;
+using System.Threading;
 using System.Threading.Tasks;
 using LiveChartsCore.Defaults;
 using Pandemizer.Services;
@@ -15,6 +17,8 @@ public class SimulationPageViewModel : ViewModelBase
     #region Fields
 
     private readonly Sim _currentSim = null!;
+
+    private string? _iterationTime;
 
     //base info
     private string? _iteration;
@@ -37,6 +41,11 @@ public class SimulationPageViewModel : ViewModelBase
     #region Properties
     
     //base info
+    public string? IterationTime
+    {
+        get => _iterationTime;
+        set => this.RaiseAndSetIfChanged(ref _iterationTime, value);
+    }
     public string? Iteration
     {
         get => _iteration;
@@ -138,6 +147,9 @@ public class SimulationPageViewModel : ViewModelBase
     /// </summary>
     private async void Iterate(int cntInt)
     {
+        var timer = new Stopwatch();
+        timer.Start();
+
         IterationButtonsEnabled = false;
         
         var iterations = _currentSim.SimStates.Count - 1;
@@ -157,6 +169,9 @@ public class SimulationPageViewModel : ViewModelBase
         
         if(_currentSim.SimStates.Count - 1 < _currentSim.SimSettings.IterationLimit)
             IterationButtonsEnabled = true;
+        
+        timer.Stop();
+        IterationTime = $"{Math.Round(timer.Elapsed.TotalMilliseconds, 2):N2} ms";
     }
 
     /// <summary>

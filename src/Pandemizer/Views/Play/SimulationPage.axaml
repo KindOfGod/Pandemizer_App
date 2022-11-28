@@ -85,6 +85,7 @@
         
         <!-- Iteration Buttons -->
         <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,20">
+            <TextBlock Text="{Binding IterationTime, FallbackValue=NaN}" VerticalAlignment="Bottom" Margin="0,0,10,0" Opacity="0.2"/>
             <Button Background="{DynamicResource IterationColor}" Width="35" Height="35" VerticalAlignment="Bottom" Margin="0,0,5,0" ToolTip.Tip="Simulate to end"
                     Command="{Binding ForwardCommand}" CommandParameter="0" IsEnabled="{Binding IterationButtonsEnabled}">
                 <mi:MaterialIcon Kind="Goal" Width="30" Height="30"/>

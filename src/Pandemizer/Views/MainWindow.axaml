@@ -44,7 +44,7 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
     
-    <Panel>
+    <Grid>
         <!--Acrylic Effects-->
         <ExperimentalAcrylicBorder IsHitTestVisible="False">
             <ExperimentalAcrylicBorder.Material>
@@ -169,5 +169,5 @@
             
         </SplitView>
         
-    </Panel>
+    </Grid>
 </Window>

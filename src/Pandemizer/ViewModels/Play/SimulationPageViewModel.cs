@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reactive;
+using System.Threading;
 using System.Threading.Tasks;
 using LiveChartsCore.Defaults;
 using Pandemizer.Services;
@@ -16,6 +18,8 @@ public class SimulationPageViewModel : ViewModelBase
 
     private readonly Sim _currentSim = null!;
 
+    private string? _iterationTime;
+
     //base info
     private string? _iteration;
     
@@ -23,7 +27,7 @@ public class SimulationPageViewModel : ViewModelBase
     private string? _infected;
     private string? _immune;
     private string? _dead;
-    
+
     //additional info
     private string? _incidence;
     private string? _deathRate;
@@ -37,6 +41,11 @@ public class SimulationPageViewModel : ViewModelBase
     #region Properties
     
     //base info
+    public string? IterationTime
+    {
+        get => _iterationTime;
+        set => this.RaiseAndSetIfChanged(ref _iterationTime, value);
+    }
     public string? Iteration
     {
         get => _iteration;
@@ -47,7 +56,7 @@ public class SimulationPageViewModel : ViewModelBase
         get => _healthy;
         set => this.RaiseAndSetIfChanged(ref _healthy, value);
     }
-    
+
     public string? Infected
     {
         get => _infected;
@@ -59,13 +68,13 @@ public class SimulationPageViewModel : ViewModelBase
         get => _immune;
         set => this.RaiseAndSetIfChanged(ref _immune, value);
     }
-    
+
     public string? Dead
     {
         get => _dead;
         set => this.RaiseAndSetIfChanged(ref _dead, value);
     }
-    
+
     //additional info
     public string? Incidence
     {
@@ -138,6 +147,9 @@ public class SimulationPageViewModel : ViewModelBase
     /// </summary>
     private async void Iterate(int cntInt)
     {
+        var timer = new Stopwatch();
+        timer.Start();
+
         IterationButtonsEnabled = false;
         
         var iterations = _currentSim.SimStates.Count - 1;
@@ -157,6 +169,9 @@ public class SimulationPageViewModel : ViewModelBase
         
         if(_currentSim.SimStates.Count - 1 < _currentSim.SimSettings.IterationLimit)
             IterationButtonsEnabled = true;
+        
+        timer.Stop();
+        IterationTime = $"{Math.Round(timer.Elapsed.TotalMilliseconds, 2):N2} ms";
     }
 
     /// <summary>
@@ -166,18 +181,18 @@ public class SimulationPageViewModel : ViewModelBase
     {
         var state = _currentSim.SimStates[^1];
         var stateNum = _currentSim.SimStates.Count - 1;
-        
-        //basic info
-        Iteration = ApplicationHelper.IntToFormatedNum(stateNum);
-        
-        Healthy = ApplicationHelper.IntToFormatedNum((int)state.Healthy);
-        Infected = ApplicationHelper.IntToFormatedNum((int)state.TotalInfected);
-        Immune = ApplicationHelper.IntToFormatedNum((int)state.Immune);
-        Dead = ApplicationHelper.IntToFormatedNum((int)state.Dead);
 
+        //basic info
+        Iteration = ApplicationHelper.IntToFormattedNum(stateNum);
+        
+        Healthy = ApplicationHelper.IntToFormattedNum((int)state.Healthy);
+        Infected = ApplicationHelper.IntToFormattedNum((int)state.TotalInfected);
+        Immune = ApplicationHelper.IntToFormattedNum((int)state.Immune);
+        Dead = ApplicationHelper.IntToFormattedNum((int)state.Dead);
+        
         //additional info
-        Incidence = ApplicationHelper.IntToFormatedNum((int)state.Incidence);
-        DeathRate = ApplicationHelper.IntToFormatedNum((int)state.DeathRate);
+        Incidence = ApplicationHelper.IntToFormattedNum((int)state.Incidence);
+        DeathRate = ApplicationHelper.IntToFormattedNum((int)state.DeathRate);
         
         //charts
         for (var i = cnt; i > 0; i--)

@@ -44,7 +44,7 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
     
-    <Panel>
+    <Grid>
         <!--Acrylic Effects-->
         <ExperimentalAcrylicBorder IsHitTestVisible="False">
             <ExperimentalAcrylicBorder.Material>
@@ -141,7 +141,7 @@
             </SplitView.Pane>
             
             <!--Navigation Frame-->
-            <TransitioningContentControl Content="{Binding NavigationContent}" Margin="0,30,0,0">
+            <TransitioningContentControl Content="{Binding NavigationContent}">
                 <TransitioningContentControl.DataTemplates>
                     <DataTemplate DataType="{x:Type vm:Compare.ComparePageViewModel}">
                         <compare:ComparePage/>
@@ -168,6 +168,5 @@
             </TransitioningContentControl>
             
         </SplitView>
-        
-    </Panel>
+    </Grid>
 </Window>

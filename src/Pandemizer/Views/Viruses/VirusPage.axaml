@@ -9,7 +9,9 @@
     <Design.DataContext>
         <viruses:VirusesPageViewModel/>
     </Design.DataContext>
+    
     <Grid ColumnDefinitions="200,*" Margin="10,0,10,0" RowDefinitions="50,*,20,30">
+        <!-- Grid Column 0 -->
         <TextBlock Grid.Row="0" Text="My Viruses:" IsHitTestVisible="False" VerticalAlignment="Bottom" Margin="0,0,0,10" FontWeight="Light" FontSize="18" HorizontalAlignment="Center"/>
         <Border Grid.Row="1" Grid.Column="0" Background="{DynamicResource AccentColorDark}" Opacity="0.7" CornerRadius="10"/>
         <ListBox SelectedItem="{Binding SelectedVirus}" SelectedIndex="0" Grid.Row="1" Grid.Column="0" Items="{Binding VirusList}" Background="transparent">
@@ -22,7 +24,106 @@
        
         <Button Grid.Column="0" Grid.Row="2" Margin="0,10,0,0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Content="New" Width="90" Height="30"/>
         
-        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding SelectedVirus.Name, FallbackValue=NaN}" Background="{DynamicResource  MainColor}"/>
+        <!-- Grid Column 1 -->
+        <ScrollViewer Grid.Column="1" Grid.Row="1">
+            <!-- StackPanel for single Values -->
+            <StackPanel Spacing="20" Margin="100,0,100,0">
+                
+                <!-- Basic Configuration -->
+                <TextBlock Text="Basic configurations" HorizontalAlignment="Left" FontWeight="Bold" FontSize="20"/>
+                
+                <!-- Virus Name -->
+                <Grid ColumnDefinitions="350,*">
+                    <TextBlock Grid.Column="0" Text="Virus name:" HorizontalAlignment="Left" FontWeight="Light" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedVirus.Name, FallbackValue=NaN}" Background="{DynamicResource  MainColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"/>
+                </Grid>
+                <!-- Endangered Age Group? -->
+                <Grid ColumnDefinitions="350,*">
+                    <TextBlock Grid.Column="0" Text="Endangered age group:" HorizontalAlignment="Left" FontWeight="Light" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedVirus.EndangeredAgeGroup, FallbackValue=NaN}" Background="{DynamicResource  MainColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"/>
+                </Grid>
+                
+                <!-- Groups: Infection Rate -->
+                <TextBlock Text="Infection rates" Foreground="{DynamicResource InfectedColor}" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Margin="0,40,0,0"/>
+                <!-- Infection Spread Rate -->
+                <Grid ColumnDefinitions="350,*">
+                    <TextBlock Grid.Column="0" Text="Infection spread Rate:" HorizontalAlignment="Left" FontWeight="Light" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedVirus.InfectionSpreadRate, FallbackValue=NaN}" Background="{DynamicResource  MainColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"/>
+                </Grid>
+                <!-- Base -->
+                <Grid ColumnDefinitions="350,*">
+                    <TextBlock Grid.Column="0" Text="Base infection rate:" HorizontalAlignment="Left" FontWeight="Light" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedVirus.BaseInfectionRate, FallbackValue=NaN}" Background="{DynamicResource  MainColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"/>
+                </Grid>
+                <!-- Endangered -->
+                <Grid ColumnDefinitions="350,*">
+                    <TextBlock Grid.Column="0" Text="Endangered age infection rate:" HorizontalAlignment="Left" FontWeight="Light" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedVirus.EndangeredAgeInfectionRate, FallbackValue=NaN}" Background="{DynamicResource  MainColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"/>
+                </Grid>
+                
+                <!-- Groups: Rate Of Getting Worse -->
+                <TextBlock Text="Rate of getting worse" Foreground="{DynamicResource HeavilyInfectedColor}" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Margin="0,40,0,0"/>
+                <!-- Base -->
+                <Grid ColumnDefinitions="350,*">
+                    <TextBlock Grid.Column="0" Text="Rate of getting worse:" HorizontalAlignment="Left" FontWeight="Light" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedVirus.RateOfGettingWorse, FallbackValue=NaN}" Background="{DynamicResource  MainColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"/>
+                </Grid>
+                <!-- Endangered -->
+                <Grid ColumnDefinitions="350,*">
+                    <TextBlock Grid.Column="0" Text="Endangered age rate of getting worse:" HorizontalAlignment="Left" FontWeight="Light" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedVirus.EndangeredAgeRateOfGettingWorse, FallbackValue=NaN}" Background="{DynamicResource  MainColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"/>
+                </Grid>
+                
+                <!-- Groups: Death Rate -->
+                <TextBlock Text="Death rates" Foreground="{DynamicResource DeadColor}" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Margin="0,40,0,0"/>
+                <!-- Base -->
+                <Grid ColumnDefinitions="350,*">
+                    <TextBlock Grid.Column="0" Text="Base death rate:" HorizontalAlignment="Left" FontWeight="Light" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedVirus.BaseDeathRate, FallbackValue=NaN}" Background="{DynamicResource  MainColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"/>
+                </Grid>
+                <!-- Endangered -->
+                <Grid ColumnDefinitions="350,*">
+                    <TextBlock Grid.Column="0" Text="Endangered age death rate:" HorizontalAlignment="Left" FontWeight="Light" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedVirus.EndangeredAgeDeathRate, FallbackValue=NaN}" Background="{DynamicResource  MainColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"/>
+                </Grid>
+                
+                <!-- Groups: Immunity Rate -->
+                <TextBlock Text="Immunity rates" Foreground="{DynamicResource ImmuneColor}" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Margin="0,40,0,0"/>
+                <!-- Immunity -->
+                <Grid ColumnDefinitions="350,*">
+                    <TextBlock Grid.Column="0" Text="Immunity losing rate:" HorizontalAlignment="Left" FontWeight="Light" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedVirus.ImmunityLostRate, FallbackValue=NaN}" Background="{DynamicResource  MainColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"/>
+                </Grid>
+                <!-- Base -->
+                <Grid ColumnDefinitions="350,*">
+                    <TextBlock Grid.Column="0" Text="Base immunity rate:" HorizontalAlignment="Left" FontWeight="Light" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedVirus.BaseImmunityRate, FallbackValue=NaN}" Background="{DynamicResource  MainColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"/>
+                </Grid>
+                <!-- Endangered -->
+                <Grid ColumnDefinitions="350,*">
+                    <TextBlock Grid.Column="0" Text="Endangered age immunity rate:" HorizontalAlignment="Left" FontWeight="Light" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedVirus.EndangeredImmunityRate, FallbackValue=NaN}" Background="{DynamicResource  MainColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"/>
+                </Grid>
+                
+                <!-- Survival -->
+                <TextBlock Text="Survival instinct" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Margin="0,40,0,0"/>
+                <Grid ColumnDefinitions="350,*">
+                    <TextBlock Grid.Column="0" Text="Survival instinct multiplier:" HorizontalAlignment="Left" FontWeight="Light" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedVirus.SurvivalInstinctMultiplier, FallbackValue=NaN}" Background="{DynamicResource  MainColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"/>
+                </Grid>
+                
+            </StackPanel>
+            
+            
+            
+                
+            
+            
+        </ScrollViewer>
+        
+        
+        
+        
     </Grid>
     
     

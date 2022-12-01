@@ -33,6 +33,17 @@
         <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
             <Setter Property="Background" Value="{DynamicResource AccentColorDark}"/>
         </Style>
+        <!-- Text Box -->
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="{DynamicResource AccentColorDark}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+        <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentColorLight}"/>
+        </Style>
+        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentColorLight}"/>
+        </Style>
         <!-- Check Box -->
         <Style Selector="CheckBox:checked /template/ Border#NormalRectangle">
             <Setter Property="Background" Value="{DynamicResource AccentColorDark}"/>

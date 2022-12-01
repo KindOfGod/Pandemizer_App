@@ -11,32 +11,40 @@
         <viruses:VirusesPageViewModel/>
     </Design.DataContext>
     
-    <Grid ColumnDefinitions="*,5*" Margin="50,20,10,30" >
-        <Grid RowDefinitions="80,*,60">
-            <TextBlock  Text="My Viruses:" IsHitTestVisible="False" VerticalAlignment="Bottom" Margin="0,0,0,10" FontWeight="Light" FontSize="18" HorizontalAlignment="Left"/>
-            <Border  Grid.Column="0" Grid.Row="1" Background="{DynamicResource AccentColorDark}" Opacity="0.7" CornerRadius="10"/>
-            <ListBox Grid.Row="1" SelectedItem="{Binding SelectedVirus}" SelectedIndex="0" Items="{Binding VirusList}" Background="transparent">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
+    <Grid ColumnDefinitions="*,5*" Margin="15,10,10,10" RowDefinitions="40,*,40">
+        <!-- List Box -->
+        <TextBox Watermark="Search" Margin="5" Text="{Binding SearchText}"/>
+        <Border Grid.Row="1" Grid.Column="0" Background="{DynamicResource AccentColorDark}" Opacity="0.7" CornerRadius="10"/>
+        <ListBox Grid.Row="1" Grid.Column="0" Margin="5" SelectedItem="{Binding SelectedVirus}" SelectedIndex="0"
+                 Items="{Binding VirusList}" Background="transparent">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <ListBoxItem IsVisible="{Binding IsVisible}">
                         <TextBlock Text="{Binding Name}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Button Grid.Row="2" Background="#1A8869" Width="50" Height="40" Margin="5" ToolTip.Tip="Iterate" HorizontalAlignment="Right"
+                    </ListBoxItem>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Background="#1A8869" Width="50" Height="40" Margin="5" ToolTip.Tip="Iterate" HorizontalAlignment="Right"
                     Command="{Binding}">
                 <mi:MaterialIcon Kind="Add" Width="35" Height="35"/>
             </Button>
+            <Button Background="#1A8869" Width="50" Height="40" Margin="5" ToolTip.Tip="Iterate" HorizontalAlignment="Right"
+                    Command="{Binding}">
+                <mi:MaterialIcon Kind="Delete" Width="35" Height="35"/>
+            </Button>
+        </StackPanel>
+        
+        <!-- Title --> 
+        <Grid Grid.Column="1" Grid.Row="0" Margin="15,0, 30,0" ColumnDefinitions="*,*" HorizontalAlignment="Left">
+            <TextBlock Grid.Column="0" Text="Configuration of " HorizontalAlignment="Center" FontSize="24"/>
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding SelectedVirus.Name}" HorizontalAlignment="Center" FontSize="24"/>
         </Grid>
         
-        <ScrollViewer Grid.Column="1" HorizontalAlignment="Stretch" FontWeight="Light">
+        <ScrollViewer Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Stretch" FontWeight="Light">
             
-            <StackPanel Spacing="30" Margin="50,0,100,0">
-                <!-- Title --> 
-                <Grid ColumnDefinitions="*,*" HorizontalAlignment="Center">
-                    <TextBlock Grid.Column="0" Text="Configuration of " HorizontalAlignment="Center" FontSize="24"/>
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding SelectedVirus.Name}" HorizontalAlignment="Center" FontSize="24"/>
-                </Grid>
-                
+            <StackPanel Spacing="20" Margin="15,0, 30,0">
                 <Grid>
                     <Border Grid.RowSpan="2" Grid.ColumnSpan="2"  Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
                     <Grid RowDefinitions="50,*,*,*,*" ColumnDefinitions="*,*" Margin="20">

@@ -13,15 +13,13 @@
     
     <Grid ColumnDefinitions="*,5*" Margin="15,10,10,10" RowDefinitions="40,*,40">
         <!-- List Box -->
-        <TextBox Watermark="Search" Margin="5" Text="{Binding SearchText}"/>
+        <TextBlock Text="My Viruses" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="Light"/>
         <Border Grid.Row="1" Grid.Column="0" Background="{DynamicResource AccentColorDark}" Opacity="0.7" CornerRadius="10"/>
         <ListBox Grid.Row="1" Grid.Column="0" Margin="5" SelectedItem="{Binding SelectedVirus}" SelectedIndex="0"
                  Items="{Binding VirusList}" Background="transparent">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <ListBoxItem IsVisible="{Binding IsVisible}">
-                        <TextBlock Text="{Binding Name}"/>
-                    </ListBoxItem>
+                    <TextBlock Text="{Binding Name}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

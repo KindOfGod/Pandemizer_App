@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using Pandemizer.Services.DataModel;
+using Pandemizer.Services.PandemicEngine.DataModel;
 using ReactiveUI;
 
 namespace Pandemizer.ViewModels.Viruses;

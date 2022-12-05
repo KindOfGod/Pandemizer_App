@@ -7,7 +7,7 @@ namespace Pandemizer.ViewModels.Viruses;
 public class VirusesPageViewModel : ViewModelBase
 {
     #region Fields
-
+    
     private Virus _selectedVirus = new ();
 
     private ObservableCollection<Virus> _virusList = new();
@@ -46,5 +46,4 @@ public class VirusesPageViewModel : ViewModelBase
     }
 
     #endregion
-    
 }

@@ -1,4 +1,4 @@
-using Pandemizer.Services.DataModel;
+using Pandemizer.Services;
 
 namespace Pandemizer.Services.PandemicEngine.DataModel
 {

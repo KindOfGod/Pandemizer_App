@@ -72,19 +72,20 @@ namespace Pandemizer.Services.PandemicEngine
         {
             var newPopIndex = new Dictionary<uint, uint>();
             var settings = sim.SimSettings;
+            var virus = sim.SimSettings.Virus;
             var prevState = sim.SimStates[^1];
             
             var isEndangeredAge = false;
-            if(settings.EndangeredAgeGroup != null)
-                isEndangeredAge = AttributeHelper.CheckAge(pop, (Age)settings.EndangeredAgeGroup);
+            if(virus.EndangeredAgeGroup != null)
+                isEndangeredAge = AttributeHelper.CheckAge(pop, (Age)virus.EndangeredAgeGroup);
             
             //healthy
             if (AttributeHelper.CheckStateOfLive(pop, StateOfLife.Healthy))
             {
-                var rateOfInfection = isEndangeredAge ? settings.EndangeredAgeInfectionRate : settings.BaseInfectionRate;
+                var rateOfInfection = isEndangeredAge ? virus.EndangeredAgeInfectionRate : virus.BaseInfectionRate;
                 
                 //calculate modifier based on infection count
-                rateOfInfection = rateOfInfection + settings.InfectionSpreadRate * rateOfInfection * ((double)prevState.UnknownTotalInfected / (settings.Scope - prevState.Dead - prevState.Immune));
+                rateOfInfection = rateOfInfection + virus.InfectionSpreadRate * rateOfInfection * ((double)prevState.UnknownTotalInfected / (settings.Scope - prevState.Dead - prevState.Immune));
                 
                 //rateOfInfection can be 0.1 and 0.5 in worst case
                 
@@ -95,20 +96,20 @@ namespace Pandemizer.Services.PandemicEngine
 
                 var newInfected = SimHelper.DecideCountWithDeviation(count, rateOfInfection, settings.ProbabilityDeviation);
                 
-                SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, settings.InfectionSeverity), newInfected);
+                SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, virus.InfectionSeverity), newInfected);
                 SimHelper.AddValueToDictionary(newPopIndex, pop, count - newInfected);
             }
             //heavily infected
             else if (AttributeHelper.CheckStateOfLive(pop, StateOfLife.HeavilyInfected))
             {
-                var rateOfDead = isEndangeredAge ? settings.EndangeredAgeDeathRate : settings.BaseDeathRate;
-                var rateOfImmune = isEndangeredAge ? settings.EndangeredImmunityRate : settings.BaseImmunityRate;
+                var rateOfDead = isEndangeredAge ? virus.EndangeredAgeDeathRate : virus.BaseDeathRate;
+                var rateOfImmune = isEndangeredAge ? virus.EndangeredImmunityRate : virus.BaseImmunityRate;
                 
                 //rate of pops dying
                 var newDead = SimHelper.DecideCountWithDeviation(count, rateOfDead, settings.ProbabilityDeviation);
                 
                 //rate of pops getting immune
-                rateOfImmune = rateOfImmune * settings.SurvivalInstinctMultiplier;
+                rateOfImmune = rateOfImmune * virus.SurvivalInstinctMultiplier;
                 var newImmune = SimHelper.DecideCountWithDeviation(count - newDead, rateOfImmune, settings.ProbabilityDeviation);
 
 
@@ -119,7 +120,7 @@ namespace Pandemizer.Services.PandemicEngine
             //immune
             else if (AttributeHelper.CheckStateOfLive(pop, StateOfLife.Immune))
             {
-                var susceptible = SimHelper.DecideCountWithDeviation(count, settings.ImmunityLostRate, settings.ProbabilityDeviation);
+                var susceptible = SimHelper.DecideCountWithDeviation(count, virus.ImmunityLostRate, settings.ProbabilityDeviation);
                 
                 SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, StateOfLife.Healthy), susceptible);
                 SimHelper.AddValueToDictionary(newPopIndex, pop, count - susceptible);
@@ -127,8 +128,8 @@ namespace Pandemizer.Services.PandemicEngine
             //infected & imperceptible infected
             else
             {
-                var rateOfWorsening = isEndangeredAge ? settings.EndangeredAgeRateOfGettingWorse : settings.RateOfGettingWorse;
-                var rateOfImmune = isEndangeredAge ? settings.EndangeredImmunityRate : settings.BaseImmunityRate;
+                var rateOfWorsening = isEndangeredAge ? virus.EndangeredAgeRateOfGettingWorse : virus.RateOfGettingWorse;
+                var rateOfImmune = isEndangeredAge ? virus.EndangeredImmunityRate : virus.BaseImmunityRate;
                 
                 //rate of getting worse
                 var newWorse = SimHelper.DecideCountWithDeviation(count, rateOfWorsening, settings.ProbabilityDeviation);

@@ -1,3 +1,5 @@
+using Pandemizer.Services.DataModel;
+
 namespace Pandemizer.Services.PandemicEngine.DataModel
 {
     /// <summary>

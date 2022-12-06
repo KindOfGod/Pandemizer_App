@@ -12,7 +12,7 @@
         mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
         x:Class="Pandemizer.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Pandemizer" CornerRadius="10"
+        Title="Pandemizer"
         TransparencyLevelHint="AcrylicBlur"
         ExtendClientAreaToDecorationsHint="True">
     

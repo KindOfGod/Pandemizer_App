@@ -36,4 +36,13 @@ namespace Pandemizer.Services.PandemicEngine
         
         Compare = 7 << 3
     }
+    
+    // Bit 7-8 (2bit)
+    public enum PreExistingCondition : uint
+    {
+        False = 1 << 6,
+        True = 2 << 6,
+        
+        Compare = 3 << 6
+    }
 }

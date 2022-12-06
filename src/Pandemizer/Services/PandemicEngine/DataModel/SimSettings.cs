@@ -26,5 +26,8 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         public double AgeProportionOfYoungAdults { get; set; } = 0.1;
         public double AgeProportionOfAdults { get; set; } = 0.45;
         public double AgeProportionOfPensioner { get; set; } = 0.3;
+        
+        // Pre-existing Condition distribution
+        public double InitialProportionOfPreConditioned { get; set; } = 0.1; // can't be greater than 1
     }
 }

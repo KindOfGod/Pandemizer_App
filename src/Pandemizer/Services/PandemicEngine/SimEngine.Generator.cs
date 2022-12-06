@@ -23,6 +23,7 @@ public static partial class SimEngine
         
         //add health state attribute
         basePopIndex = AddAttributeToAllByPercentage(basePopIndex, settings.InitialProportionOfInfected, (uint)settings.HealthIllnessSeverity, (uint)StateOfLife.Healthy);
+        basePopIndex = AddAttributeToAllByPercentage(basePopIndex, settings.InitialProportionOfPreConditioned, (uint)PreExistingCondition.True, (uint)PreExistingCondition.False);
 
         var popIndex = new Dictionary<uint, uint>();
         foreach (var (key, count) in basePopIndex)

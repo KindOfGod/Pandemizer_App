@@ -5,7 +5,7 @@
              xmlns:mi="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:play="clr-namespace:Pandemizer.ViewModels.Play"
              xmlns:simPage="clr-namespace:Pandemizer.ViewModels.Play.SimPage"
-             xmlns:simtabView="clr-namespace:Pandemizer.Views.Play.SimPage"
+             xmlns:simPageView="clr-namespace:Pandemizer.Views.Play.SimPage"
              mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
              x:Class="Pandemizer.Views.Play.SimulationPage">
     
@@ -71,15 +71,20 @@
         <TabControl Grid.Row="1" TabStripPlacement="Top" Margin="0,5,0,20">
             <TabControl.DataTemplates>
                 <DataTemplate DataType="{x:Type simPage:OverviewTabViewModel}">
-                    <simtabView:OverviewTab/>
+                    <simPageView:OverviewTab/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type simPage:HealthcareTabViewModel}">
+                    <simPageView:HealthcareTab/>
                 </DataTemplate>
             </TabControl.DataTemplates>
             
             <!--Overview-->
             <TabItem Header="Overview" VerticalContentAlignment="Center" Content="{Binding OverviewTab}"/>
             
-            <!--People-->
-            <TabItem Header="People" VerticalContentAlignment="Center"/>
+            <!--Healthcare-->
+            <TabItem Header="Healthcare" VerticalContentAlignment="Center" Content="{Binding HealthcareTab}"/>
+            
+            <TabItem Header="Countermeasures" VerticalContentAlignment="Center"/>
             
         </TabControl>
         

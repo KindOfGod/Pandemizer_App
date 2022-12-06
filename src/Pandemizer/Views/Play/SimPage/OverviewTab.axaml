@@ -29,7 +29,7 @@
             </StackPanel>
             
             <chrt:CartesianChart Grid.Row="1" Grid.Column="0" ZoomMode="X" XAxes="{Binding XHealthStates}" YAxes="{Binding YHealthStates}"
-                                 Series="{Binding HealthStatesSeries, FallbackValue=null}"/>
+                                 Series="{Binding HealthStatesSeries, FallbackValue=null}" TooltipPosition="Right"/>
         </Grid>
         
         <!-- Rates Chart -->
@@ -46,7 +46,7 @@
             </StackPanel>
             
             <chrt:CartesianChart Grid.Row="1" Grid.Column="0" ZoomMode="X" XAxes="{Binding XRate}" YAxes="{Binding YRate}"
-                                 Series="{Binding RatesSeries, FallbackValue=null}"/>
+                                 Series="{Binding RatesSeries, FallbackValue=null}" TooltipPosition="Right"/>
         </Grid>
 
     </Grid>

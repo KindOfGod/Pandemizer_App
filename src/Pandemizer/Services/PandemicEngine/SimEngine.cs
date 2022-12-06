@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Avalonia.Controls;
 using Pandemizer.Services.PandemicEngine.DataModel;
 
 namespace Pandemizer.Services.PandemicEngine

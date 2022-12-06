@@ -15,7 +15,7 @@ namespace Pandemizer.ViewModels.Play.SimPage;
 public class OverviewTabViewModel : ViewModelBase
 {
     #region Fields
-    
+
     private ISeries[] _healthStateSeries;
     private ISeries[] _ratesSeries;
 

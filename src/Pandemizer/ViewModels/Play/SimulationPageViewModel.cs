@@ -36,6 +36,7 @@ public class SimulationPageViewModel : ViewModelBase
     private bool _iterationButtonsEnabled;
 
     private OverviewTabViewModel? _overviewTab;
+    private HealthcareTabViewModel? _healthcareTab;
     
     #endregion
 
@@ -100,6 +101,12 @@ public class SimulationPageViewModel : ViewModelBase
     {
         get => _overviewTab;
         set => this.RaiseAndSetIfChanged(ref _overviewTab, value);
+    }
+    
+    public HealthcareTabViewModel? HealthcareTab
+    {
+        get => _healthcareTab;
+        set => this.RaiseAndSetIfChanged(ref _healthcareTab, value);
     }
     
     //rest
@@ -234,6 +241,7 @@ public class SimulationPageViewModel : ViewModelBase
     private void Init()
     {
         OverviewTab = new OverviewTabViewModel();
+        HealthcareTab = new HealthcareTabViewModel();
         
         OverviewTab.Init();
 

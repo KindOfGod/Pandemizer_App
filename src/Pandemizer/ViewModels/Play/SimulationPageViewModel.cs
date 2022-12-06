@@ -19,6 +19,7 @@ public class SimulationPageViewModel : ViewModelBase
     private readonly Sim _currentSim = null!;
 
     private string? _iterationTime;
+    private string? _popCount;
 
     //base info
     private string? _iteration;
@@ -45,6 +46,11 @@ public class SimulationPageViewModel : ViewModelBase
     {
         get => _iterationTime;
         set => this.RaiseAndSetIfChanged(ref _iterationTime, value);
+    }
+    public string? PopCount
+    {
+        get => _popCount;
+        set => this.RaiseAndSetIfChanged(ref _popCount, value);
     }
     public string? Iteration
     {
@@ -193,7 +199,7 @@ public class SimulationPageViewModel : ViewModelBase
         //additional info
         Incidence = ApplicationHelper.IntToFormattedNum((int)state.Incidence);
         DeathRate = ApplicationHelper.IntToFormattedNum((int)state.DeathRate);
-        
+
         //charts
         for (var i = cnt; i > 0; i--)
         {
@@ -211,6 +217,8 @@ public class SimulationPageViewModel : ViewModelBase
             OverviewTab?.ImmuneData.Add(new ObservablePoint(stateNum, state.Immune));
             OverviewTab?.ImmuneRateData.Add(new ObservablePoint(stateNum, state.ImmuneRate));
         }
+
+        PopCount = ApplicationHelper.IntToFormattedNum(state.PopIndex.Count);
         
         RefreshCharts();
     }

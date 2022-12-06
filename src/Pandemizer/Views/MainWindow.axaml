@@ -12,7 +12,7 @@
         mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
         x:Class="Pandemizer.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Pandemizer"
+        Title="Pandemizer" CornerRadius="10"
         TransparencyLevelHint="AcrylicBlur"
         ExtendClientAreaToDecorationsHint="True">
     
@@ -55,16 +55,16 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
     
-    <Grid>
+    <Panel Background="{x:Null}">
         <!--Acrylic Effects-->
-        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+        <ExperimentalAcrylicBorder IsHitTestVisible="False" CornerRadius="10">
             <ExperimentalAcrylicBorder.Material>
                 <ExperimentalAcrylicMaterial BackgroundSource="Digger" TintColor="{DynamicResource MainColor}" TintOpacity="1" MaterialOpacity="0.85" />
             </ExperimentalAcrylicBorder.Material>
         </ExperimentalAcrylicBorder>
         
         <!--FullScreen Frame-->
-        <TransitioningContentControl Content="{Binding FullscreenContent}" Margin="0,0,0,0">
+        <TransitioningContentControl Content="{Binding FullscreenContent}" Margin="0,0,0,0" CornerRadius="10">
             <TransitioningContentControl.DataTemplates>
                 <DataTemplate DataType="{x:Type vm:Play.SimulationPageViewModel}">
                     <play:SimulationPage/>
@@ -79,7 +79,7 @@
         </TransitioningContentControl>
         
         <!--Main Navigation-->
-        <SplitView IsPaneOpen="{Binding IsPaneOpen}" DisplayMode="CompactInline" OpenPaneLength="300" CompactPaneLength="50" IsVisible="{Binding IsNavVisible}">
+        <SplitView IsPaneOpen="{Binding IsPaneOpen}" DisplayMode="CompactInline" OpenPaneLength="300" CompactPaneLength="50" IsVisible="{Binding IsNavVisible}" CornerRadius="10">
             
             <SplitView.Pane>
                 <ExperimentalAcrylicBorder IsHitTestVisible="True">
@@ -179,5 +179,5 @@
             </TransitioningContentControl>
             
         </SplitView>
-    </Grid>
+    </Panel>
 </Window>

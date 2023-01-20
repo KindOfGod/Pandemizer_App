@@ -5,6 +5,8 @@
         <Nullable>enable</Nullable>
         <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
         <TrimMode>copyused</TrimMode>
+		<!--use win7 instead of win so av_libglesv2.dll gets copied to output dir-->
+		<RuntimeIdentifier>win7-x64</RuntimeIdentifier>
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     </PropertyGroup>
     <ItemGroup>
@@ -25,7 +27,7 @@
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.18" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.18" />
         <PackageReference Include="DotNetZip" Version="1.16.0" />
-        <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-beta.603" />
+        <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-beta.700" />
         <PackageReference Include="Material.Icons.Avalonia" Version="1.1.10" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
         <PackageReference Include="XamlNameReferenceGenerator" Version="1.5.1" />

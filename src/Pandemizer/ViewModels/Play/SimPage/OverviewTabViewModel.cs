@@ -16,8 +16,8 @@ public class OverviewTabViewModel : ViewModelBase
 {
     #region Fields
 
-    private ISeries[] _healthStateSeries;
-    private ISeries[] _ratesSeries;
+    private ISeries[]? _healthStateSeries;
+    private ISeries[]? _ratesSeries;
 
     public ObservableCollection<ObservablePoint> HealthyData { get; set; } = new();
     public ObservableCollection<ObservablePoint> InfectedData { get; set; } = new();
@@ -54,13 +54,13 @@ public class OverviewTabViewModel : ViewModelBase
     #endregion
     
     #region Properties
-    public ISeries[] HealthStatesSeries 
+    public ISeries[]? HealthStatesSeries 
     {
         get => _healthStateSeries;
         set => this.RaiseAndSetIfChanged(ref _healthStateSeries, value);
     }
 
-    public ISeries[] RatesSeries
+    public ISeries[]? RatesSeries
     {
         get => _ratesSeries;
         set => this.RaiseAndSetIfChanged(ref _ratesSeries, value);
@@ -208,13 +208,17 @@ public class OverviewTabViewModel : ViewModelBase
     private void OnToggleHealthStatesAxis(string parameter)
     {
         var p = Convert.ToInt32(parameter);
-        HealthStatesSeries[p].IsVisible = !HealthStatesSeries[p].IsVisible;
+        
+        if (HealthStatesSeries != null) 
+            HealthStatesSeries[p].IsVisible = !HealthStatesSeries[p].IsVisible;
     }
     
     private void OnToggleRatesAxis(string parameter)
     {
         var p = Convert.ToInt32(parameter);
-        RatesSeries[p].IsVisible = !RatesSeries[p].IsVisible;
+        
+        if (RatesSeries != null)
+            RatesSeries[p].IsVisible = !RatesSeries[p].IsVisible;
     }
     
     #endregion

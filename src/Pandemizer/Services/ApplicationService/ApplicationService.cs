@@ -12,7 +12,7 @@ namespace Pandemizer.Services
         #region Fields
 
         public static IDataService _dataService;
-        public static MainWindowViewModel _mainWindowViewModel;
+        public static MainWindowViewModel? _mainWindowViewModel;
         
         #endregion
         
@@ -27,7 +27,7 @@ namespace Pandemizer.Services
         #region Public Methods
         public static void ChangeFullscreenView(ViewModelBase viewModel)
         {
-            _mainWindowViewModel.ChangeFullscreenView(viewModel);
+            _mainWindowViewModel?.ChangeFullscreenView(viewModel);
         }
 
         #endregion

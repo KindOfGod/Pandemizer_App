@@ -76,6 +76,9 @@
                 <DataTemplate DataType="{x:Type simPage:HealthcareTabViewModel}">
                     <simPageView:HealthcareTab/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type simPage:PopulationTabViewModel}">
+                    <simPageView:PopulationTab/>
+                </DataTemplate>
             </TabControl.DataTemplates>
             
             <!--Overview-->
@@ -85,6 +88,8 @@
             <TabItem Header="Healthcare" VerticalContentAlignment="Center" Content="{Binding HealthcareTab}"/>
             
             <TabItem Header="Countermeasures" VerticalContentAlignment="Center"/>
+            
+            <TabItem Header="Population" VerticalContentAlignment="Center" Content="{Binding PopulationTab}"/>
             
         </TabControl>
         

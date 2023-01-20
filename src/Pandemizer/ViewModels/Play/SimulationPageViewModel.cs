@@ -37,6 +37,7 @@ public class SimulationPageViewModel : ViewModelBase
 
     private OverviewTabViewModel? _overviewTab;
     private HealthcareTabViewModel? _healthcareTab;
+    private PopulationTabViewModel? _populationTab;
     
     #endregion
 
@@ -109,6 +110,11 @@ public class SimulationPageViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _healthcareTab, value);
     }
     
+    public PopulationTabViewModel? PopulationTab
+    {
+        get => _populationTab;
+        set => this.RaiseAndSetIfChanged(ref _populationTab, value);
+    }
     //rest
     
     public bool IterationButtonsEnabled
@@ -227,21 +233,23 @@ public class SimulationPageViewModel : ViewModelBase
 
         PopCount = ApplicationHelper.IntToFormattedNum(state.PopIndex.Count);
         
-        RefreshCharts();
+        RefreshChartsAndData();
     }
 
     /// <summary>
     /// Resets all zoom and panning of charts in control
     /// </summary>
-    private void RefreshCharts()
+    private void RefreshChartsAndData()
     {
         OverviewTab?.RefreshCharts();
+        PopulationTab?.RefreshData(_currentSim.SimStates[^1].PopIndex);
     }
     
     private void Init()
     {
         OverviewTab = new OverviewTabViewModel();
         HealthcareTab = new HealthcareTabViewModel();
+        PopulationTab = new PopulationTabViewModel();
         
         OverviewTab.Init();
 

@@ -1,0 +1,25 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:play="clr-namespace:Pandemizer.ViewModels.Play.SimPage"
+             xmlns:dataModel="clr-namespace:Pandemizer.Services.PandemicEngine.DataModel"
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="620"
+             x:Class="Pandemizer.Views.Play.SimPage.PopulationTab">
+    
+    <Design.DataContext>
+        <play:PopulationTabViewModel/>
+    </Design.DataContext>
+    
+    <Grid Margin="5" HorizontalAlignment="Center">
+        <Border Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
+        
+        <Border Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="5,10,5,10" Background="{DynamicResource AccentColorDark}" Opacity="0.3" CornerRadius="10" 
+                Height="50" VerticalAlignment="Top"/>
+        
+        <DataGrid Items="{Binding PopIndex}" Margin="30,10,30,10" CanUserSortColumns="True" AutoGenerateColumns="True" VerticalScrollBarVisibility="Visible" IsReadOnly="True"
+                   ColumnHeaderHeight="50">
+        </DataGrid>
+    </Grid>
+    
+</UserControl>

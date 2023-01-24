@@ -86,7 +86,7 @@ namespace Pandemizer.Services.PandemicEngine
             var newPopIndex = IteratePopDefault(pop, count, sim);
             
             //evaluate hospitalization of non hospitalized pops
-            if(prevState.Hospitalized < settings.HospitalCap)
+            if(prevState.Hospitalized <= settings.HospitalCap)
                 newPopIndex = EvaluatePopsHospitalEntering(newPopIndex, settings);
 
             return newPopIndex;

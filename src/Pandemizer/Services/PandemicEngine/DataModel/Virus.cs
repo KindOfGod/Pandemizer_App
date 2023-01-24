@@ -35,5 +35,6 @@ public class Virus
     public double PreConditionModifier { get; set; }  = 1.5; // works in both directions, 1 > bad for pop, 1 < good for pop
     
     //Hospital modifier
-    public double HospitalizedModifier { get; set; } = 10; // multiplies positive effects, gets worse as closer HospitalCap is fulfilled
+    public double HospitalizedInfectedGetHealthy { get; set; } = 0.5; // can't be greater than 1
+    public double HospitalizedHeavilyInfectedGetHealthy { get; set; } = 0.25; // can't be greater than 1
 }

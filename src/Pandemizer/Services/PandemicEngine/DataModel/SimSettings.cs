@@ -31,8 +31,8 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         public double InitialProportionOfPreConditioned { get; set; } = 0.1; // can't be greater than 1
         
         //Hospital Settings
-        public int HospitalCap { get; set; } = 1_000_000;
+        public int HospitalCap { get; set; } = 500_000;
         public double InfectedHospitalizing { get; set; } = 0.5;
-        public double HeavilyInfectedHospitalizing { get; set; } = 0.9;
+        public double HeavilyInfectedHospitalizing { get; set; } = 0.25;
     }
 }

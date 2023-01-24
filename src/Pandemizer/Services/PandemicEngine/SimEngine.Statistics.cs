@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using Pandemizer.Services.PandemicEngine.DataModel;
 
 namespace Pandemizer.Services.PandemicEngine;
@@ -17,10 +18,10 @@ public static partial class SimEngine
         var timer = new Stopwatch();
         timer.Start();
         
-        foreach (var (key, count) in state.PopIndex)
+        foreach (var (pop, count) in state.PopIndex)
         {
             //State of Life
-            switch (AttributeHelper.GetStateOfLive(key))
+            switch (AttributeHelper.GetStateOfLive(pop))
             {
                 case StateOfLife.ImperceptiblyInfected:
                     state.ImperceptibleInfected += Convert.ToInt64(count);
@@ -57,7 +58,13 @@ public static partial class SimEngine
             
             //death
             state.DeathRate = state.Dead - prevState.Dead;
+            
+            //hospital
+            if (pop.CheckIsHospitalized(IsHospitalized.True))
+                state.Hospitalized += count;
         }
+
+        state.HospitalizedPercent = state.Hospitalized * 100 / sim.SimSettings.HospitalCap;
         
         timer.Stop();
         state.StatsTime = timer.Elapsed;

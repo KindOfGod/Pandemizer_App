@@ -26,10 +26,14 @@ public static partial class SimEngine
         basePopIndex = AddAttributeToAllByPercentage(basePopIndex, settings.InitialProportionOfPreConditioned, (uint)PreExistingCondition.True, (uint)PreExistingCondition.False);
 
         var popIndex = new Dictionary<uint, uint>();
-        foreach (var (key, count) in basePopIndex)
+        foreach (var (pop, count) in basePopIndex)
         {
-            var k = key; //append new attributes here
-            popIndex.Add(k, count);
+            var p = pop;
+
+            p.OverrideIsHospitalized(IsHospitalized.False);
+            //append new attributes here
+            
+            popIndex.Add(p, count);
         }
         
         var state = new SimState()

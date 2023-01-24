@@ -61,7 +61,7 @@
                 
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" ToolTip.Tip="Available Hospital Capacity" Background="Transparent">
                     <mi:MaterialIcon Kind="HospitalBuilding" Width="20" Height="20" Opacity="0.7" Focusable="True"/>
-                    <TextBlock Text="0" Width="90" VerticalAlignment="Center" Margin="5,5,0,0" TextAlignment="Left" FontSize="12"/>
+                    <TextBlock Text="{Binding HospitalRate, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="5,5,0,0" TextAlignment="Left" FontSize="12"/>
                 </StackPanel>
                 
             </StackPanel>

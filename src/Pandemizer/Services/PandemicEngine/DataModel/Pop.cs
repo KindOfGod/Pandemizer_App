@@ -13,6 +13,8 @@ public class Pop
     public Age Age { get; set; }
     
     public bool PreExistingCondition { get; set; }
+    
+    public bool IsHospitalized { get; set; }
 
     #endregion
 
@@ -21,9 +23,10 @@ public class Pop
     public Pop(uint key, uint count)
     {
         Count = count;
-        StateOfLife = AttributeHelper.GetStateOfLive(key);
-        Age = AttributeHelper.GetAge(key);
-        PreExistingCondition = AttributeHelper.GetPreExistingCondition(key).ToString() == "True";
+        StateOfLife = key.GetStateOfLive();
+        Age = key.GetAge();
+        PreExistingCondition = key.GetPreExistingCondition().ToString() == "True";
+        IsHospitalized = key.GetIsHospitalized().ToString() == "True";
     }
 
     #endregion

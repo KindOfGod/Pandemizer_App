@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Pandemizer.Services.PandemicEngine.DataModel;
 
 namespace Pandemizer.Services.PandemicEngine
 {
@@ -46,7 +47,8 @@ namespace Pandemizer.Services.PandemicEngine
         /// <summary>
         /// Adds entry with a possibility of an existing key.
         /// </summary>
-        public static void AddValueToDictionary(Dictionary<uint, uint> destination, uint key, uint value)
+        public static void AddValueToDictionary(this Dictionary<uint, uint> destination, 
+            uint key, uint value)
         {
             if (destination.ContainsKey(key))
                     destination[key] += value;
@@ -54,7 +56,7 @@ namespace Pandemizer.Services.PandemicEngine
                 if(value != 0)
                     destination.Add(key, value);
         }
-        
+
         /// <summary>
         /// Decide a true/false decision
         /// </summary>

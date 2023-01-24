@@ -45,4 +45,13 @@ namespace Pandemizer.Services.PandemicEngine
         
         Compare = 3 << 6
     }
+    
+    // Bit 9-10 (2bit)
+    public enum IsHospitalized : uint
+    {
+        False = 1 << 8,
+        True = 2 << 8,
+        
+        Compare = 3 << 8
+    }
 }

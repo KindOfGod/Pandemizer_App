@@ -33,4 +33,7 @@ public class Virus
     
     //Pre-existing condition modifier
     public double PreConditionModifier { get; set; }  = 1.5; // works in both directions, 1 > bad for pop, 1 < good for pop
+    
+    //Hospital modifier
+    public double HospitalizedModifier { get; set; } = 10; // multiplies positive effects, gets worse as closer HospitalCap is fulfilled
 }

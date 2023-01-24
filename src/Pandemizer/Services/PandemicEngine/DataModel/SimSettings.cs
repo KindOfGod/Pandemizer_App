@@ -29,5 +29,10 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         
         // Pre-existing Condition distribution
         public double InitialProportionOfPreConditioned { get; set; } = 0.1; // can't be greater than 1
+        
+        //Hospital Settings
+        public int HospitalCap { get; set; } = 1_000_000;
+        public double InfectedHospitalizing { get; set; } = 0.5;
+        public double HeavilyInfectedHospitalizing { get; set; } = 0.9;
     }
 }

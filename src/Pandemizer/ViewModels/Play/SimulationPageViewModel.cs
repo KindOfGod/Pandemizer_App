@@ -32,6 +32,7 @@ public class SimulationPageViewModel : ViewModelBase
     //additional info
     private string? _incidence;
     private string? _deathRate;
+    private string? _hospitalRate;
     
     private bool _iterationButtonsEnabled;
 
@@ -94,6 +95,12 @@ public class SimulationPageViewModel : ViewModelBase
     {
         get => _deathRate;
         set => this.RaiseAndSetIfChanged(ref _deathRate, value);
+    }
+    
+    public string? HospitalRate
+    {
+        get => _hospitalRate;
+        set => this.RaiseAndSetIfChanged(ref _hospitalRate, value);
     }
     
     //Tabs
@@ -212,6 +219,7 @@ public class SimulationPageViewModel : ViewModelBase
         //additional info
         Incidence = ApplicationHelper.IntToFormattedNum((int)state.Incidence);
         DeathRate = ApplicationHelper.IntToFormattedNum((int)state.DeathRate);
+        HospitalRate = ApplicationHelper.IntToFormattedNum((int)state.HospitalizedPercent) + "%";
 
         //charts
         for (var i = cnt; i > 0; i--)

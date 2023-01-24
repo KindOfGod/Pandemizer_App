@@ -11,6 +11,12 @@ namespace Pandemizer.Services.PandemicEngine
     /// </summary>
     public static partial class SimEngine
     {
+        #region Fields
+
+        private static long _hospitalRestSpace = 0;
+
+        #endregion
+        
         #region Public Methods
 
         /// <summary>
@@ -32,25 +38,24 @@ namespace Pandemizer.Services.PandemicEngine
         /// <summary>
         /// Iterate Simulation to next state
         /// </summary>
-        public static void IterateSimulation(Sim? sim)
+        public static void IterateSimulation(Sim sim)
         {
             var newState = new SimState();
             var newPopIndex = new Dictionary<uint, uint>();
+
+            _hospitalRestSpace = sim.SimSettings.HospitalCap - sim.SimStates[^1].Hospitalized;
             
             var timer = new Stopwatch();
             timer.Start();
-            
-            if(sim == null)
-                return;
 
             foreach (var pop in sim.SimStates[^1].PopIndex)
             {
                 //only simulate living people
                 //respect possible duplicates in dictionary
-                if(!AttributeHelper.CheckStateOfLive(pop.Key, StateOfLife.Dead))
-                    SimHelper.MergeDictionaries(newPopIndex, IteratePip(pop.Key, pop.Value, sim));
+                if(!pop.Key.CheckStateOfLive(StateOfLife.Dead))
+                    SimHelper.MergeDictionaries(newPopIndex, IteratePop(pop.Key, pop.Value, sim));
                 else
-                    SimHelper.AddValueToDictionary(newPopIndex, pop.Key, pop.Value);
+                    newPopIndex.AddValueToDictionary(pop.Key, pop.Value);
             }
 
             newState.PopIndex = newPopIndex;
@@ -68,7 +73,7 @@ namespace Pandemizer.Services.PandemicEngine
         /// <summary>
         /// Iterates a single Pop and returns Dictionary with resulting Pops
         /// </summary>
-        private static Dictionary<uint, uint> IteratePip(uint pop, uint count, Sim sim)
+        private static Dictionary<uint, uint> IteratePop(uint pop, uint count, Sim sim)
         {
             var newPopIndex = new Dictionary<uint, uint>();
             var settings = sim.SimSettings;
@@ -77,12 +82,12 @@ namespace Pandemizer.Services.PandemicEngine
             
             var isEndangeredAge = false;
             if(virus.EndangeredAgeGroup != null)
-                isEndangeredAge = AttributeHelper.CheckAge(pop, (Age)virus.EndangeredAgeGroup);
+                isEndangeredAge = pop.CheckAge((Age)virus.EndangeredAgeGroup);
             
-            var preConditionModifier = AttributeHelper.CheckPreExistingCondition(pop, PreExistingCondition.True) ? virus.PreConditionModifier : 1;
-            
+            var preConditionModifier = pop.CheckPreExistingCondition(PreExistingCondition.True) ? virus.PreConditionModifier : 1;
+
             //healthy
-            if (AttributeHelper.CheckStateOfLive(pop, StateOfLife.Healthy))
+            if (pop.CheckStateOfLive(StateOfLife.Healthy))
             {
                 var rateOfInfection = isEndangeredAge ? virus.EndangeredAgeInfectionRate : virus.BaseInfectionRate;
                 
@@ -99,30 +104,41 @@ namespace Pandemizer.Services.PandemicEngine
 
                 var newInfected = SimHelper.DecideCountWithDeviation(count, rateOfInfection, settings.ProbabilityDeviation);
                 
-                SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, virus.InfectionSeverity), newInfected);
-                SimHelper.AddValueToDictionary(newPopIndex, pop, count - newInfected);
+                newPopIndex.AddValueToDictionary(pop.OverrideStateOfLive(virus.InfectionSeverity), newInfected);
+                newPopIndex.AddValueToDictionary(pop, count - newInfected);
             }
             //heavily infected
-            else if (AttributeHelper.CheckStateOfLive(pop, StateOfLife.HeavilyInfected))
+            else if (pop.CheckStateOfLive(StateOfLife.HeavilyInfected))
             {
                 var rateOfDead = isEndangeredAge ? virus.EndangeredAgeDeathRate : virus.BaseDeathRate;
                 var rateOfImmune = isEndangeredAge ? virus.EndangeredImmunityRate : virus.BaseImmunityRate;
                 
                 // FEATURES
-                rateOfImmune *= virus.SurvivalInstinctMultiplier; // survival instinct
-                rateOfDead *= preConditionModifier; // pre-existing condition
-                rateOfImmune /= preConditionModifier; // pre-existing condition
+                rateOfImmune *= virus.SurvivalInstinctMultiplier; // survival instinct modifier
+                rateOfDead *= preConditionModifier; // pre-existing condition modifier
+                rateOfImmune /= preConditionModifier; // pre-existing condition modifier
+
+                if (pop.CheckIsHospitalized(IsHospitalized.True))
+                {
+                    rateOfImmune *= virus.HospitalizedModifier; // hospital modifier
+                    rateOfDead /= virus.HospitalizedModifier; // hospital modifier
+                }
                 
                 //rate of pops dying & rate of pops getting immune
                 var newDead = SimHelper.DecideCountWithDeviation(count, rateOfDead, settings.ProbabilityDeviation);
                 var newImmune = SimHelper.DecideCountWithDeviation(count - newDead, rateOfImmune, settings.ProbabilityDeviation);
                 
-                SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, StateOfLife.Dead), newDead);
-                SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, StateOfLife.Immune), newImmune);
-                SimHelper.AddValueToDictionary(newPopIndex, pop, count - newDead - newImmune);
+                //remove dead people from hospital
+                var deadPop = pop.OverrideStateOfLive(StateOfLife.Dead).OverrideIsHospitalized(IsHospitalized.False);
+                //remove immune people from hospital
+                var immunePop = pop.OverrideStateOfLive(StateOfLife.Immune).OverrideIsHospitalized(IsHospitalized.False);
+                
+                newPopIndex.AddValueToDictionary(deadPop, newDead);
+                newPopIndex.AddValueToDictionary(immunePop, newImmune);
+                newPopIndex.AddValueToDictionary(pop, count - newDead - newImmune);
             }
             //immune
-            else if (AttributeHelper.CheckStateOfLive(pop, StateOfLife.Immune))
+            else if (pop.CheckStateOfLive(StateOfLife.Immune))
             {
                 var immunityLostRate = virus.ImmunityLostRate;
                 
@@ -130,9 +146,9 @@ namespace Pandemizer.Services.PandemicEngine
                 immunityLostRate *= preConditionModifier;
                 
                 var susceptible = SimHelper.DecideCountWithDeviation(count, immunityLostRate, settings.ProbabilityDeviation);
-
-                SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, StateOfLife.Healthy), susceptible);
-                SimHelper.AddValueToDictionary(newPopIndex, pop, count - susceptible);
+                
+                newPopIndex.AddValueToDictionary(pop.OverrideStateOfLive(StateOfLife.Healthy), susceptible);
+                newPopIndex.AddValueToDictionary(pop, count - susceptible);
             }
             //infected & imperceptible infected
             else
@@ -141,26 +157,76 @@ namespace Pandemizer.Services.PandemicEngine
                 var rateOfImmune = isEndangeredAge ? virus.EndangeredImmunityRate : virus.BaseImmunityRate;
                 
                 // FEATURES
-                rateOfWorsening *= preConditionModifier;
-                rateOfImmune /= preConditionModifier;
+                rateOfWorsening *= preConditionModifier; // pre-existing condition modifier
+                rateOfImmune /= preConditionModifier; // pre-existing condition modifier
+
+                if (pop.CheckIsHospitalized(IsHospitalized.True))
+                {
+                    rateOfImmune *= virus.HospitalizedModifier; // hospital modifier
+                    rateOfWorsening /= virus.HospitalizedModifier; // hospital modifier
+                }
                 
                 //rate of getting worse
                 var newWorse = SimHelper.DecideCountWithDeviation(count, rateOfWorsening, settings.ProbabilityDeviation);
-                var severity = AttributeHelper.CheckStateOfLive(pop, StateOfLife.ImperceptiblyInfected) ?
+                var severity = pop.CheckStateOfLive(StateOfLife.ImperceptiblyInfected) ?
                     StateOfLife.Infected : 
                     StateOfLife.HeavilyInfected;
                 
                 //rate of pops getting immune
                 var newImmune = SimHelper.DecideCountWithDeviation(count - newWorse, rateOfImmune, settings.ProbabilityDeviation);
+                var immunePop = pop.OverrideStateOfLive(StateOfLife.Immune).OverrideIsHospitalized(IsHospitalized.False);
 
-                SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, severity), newWorse);
-                SimHelper.AddValueToDictionary(newPopIndex, AttributeHelper.OverrideStateOfLive(pop, StateOfLife.Immune), newImmune);
-                SimHelper.AddValueToDictionary(newPopIndex, pop, count - newWorse - newImmune);
+                newPopIndex.AddValueToDictionary(pop.OverrideStateOfLive(severity), newWorse);
+                newPopIndex.AddValueToDictionary(immunePop, newImmune);
+                newPopIndex.AddValueToDictionary(pop, count - newWorse - newImmune);
+            }
+
+            //Replace newPops with new hospital values
+            if(prevState.Hospitalized < settings.HospitalCap)
+                newPopIndex = EvaluatePopsHospitalStatus(newPopIndex, settings);
+
+            return newPopIndex;
+        }
+
+        /// <summary>
+        /// Calculates IsHospitalized for PopIndex and returns new PopIndex
+        /// </summary>
+        private static Dictionary<uint, uint> EvaluatePopsHospitalStatus(Dictionary<uint, uint> oldPopIndex, SimSettings settings)
+        {
+            var newPopIndex = new Dictionary<uint, uint>();
+
+            foreach (var (pop, count) in oldPopIndex)
+            {
+                if (_hospitalRestSpace == 0 || pop.CheckIsHospitalized(IsHospitalized.True))
+                {
+                    newPopIndex.AddValueToDictionary(pop, count);
+                    continue;
+                }
+                    
+
+                //Hospital Calculation here
+                uint newPatients = pop.GetStateOfLive() switch
+                {
+                    StateOfLife.Infected => SimHelper.DecideCountWithDeviation(count, settings.InfectedHospitalizing, settings.ProbabilityDeviation),
+                    StateOfLife.HeavilyInfected => SimHelper.DecideCountWithDeviation(count, settings.HeavilyInfectedHospitalizing, settings.ProbabilityDeviation),
+                    _ => 0
+                };
+
+                //take as much patients as space is left in hospital
+                if (newPatients > _hospitalRestSpace)
+                {
+                    newPatients = Convert.ToUInt32(_hospitalRestSpace);
+                    _hospitalRestSpace = 0;
+                }
+                else
+                    _hospitalRestSpace -= newPatients;
+                
+                newPopIndex.AddValueToDictionary(pop.OverrideIsHospitalized(IsHospitalized.True), newPatients);
+                newPopIndex.AddValueToDictionary(pop, count - newPatients);
             }
 
             return newPopIndex;
         }
-        
         #endregion
     }
 }

@@ -19,7 +19,7 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         
         // Health Distribution
         public double InitialProportionOfInfected { get; set; } //evenly distributed between age groups
-        public StateOfLife HealthIllnessSeverity { get; set; } = StateOfLife.Infected; // can't be Healthy or Dead
+        public StateOfLife HealthIllnessSeverity { get; set; } = StateOfLife.ImperceptiblyInfected; // can't be Healthy or Dead
         
         // Age Distribution --> has to be 1 in total
         public double AgeProportionOfChildren { get; set; } = 0.15; 

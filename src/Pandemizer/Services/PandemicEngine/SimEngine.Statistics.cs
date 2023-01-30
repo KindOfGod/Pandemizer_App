@@ -21,7 +21,7 @@ public static partial class SimEngine
         foreach (var (pop, count) in state.PopIndex)
         {
             //State of Life
-            switch (AttributeHelper.GetStateOfLive(pop))
+            switch (pop.GetStateOfLive())
             {
                 case StateOfLife.ImperceptiblyInfected:
                     state.ImperceptibleInfected += Convert.ToInt64(count);

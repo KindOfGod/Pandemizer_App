@@ -41,7 +41,7 @@ namespace Pandemizer.Services.PandemicEngine
         public static void IterateSimulation(Sim sim)
         {
             var newState = new SimState();
-            var newPopIndex = new Dictionary<uint, uint>();
+            var newPopIndex = new Dictionary<uint, uint>(0);
 
             _hospitalRestSpace = sim.SimSettings.HospitalCap - sim.SimStates[^1].Hospitalized;
             
@@ -94,7 +94,7 @@ namespace Pandemizer.Services.PandemicEngine
 
         private static Dictionary<uint, uint> IteratePopDefault(uint pop, uint count, Sim sim)
         {
-            var newPopIndex = new Dictionary<uint, uint>();
+            var newPopIndex = new Dictionary<uint, uint>(0);
             var settings = sim.SimSettings;
             var virus = sim.SimSettings.Virus;
             var prevState = sim.SimStates[^1];
@@ -190,7 +190,7 @@ namespace Pandemizer.Services.PandemicEngine
         /// </summary>
         private static Dictionary<uint, uint> EvaluatePopsHospitalEntering(Dictionary<uint, uint> oldPopIndex, SimSettings settings)
         {
-            var newPopIndex = new Dictionary<uint, uint>();
+            var newPopIndex = new Dictionary<uint, uint>(0);
 
             foreach (var (pop, count) in oldPopIndex)
             {
@@ -230,7 +230,7 @@ namespace Pandemizer.Services.PandemicEngine
         /// </summary>
         private static Dictionary<uint, uint> EvaluatePopsHospitalized(uint pop, uint count, Sim sim)
         {
-            var newPopIndex = new Dictionary<uint, uint>();
+            var newPopIndex = new Dictionary<uint, uint>(0);
             var settings = sim.SimSettings;
             var virus = sim.SimSettings.Virus;
 

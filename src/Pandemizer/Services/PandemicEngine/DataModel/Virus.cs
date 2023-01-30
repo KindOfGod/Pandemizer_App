@@ -5,13 +5,11 @@
 /// </summary>
 public class Virus
 {
+    //General
     public string Name { get; set; } = "Virus";
-    
     public double BaseInfectionRate { get; set; } = 0.000_001; // can't be greater than 1
     public double EndangeredAgeInfectionRate  { get; set; } = 0.000_005; //can't be greater than 1
     public Age? EndangeredAgeGroup { get; set; } = Age.Pensioner; // can be null
-    
-    //multiplier of infection spread rate if everybody is infected
     public double InfectionSpreadRate { get; set; } = 100_000; //0 -> no influence if more people infected, x > 0 -> x-times as infective
         
     //infection kind

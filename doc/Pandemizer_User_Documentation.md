@@ -1,4 +1,4 @@
-# Pandemizer Documentation
+# Pandemizer Simulation Documentation
 
 - [Basics](#basics)
   - [Pop](#pop)

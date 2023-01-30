@@ -71,15 +71,15 @@
 > The following systems describe the default cycles of the specific systems.
 
 ### Default Cycle
-> - healthy [pops](#pop) can get infected
-> - infected pops can get worse
-> - infected pops can get immune
-> - heavily infected pops can die
-> - heavily infected pops can get immune
-> - immune pops can get healthy
+> - Healthy [pops](#pop) can get infected
+> - Infected pops can get worse
+> - Infected pops can get immune
+> - Heavily infected pops can die
+> - Heavily infected pops can get immune
+> - Immune pops can get healthy
 
 ### Healthcare System
-> - pops that are not hospitalized and infected can get into hospital after the [default cycle](#default-cycle)
+> - Pops that are not hospitalized and infected can get into hospital after the [default cycle](#default-cycle)
 > - Hospitalized [pops](#pop) heal or die faster than default cycle
 > - Hospitalized pops which dont die continue with default cycle
 > - Infected pops can get hospitalized after default cycle

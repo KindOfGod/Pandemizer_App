@@ -9,10 +9,11 @@
         xmlns:compare="clr-namespace:Pandemizer.Views.Compare"
         xmlns:library="clr-namespace:Pandemizer.Views.Library"
         xmlns:play="clr-namespace:Pandemizer.Views.Play"
+        xmlns:handbook="clr-namespace:Pandemizer.Views.Handbook"
         mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
         x:Class="Pandemizer.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="Pandemizer"
+        Icon="/Assets/Icons/AppIcon.ico"
+        Title="Pandemizer" 
         TransparencyLevelHint="AcrylicBlur"
         ExtendClientAreaToDecorationsHint="True">
     
@@ -50,7 +51,7 @@
             <Setter Property="BorderBrush" Value="{DynamicResource AccentColorDark}"/>
         </Style>
     </Window.Styles>
-
+    
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
@@ -95,6 +96,8 @@
                                     VerticalAlignment="Center">
                                 <mi:MaterialIcon Kind="{Binding HamburgerMenuIcon}" Width="35" Height="35"/>
                             </Button>
+                            
+                            <Image Source="../../../Assets/Icons/AppIcon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                             
                             <TextBlock Text="Pandemizer" Height="25" FontWeight="Light" FontSize="20" Margin="10,0,0,0"
                                        VerticalAlignment="Center"/>
@@ -144,6 +147,14 @@
                                                VerticalAlignment="Center"/>
                                 </StackPanel>
                             </ListBoxItem>
+                            <ListBoxItem x:Name="Handbook" Height="50" Background="Transparent" CornerRadius="10" Margin="0,5,0,0">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <mi:MaterialIcon Kind="QuestionMark" Width="30" Height="30" Margin="-7,0,0,0"/>
+                                    
+                                    <TextBlock Text="Handbook" Height="15" FontWeight="Light" FontSize="15" Margin="15,0,0,0"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </ListBoxItem>
                         </ListBox>
                         
                     </StackPanel>
@@ -168,6 +179,9 @@
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type vm:Viruses.VirusesPageViewModel}">
                         <viruses:VirusPage/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:Handbook.HandbookPageViewModel}">
+                        <handbook:HandbookPage/>
                     </DataTemplate>
                 </TransitioningContentControl.DataTemplates>
                 <TransitioningContentControl.PageTransition>

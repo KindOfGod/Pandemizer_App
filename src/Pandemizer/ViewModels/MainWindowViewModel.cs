@@ -5,6 +5,7 @@ using System.Reactive;
 using Avalonia.Controls;
 using Material.Icons;
 using Pandemizer.ViewModels.Compare;
+using Pandemizer.ViewModels.Handbook;
 using Pandemizer.ViewModels.Library;
 using Pandemizer.ViewModels.Play;
 using Pandemizer.ViewModels.Sandbox;
@@ -134,6 +135,7 @@ namespace Pandemizer.ViewModels
                 "Viruses" => GetPageInstance(typeof(VirusesPageViewModel)),
                 "Library" => GetPageInstance(typeof(LibraryPageViewModel)),
                 "Compare" => GetPageInstance(typeof(ComparePageViewModel)),
+                "Handbook" => GetPageInstance(typeof(HandbookPageViewModel)),
                 _ => null
             };
         }
@@ -161,6 +163,9 @@ namespace Pandemizer.ViewModels
                     break;
                 case nameof(ComparePageViewModel):
                     instance = new ComparePageViewModel();
+                    break;
+                case nameof(HandbookPageViewModel):
+                    instance = new HandbookPageViewModel();
                     break;
                 default:
                     return null;

@@ -83,7 +83,7 @@ namespace Pandemizer.Services.PandemicEngine
                 return EvaluatePopsHospitalized(pop, count, sim);
 
             //handle non-hospitalized pops
-            var newPopIndex = IteratePopDefault(pop, count, sim);
+            var newPopIndex = IteratePopDefaultCycle(pop, count, sim);
             
             //evaluate hospitalization of non hospitalized pops
             if(prevState.Hospitalized <= settings.HospitalCap)
@@ -92,7 +92,7 @@ namespace Pandemizer.Services.PandemicEngine
             return newPopIndex;
         }
 
-        private static Dictionary<uint, uint> IteratePopDefault(uint pop, uint count, Sim sim)
+        private static Dictionary<uint, uint> IteratePopDefaultCycle(uint pop, uint count, Sim sim)
         {
             var newPopIndex = new Dictionary<uint, uint>(0);
             var settings = sim.SimSettings;
@@ -244,7 +244,7 @@ namespace Pandemizer.Services.PandemicEngine
             };
             
             newPopIndex.AddValueToDictionary(pop.OverrideStateOfLive(StateOfLife.Immune).OverrideIsHospitalized(IsHospitalized.False), cntLeaveHospital);
-            SimHelper.MergeDictionaries(newPopIndex, IteratePopDefault(pop, count - cntLeaveHospital, sim));
+            SimHelper.MergeDictionaries(newPopIndex, IteratePopDefaultCycle(pop, count - cntLeaveHospital, sim));
 
             return newPopIndex;
         }

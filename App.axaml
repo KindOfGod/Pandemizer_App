@@ -9,7 +9,13 @@
     <Application.Styles>
         <FluentTheme Mode="Dark"/>
         <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml"></StyleInclude>
-        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Default.xaml"/>
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Simple.xaml"/>
+        
+        <Style Selector="FlyoutPresenter.BasicFlyout">
+            <Setter Property="MaxWidth" Value="2000"></Setter>
+            <Setter Property="MaxHeight" Value="2000"></Setter>
+            <Setter Property="Margin" Value="0"></Setter>
+        </Style>
     </Application.Styles>
     
     <!--include application resource dictionary's-->
@@ -29,6 +35,8 @@
                     <Color x:Key="HeavilyInfectedColor">#c28d57</Color>
                     <Color x:Key="ImmuneColor">#77C3E5</Color>
                     <Color x:Key="DeadColor">#7F6743</Color>
+                    
+                    <Color x:Key="HighlightColor">#EFCF7C</Color>
                 </ResourceDictionary>
                 
             </ResourceDictionary.MergedDictionaries>

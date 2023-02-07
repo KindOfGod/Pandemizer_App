@@ -1,0 +1,357 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="690"
+             x:Class="Pandemizer.Views.Handbook.HandbookPage" Margin="15,40,10,10">
+    
+    <UserControl.Styles>
+        <Style Selector="TextBlock.Title">
+            <Setter Property="FontSize" Value="45"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="Margin" Value="0,0,0,0"/>
+        </Style>
+        <Style Selector="TextBlock.Heading1">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+        </Style>
+        <Style Selector="TextBlock.Heading2">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="Margin" Value="0,10,0,10"/>
+        </Style>
+        <Style Selector="TextBlock.Text">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="ExtraLight"/>
+            <Setter Property="Margin" Value="20,10,20,10"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </UserControl.Styles>
+    
+    <ScrollViewer HorizontalAlignment="Center">
+         
+        <StackPanel Margin="5,30,20,100">
+            
+            <!-- Title -->
+            <StackPanel Orientation="Horizontal" Height="80" Margin="0,0,0,20">
+                <Image Source="../../../../Assets/Icons/AppIcon.png" VerticalAlignment="Center" 
+                       Width="60" Height="60"  Margin="0,0,20,20"/>
+                <TextBlock Classes="Title"> Pandemizer Handbook </TextBlock>
+            </StackPanel>
+            
+            
+            <!-- Basics -->
+            <TextBlock Classes="Heading1">📌 Basics </TextBlock>
+            
+            <!-- Pop -->
+            <TextBlock Classes="Heading2" Text="💡 Pop"/>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                <TextBlock Classes="Text">
+                    ⚡ A Pop represents and encompasses a population group. This group is composed of various characteristic features of the group.
+                </TextBlock>
+            </Grid>
+            
+            <!-- Iteration -->
+            <TextBlock Classes="Heading2" Text="💡 Iteration"/>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                <TextBlock Classes="Text">
+                    ⚡ An iteration represents one step in the simulation. This is equivalent to a period of one week in the real world. Each iteration contains a single Pop Index.
+                </TextBlock>
+            </Grid>
+            
+            <!-- PopIndex -->
+            <TextBlock Classes="Heading2" Text="💡 PopIndex"/>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                <TextBlock Classes="Text">
+                    ⚡ The PopIndex contains all the different pops that exist for the current iteration.
+                </TextBlock>
+            </Grid>
+            
+            <Separator Margin="40"/>
+            
+            <!-- Characteristic Features -->
+            <TextBlock Classes="Heading1">📌 Characteristic Features </TextBlock>
+            
+            <!-- StateOfLive -->
+            <TextBlock Classes="Heading2" Text="💡 StateOfLive"/>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                
+                <TextBlock Classes="Text">
+                    ⚡ The StateOfLive describes the current state of health of a pop.
+                    This attribute separates into the following states:
+            
+                    <LineBreak/>
+                    <LineBreak/>
+                    <TextBlock Classes="Text" Margin="30,10,0,0">
+                        <Italic> 🔸 Healthy:</Italic> The pop is in good physical condition.
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 ImperceptiblyInfected:</Italic> The pop is sick, but shows no symptoms. The disease is not noticeable.
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 Infected:</Italic> The pop is sick. He shows noticeable symptoms.
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 HeavilyInfected:</Italic> The pop is seriously ill. He shows very noticeable symptoms and is more vulnerable.
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 Dead:</Italic> The pop is dead. He is no longer simulated in the simulation.
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 Immune:</Italic> The pop is immune. The pop is temporarily protected from the disease.
+                    </TextBlock>
+                </TextBlock>
+            </Grid>
+            
+            <!-- Age -->
+            <TextBlock Classes="Heading2" Text="💡 Age"/>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                
+                <TextBlock Classes="Text">
+                    ⚡ The age of a pop has configurable influences on the pandemic course of a pop. The initial PopIndex is created at the beginning of the simulation with a specified age distribution. <LineBreak/>
+                    An important factor of age is the EndangeredAgeGroup. The age of a pop is divided into four states:
+            
+                    <LineBreak/>
+                    <LineBreak/>
+                    <TextBlock Classes="Text" Margin="30,10,0,0">
+                        <Italic> 🔸 Child</Italic>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 YoungAdult</Italic>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 Adult</Italic>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 Pensioner</Italic>
+                    </TextBlock>
+                </TextBlock>
+            </Grid>
+            
+            <!-- PreExistingCondition -->
+            <TextBlock Classes="Heading2" Text="💡 PreExistingCondition"/>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                <TextBlock Classes="Text">
+                    ⚡ The PreExistingCondition indicates whether the pop has a pre-existing condition.
+                    Such a condition generally has a negative impact on the course of the disease.
+                </TextBlock>
+            </Grid>
+            
+            <!-- IsHospitalized-->
+            <TextBlock Classes="Heading2" Text="💡 IsHospitalized"/>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                <TextBlock Classes="Text">
+                    ⚡ IsHospitalized shows whether a pop is hospitalised.
+                </TextBlock>
+            </Grid>
+            
+            <Separator Margin="40"/>
+            
+            <!-- Simulation Systems -->
+            <TextBlock Classes="Heading1">📌 Simulation Systems </TextBlock>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                <TextBlock Classes="Text">
+                    ⚡ The simulation systems contain the default cycle and additional systems to simulate a pandemic. These systems are influenced by the characteristic features.
+                </TextBlock>
+            </Grid>
+            
+            <!-- Default Cycle -->
+            <TextBlock Classes="Heading2" Text="💡 Default Cycle"/>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                
+                <TextBlock Classes="Text">
+                    ⚡ The default cycle describes the standard procedure for a pop. This depends on the current StateOfLive.
+            
+                    <LineBreak/>
+                    <LineBreak/>
+                    <TextBlock Classes="Text" Margin="30,10,0,0">
+                        <Italic> 🔸 Healthy pops can get infected.</Italic>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 Infected pops can get worse.</Italic>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 Infected pops can get immune.</Italic>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 Heavily infected pops can die.</Italic>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 Heavily infected pops can get immune.</Italic>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 Immune pops can get healthy.</Italic>
+                    </TextBlock>
+                </TextBlock>
+            </Grid>
+            
+            <!-- Healthcare System -->
+            <TextBlock Classes="Heading2" Text="💡 Healthcare System"/>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                
+                <TextBlock Classes="Text">
+                    ⚡ The healthcare system is an extension of the default cycle that introduces hospitals into the simulation. The number of beds in particular is a factor here. <LineBreak/>
+                    If the number of beds is set to 0, the system is considered deactivated.
+            
+                    <LineBreak/>
+                    <LineBreak/>
+                    <TextBlock Classes="Text" Margin="30,10,0,0">
+                        <Italic> 🔸 Pops that are not hospitalized and infected can get into hospital after the default cycle.</Italic>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 Hospitalized pops heal or die faster than default cycle.</Italic>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 Hospitalized pops which dont die continue with default cycle.</Italic>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 Infected pops can get hospitalized after default cycle.</Italic>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Italic> 🔸 Dead/Immune/Healthy pops can't be in hospital.</Italic>
+                    </TextBlock>
+                </TextBlock>
+            </Grid>
+            
+            <Separator Margin="40"/>
+            
+            <!-- Simulation Settings -->
+            <TextBlock Classes="Heading1">📌 Simulation Settings </TextBlock>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                <TextBlock Classes="Text">
+                    ⚡ The Simulation Settings contain all adjustable parameters of the simulation. These have been categorised here.
+                </TextBlock>
+            </Grid>
+            
+            <!-- General Settings -->
+            <TextBlock Classes="Heading2" Text="💡 General Settings"/>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                <TextBlock Classes="Text">
+                    ⚡ The Scope indicates the number of people distributed among the pops. <LineBreak/><LineBreak/>
+                    ⚡ The IterationLimit specifies the maximum number of iterations the simulation runs through. <LineBreak/><LineBreak/>
+                    ⚡ The ProbabilityDeviation indicates the deviations of the mathematically expected results of the simulation. The lower the value, the more predictable the simulation.
+                </TextBlock>
+            </Grid>
+            
+            <!-- Virus Settings -->
+            <TextBlock Classes="Heading2" Text="💡 Virus Settings"/>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                <TextBlock Classes="Text">
+                    <Italic> ⚡ General </Italic> <LineBreak/><LineBreak/>
+                    <TextBlock Classes="Text" Margin="30,0,0,0">
+                        🔸 The Name is the identifier of the virus. <LineBreak/><LineBreak/>
+                        
+                        🔸 The BaseInfectionRate is the rate at which pops are infected by default. <LineBreak/>
+                        🔸 The EndangeredAgeInfectionRate is the rate at which endangered pops are infected by default. <LineBreak/><LineBreak/>
+                        
+                        🔸 The EndangeredAgeGroup indicates which age group is particularly at risk from the disease. <LineBreak/>
+                        🔸 The InfectionSpreadRate is a multiplier that increases the rate of infections depending on the number of infected pops. <LineBreak/>
+                        If all pops are infected, BaseInfectionRate times InfectionSpreadRate applies.
+                    </TextBlock>
+                    
+                    <LineBreak/><LineBreak/><LineBreak/>
+                    
+                    <Italic> ⚡ Infection kind </Italic> <LineBreak/><LineBreak/>
+                    <TextBlock Classes="Text" Margin="30,0,0,0">
+                        🔸 The InfectionSeverity is the strength of the initial infection. <LineBreak/><LineBreak/>
+                        
+                        🔸 The RateOfGettingWorse is rate at which the infection is getting worse. <LineBreak/>
+                        🔸 The EndangeredAgeRateOfGettingWorse is rate at which the infection is getting worse for endangered pops.
+                    </TextBlock>
+                    
+                    <LineBreak/><LineBreak/><LineBreak/>
+                    
+                    <Italic> ⚡ Rate of Death </Italic> <LineBreak/><LineBreak/>
+                    <TextBlock Classes="Text" Margin="30,0,0,0">
+                        🔸 The InfectionSeverity is the strength of the initial infection. <LineBreak/><LineBreak/>
+                        
+                        🔸 The BaseDeathRate is the rate at which pops die. <LineBreak/>
+                        🔸 The EndangeredAgeDeathRate is the rate at which endangered pops die.
+                    </TextBlock>
+                    
+                    <LineBreak/><LineBreak/><LineBreak/>
+                    
+                    <Italic> ⚡ Rate of immunity </Italic> <LineBreak/><LineBreak/>
+                    <TextBlock Classes="Text" Margin="30,0,0,0">
+                        🔸 The BaseImmunityRate is the rate at which pops get immune. <LineBreak/>
+                        🔸 The EndangeredImmunityRate is the rate at which endangered pops get immune. <LineBreak/><LineBreak/>
+                        
+                        🔸 The SurvivalInstinctMultiplier multiplies the immunity rates if pop is heavily infected.
+                    </TextBlock>
+                    
+                    <LineBreak/><LineBreak/><LineBreak/>
+                    
+                    <Italic> ⚡ Rate of immunity </Italic> <LineBreak/><LineBreak/>
+                    <TextBlock Classes="Text" Margin="30,0,0,0">
+                        🔸 The ImmunityLostRate is the rate at which pops lose immunity.
+                    </TextBlock>
+                    
+                    <LineBreak/><LineBreak/><LineBreak/>
+                    
+                    <Italic> ⚡ Pre-existing condition modifier </Italic> <LineBreak/><LineBreak/>
+                    <TextBlock Classes="Text" Margin="30,0,0,0">
+                        🔸 The PreConditionModifier is the modifier for PreConditioned pops. They die or get immune faster.
+                    </TextBlock>
+                    
+                    <LineBreak/><LineBreak/><LineBreak/>
+                    
+                    <Italic> ⚡ Hospital modifier </Italic> <LineBreak/><LineBreak/>
+                    <TextBlock Classes="Text" Margin="30,0,0,0">
+                        🔸 The HospitalizedInfectedGetHealthy modifier is the rate at which pops get out of hospital. <LineBreak/><LineBreak/>
+                    
+                        🔸 The HospitalizedHeavilyInfectedGetHealthy modifier is the rate at which heavily infected pops get out of hospital.
+                    </TextBlock>
+                    
+                </TextBlock>
+            </Grid>
+            
+            <!-- Health Distribution -->
+            <TextBlock Classes="Heading2" Text="💡 Health Distribution"/>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                <TextBlock Classes="Text">
+                    ⚡ The InitialPortionOfInfected indicates how many pops of the different age groups are infected. This happens in a balanced way. <LineBreak/><LineBreak/>
+                    ⚡ The HealthIllnessSeverity indicates what the StateOfLive of the initially affected pops is. <LineBreak/>
+                </TextBlock>
+            </Grid>
+            
+            <!-- Age Distribution -->
+            <TextBlock Classes="Heading2" Text="💡 Age Distribution"/>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                <TextBlock Classes="Text">
+                    ⚡ The AgeProportionOfChildren specifies the Children count. <LineBreak/><LineBreak/>
+                    ⚡ The AgeProportionOfYoungAdult specifies the YoungAdult count. <LineBreak/><LineBreak/>
+                    ⚡ The AgeProportionOfAdult specifies the Adult count. <LineBreak/><LineBreak/>
+                    ⚡ The AgeProportionOfPensioner specifies the Pensioner count.
+                </TextBlock>
+            </Grid>
+            
+            <!-- PreExistingCondition Distribution -->
+            <TextBlock Classes="Heading2" Text="💡 PreExistingCondition Distribution"/>
+            <Grid>
+                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10"/>
+                <TextBlock Classes="Text">
+                    ⚡ The InitialProportionOfPreConditioned specifies the PreConditioned count. The PreConditioned get distributed evenly between the age groups.
+                </TextBlock>
+            </Grid>
+        </StackPanel>
+        
+    </ScrollViewer>
+    
+</UserControl>

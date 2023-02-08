@@ -30,9 +30,9 @@
         </Style>
     </UserControl.Styles>
     
-    <ScrollViewer HorizontalAlignment="Center">
-         
-        <StackPanel Margin="5,30,20,100">
+    <ScrollViewer HorizontalAlignment="Center" >
+        
+        <VirtualizingStackPanel Margin="5,30,20,100">
             
             <!-- Title -->
             <StackPanel Orientation="Horizontal" Height="80" Margin="0,0,0,20">
@@ -40,7 +40,6 @@
                        Width="60" Height="60"  Margin="0,0,20,20"/>
                 <TextBlock Classes="Title"> Pandemizer Handbook </TextBlock>
             </StackPanel>
-            
             
             <!-- Basics -->
             <TextBlock Classes="Heading1">📌 Basics </TextBlock>
@@ -350,8 +349,9 @@
                     ⚡ The InitialProportionOfPreConditioned specifies the PreConditioned count. The PreConditioned get distributed evenly between the age groups.
                 </TextBlock>
             </Grid>
-        </StackPanel>
         
+        </VirtualizingStackPanel>
+            
     </ScrollViewer>
     
 </UserControl>

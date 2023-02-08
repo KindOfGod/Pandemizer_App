@@ -16,7 +16,7 @@
         <TextBlock Text="My Viruses" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="Light"/>
         <Border Grid.Row="1" Grid.Column="0" Background="{DynamicResource AccentColorDark}" Opacity="0.6" CornerRadius="10"/>
         <ListBox Grid.Row="1" Grid.Column="0" Margin="5" SelectedItem="{Binding SelectedVirus}" SelectedIndex="0"
-                 Items="{Binding VirusList}" Background="transparent">
+                 Items="{Binding VirusList}" Background="transparent" VirtualizationMode="Simple">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}"/>

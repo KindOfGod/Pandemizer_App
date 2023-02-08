@@ -15,7 +15,8 @@
         Icon="/Assets/Icons/AppIcon.ico"
         Title="Pandemizer" 
         TransparencyLevelHint="AcrylicBlur"
-        ExtendClientAreaToDecorationsHint="True">
+        ExtendClientAreaToDecorationsHint="True"
+        UseLayoutRounding="True">
     
     <!-- Global Styles for Application -->
     <Window.Styles>

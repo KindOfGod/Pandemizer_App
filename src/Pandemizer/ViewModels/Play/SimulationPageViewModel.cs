@@ -171,7 +171,7 @@ public class SimulationPageViewModel : ViewModelBase
     /// <summary>
     /// Iterates Simulation cntInt times.
     /// </summary>
-    private async void Iterate(int cntInt)
+    private async void Iterate(int iterationCount)
     {
         var timer = new Stopwatch();
         timer.Start();
@@ -182,16 +182,16 @@ public class SimulationPageViewModel : ViewModelBase
         
         if(iterations > _currentSim.SimSettings.IterationLimit)
             return;
-        if (iterations + cntInt > _currentSim.SimSettings.IterationLimit)
-            cntInt = _currentSim.SimSettings.IterationLimit - iterations;
+        if (iterations + iterationCount > _currentSim.SimSettings.IterationLimit)
+            iterationCount = _currentSim.SimSettings.IterationLimit - iterations;
 
         await Task.Run((() =>
         {
-            for (var i = cntInt; i > 0; i--)
+            for (var i = iterationCount; i > 0; i--)
                 SimEngine.IterateSimulation(_currentSim);
         }));
 
-        RefreshUi(cntInt);
+        RefreshUi(iterationCount);
         
         if(_currentSim.SimStates.Count - 1 < _currentSim.SimSettings.IterationLimit)
             IterationButtonsEnabled = true;
@@ -201,9 +201,9 @@ public class SimulationPageViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// Refreshes visible information on UI. It also add the last 'cnt'-values to charts.
+    /// Refreshes visible information on UI. It also adds the last 'missingIterations'-values to charts.
     /// </summary>
-    private void RefreshUi(int cnt)
+    private void RefreshUi(int missingIterations)
     {
         var state = _currentSim.SimStates[^1];
         var stateNum = _currentSim.SimStates.Count - 1;
@@ -222,7 +222,7 @@ public class SimulationPageViewModel : ViewModelBase
         HospitalRate = ApplicationHelper.IntToFormattedNum((int)state.HospitalizedPercent) + "%";
 
         //charts
-        for (var i = cnt; i > 0; i--)
+        for (var i = missingIterations; i > 0; i--)
         {
             state = _currentSim.SimStates[^i];
             

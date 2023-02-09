@@ -26,6 +26,7 @@ namespace Pandemizer
                 };
 
                 ApplicationService._mainWindowViewModel = mainViewModel;
+                ApplicationService.OnStartUp();
             }
 
             base.OnFrameworkInitializationCompleted();

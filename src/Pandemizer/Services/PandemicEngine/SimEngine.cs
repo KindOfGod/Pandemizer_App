@@ -22,17 +22,18 @@ namespace Pandemizer.Services.PandemicEngine
         /// <summary>
         /// Create and generate new simulation with SimSettings.
         /// </summary>
-        public static Sim CreateNewSim(SimSettings settings)
+        public static Sim CreateNewSim(SimInfo simInfo, SimSettings settings)
         {
-            return new Sim(settings, new List<SimState>{GenerateInitialSimState(settings)});
+            return new Sim(simInfo, settings, new List<SimState>{GenerateInitialSimState(settings)});
         }
         
         /// <summary>
         /// Load Simulation from SimSettings and SimStates.
         /// </summary>
-        public static Sim LoadSim(SimSettings settings, List<SimState> simStates)
+        public static Sim LoadSim(SimInfo simInfo, SimSettings settings)
         {
-            return new Sim(settings, simStates);
+            //Todo: Calculate old sim states instead of generating new sim state
+            return new Sim(simInfo, settings, new List<SimState>{GenerateInitialSimState(settings)});
         }
         
         /// <summary>
@@ -60,6 +61,9 @@ namespace Pandemizer.Services.PandemicEngine
 
             newState.PopIndex = newPopIndex;
             sim.SimStates.Add(newState);
+
+            //Refresh SimInfo
+            sim.SimInfo.Iteration++;
             
             timer.Stop();
             newState.IterationTime = timer.Elapsed;

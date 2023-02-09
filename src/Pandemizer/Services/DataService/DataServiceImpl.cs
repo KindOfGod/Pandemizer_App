@@ -1,12 +1,15 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Ionic.Zip;
-using Ionic.Zlib;
 using Newtonsoft.Json;
 using Pandemizer.Services.DataService.Enums;
+using Pandemizer.Services.PandemicEngine;
+using Pandemizer.Services.PandemicEngine.DataModel;
 
 namespace Pandemizer.Services.DataService;
 
+/// <summary>
+/// This DataService uses xml files to store simulations.
+/// </summary>
 public class DataServiceImpl : IDataService
 {
     #region Fields
@@ -15,39 +18,31 @@ public class DataServiceImpl : IDataService
 
     #endregion
     
-    #region XML
-
+    #region Public Methods
     
-
-    #endregion
-
-    #region JSON
-
-    /*public async Task<SaveResult> SaveNewSim(Sim sim)
+    /// <summary>
+    /// Save a sim to the default game folder.
+    /// </summary>
+    public async Task<SaveResult> SaveSim(Sim sim)
     {
         SaveResult res;
         
         try
         {
-            res = await Task.Run(async () =>
+            res = await Task.Run( async () =>
             {
-                var file = Path.Combine(GamesDirectory, sim.Name) + ".zip";
-
                 if (!Directory.Exists(GamesDirectory))
                     Directory.CreateDirectory(GamesDirectory);
-
-                if (File.Exists(file))
-                    return SaveResult.FileNameAlreadyExists;
                 
-                using (var zip = new ZipFile(file))
-                {
-                    zip.CompressionLevel = CompressionLevel.BestSpeed;
-                    zip.AddEntry("SimSettings.json", JsonConvert.SerializeObject(sim.SimSettings));
-                    zip.AddEntry("PeopleBase.json", JsonConvert.SerializeObject(sim.PeopleBase));
-                    zip.Save();
-                }
-
-                return await AppendToSimSave(sim);
+                var gamePath = Path.Combine(GamesDirectory, sim.SimInfo.Name);
+                
+                if (!Directory.Exists(gamePath))
+                    Directory.CreateDirectory(gamePath);
+                
+                await File.WriteAllTextAsync(Path.Combine(gamePath, "SimInfo.json"), JsonConvert.SerializeObject(sim.SimInfo, Formatting.Indented));
+                await File.WriteAllTextAsync(Path.Combine(gamePath, "SimSettings.json"), JsonConvert.SerializeObject(sim.SimSettings, Formatting.Indented));
+                
+                return SaveResult.Successful;
             });
         }
         catch (DirectoryNotFoundException)
@@ -61,38 +56,51 @@ public class DataServiceImpl : IDataService
         
         return res;
     }
-
-    public async Task<SaveResult> AppendToSimSave(Sim sim)
+    
+    /// <summary>
+    /// Read a sim from the default game folder.
+    /// </summary>
+    public async Task<Sim?> ReadSim(string simName)
     {
         try
         {
-            await Task.Run(() =>
+            var sim = await Task.Run(async () =>
             {
-                var file = Path.Combine(GamesDirectory, sim.Name) + ".zip";
+                if (!Directory.Exists(GamesDirectory))
+                    Directory.CreateDirectory(GamesDirectory);
 
-                using (var zip = ZipFile.Read(file))
-                {
-                    zip.CompressionLevel = CompressionLevel.BestSpeed;
-                    zip.AddEntry($"PeopleStates_{sim.Iteration}.json",
-                        JsonConvert.SerializeObject(sim.PeopleStates[sim.Iteration]));
-                    zip.AddEntry($"SimStates_{sim.Iteration}.json",
-                        JsonConvert.SerializeObject(sim.SimStates[sim.Iteration]));
-                    zip.Save();
-                }
+                var gamePath = Path.Combine(GamesDirectory, simName);
+                
+                if (!Directory.Exists(gamePath))
+                    return null;
+
+                SimInfo? simInfo = null;
+                SimSettings? simSettings = null;
+
+                var infPath = Path.Combine(gamePath, "SimInfo.json");
+
+                if (File.Exists(infPath))
+                    simInfo = JsonConvert.DeserializeObject<SimInfo>(await File.ReadAllTextAsync(infPath));
+                
+                var setPath = Path.Combine(gamePath, "SimSettings.json");
+                if (File.Exists(setPath))
+                    simSettings = JsonConvert.DeserializeObject<SimSettings>(await File.ReadAllTextAsync(infPath));
+                
+                if(simInfo != null && simSettings != null)
+                    return SimEngine.LoadSim(simInfo, simSettings);
+                
+                return null;
             });
 
-        }
-        catch (DirectoryNotFoundException)
-        {
-            return SaveResult.InvalidDirectory;
+            return sim;
         }
         catch
         {
-            return SaveResult.Failed;
+            // ignored
         }
-        
-        return SaveResult.Successful;
-    }*/
 
+        return null;
+    }
+    
     #endregion
 }

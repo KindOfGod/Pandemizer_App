@@ -4,6 +4,5 @@ public enum SaveResult
 {
     Successful,
     InvalidDirectory,
-    FileNameAlreadyExists,
     Failed
 }

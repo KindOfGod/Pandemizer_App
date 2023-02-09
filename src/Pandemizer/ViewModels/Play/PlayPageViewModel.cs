@@ -9,7 +9,6 @@ namespace Pandemizer.ViewModels.Play;
 public class PlayPageViewModel : ViewModelBase
 {
     #region Commands
-
     public ReactiveCommand<Unit, Unit> PlayClick { get; }
 
     #endregion
@@ -27,11 +26,7 @@ public class PlayPageViewModel : ViewModelBase
 
     private void OnPlayClick()
     {
-        var sim = SimEngine.CreateNewSim(new SimSettings()
-        {
-           Scope = 100_000_000
-        });
-        StartSimulation(sim);
+        LoadSimulation("TestSim");
     }
 
     /// <summary>
@@ -40,6 +35,31 @@ public class PlayPageViewModel : ViewModelBase
     private static void StartSimulation(Sim sim)
     {
         ApplicationService.ChangeFullscreenView(new SimulationPageViewModel(sim));
+    }
+
+    private static async void LoadSimulation(string name)
+    {
+        //Generate SaveGame
+        
+        /*var newSim = SimEngine.CreateNewSim(new SimInfo()
+            {
+                Name = "TestSim"
+            },
+            new SimSettings()
+            {
+                Scope = 100_000_000
+            });
+        
+        for(var i = 0; i < 1000; i++)
+            SimEngine.IterateSimulation(newSim);
+
+        await ApplicationService._dataService.SaveSim(newSim);
+        */
+        
+        var sim = await ApplicationService._dataService.ReadSim(name);
+        
+        if(sim != null)
+            StartSimulation(sim);
     }
 
     #endregion

@@ -1,4 +1,6 @@
-﻿using Pandemizer.Services.DataService;
+﻿using System.Collections.Generic;
+using Pandemizer.Services.DataService;
+using Pandemizer.Services.PandemicEngine.DataModel;
 using Pandemizer.ViewModels;
 
 namespace Pandemizer.Services
@@ -13,6 +15,8 @@ namespace Pandemizer.Services
 
         public static IDataService _dataService;
         public static MainWindowViewModel? _mainWindowViewModel;
+
+        private static List<Sim> _simulations = new List<Sim>();
         
         #endregion
         
@@ -28,6 +32,20 @@ namespace Pandemizer.Services
         public static void ChangeFullscreenView(ViewModelBase viewModel)
         {
             _mainWindowViewModel?.ChangeFullscreenView(viewModel);
+        }
+
+        public static void OnStartUp()
+        {
+            LoadSimulations();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private static void LoadSimulations()
+        {
+            _simulations = new List<Sim>();
         }
 
         #endregion

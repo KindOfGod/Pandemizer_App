@@ -7,13 +7,15 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
     /// </summary>
     public class Sim
     {
+        public SimInfo SimInfo { get; set; }
         public SimSettings SimSettings { get; set; }
         public List<SimState> SimStates { get; set; }
         
-        public Sim(SimSettings simSettings, List<SimState> simStates)
+        public Sim(SimInfo simInfo, SimSettings simSettings, List<SimState> simStates)
         {
             SimSettings = simSettings;
             SimStates = simStates;
+            SimInfo = simInfo;
         }
     }
 }

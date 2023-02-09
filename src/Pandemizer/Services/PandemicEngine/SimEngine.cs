@@ -20,7 +20,7 @@ namespace Pandemizer.Services.PandemicEngine
         #region Public Methods
 
         /// <summary>
-        /// Create and generate new simulation with SimSettings.
+        /// Create and generate new simulation with SimInfo and SimSettings.
         /// </summary>
         public static Sim CreateNewSim(SimInfo simInfo, SimSettings settings)
         {
@@ -28,12 +28,19 @@ namespace Pandemizer.Services.PandemicEngine
         }
         
         /// <summary>
-        /// Load Simulation from SimSettings and SimStates.
+        /// Load Simulation from SimInfo and SimSettings.
         /// </summary>
         public static Sim LoadSim(SimInfo simInfo, SimSettings settings)
         {
-            //Todo: Calculate old sim states instead of generating new sim state
-            return new Sim(simInfo, settings, new List<SimState>{GenerateInitialSimState(settings)});
+            var sim = new Sim(simInfo, settings, new List<SimState> {GenerateInitialSimState(settings)});
+            var iteration = sim.SimInfo.Iteration;
+            
+            for(var i = 0; i < iteration; i++)
+                IterateSimulation(sim);
+
+            sim.SimInfo.Iteration = iteration;
+            
+            return sim;
         }
         
         /// <summary>

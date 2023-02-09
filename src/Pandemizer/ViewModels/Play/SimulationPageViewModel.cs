@@ -143,7 +143,7 @@ public class SimulationPageViewModel : ViewModelBase
         _currentSim = sim;
         
         Init();
-        RefreshUi(1);
+        RefreshUi(sim.SimInfo.Iteration);
         
         ForwardCommand = ReactiveCommand.Create<string>(OnForwardCommand);
     }

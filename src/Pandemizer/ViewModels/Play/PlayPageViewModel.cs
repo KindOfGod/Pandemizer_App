@@ -1,6 +1,5 @@
 ﻿using System.Reactive;
 using Pandemizer.Services;
-using Pandemizer.Services.PandemicEngine;
 using Pandemizer.Services.PandemicEngine.DataModel;
 using ReactiveUI;
 

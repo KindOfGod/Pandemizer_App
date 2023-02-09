@@ -29,7 +29,7 @@
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-preview4" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview4" />
-        <PackageReference Include="Avalonia.Svg" Version="11.0.0-preview4" />
+        <PackageReference Include="Avalonia.Svg.Skia" Version="11.0.0-preview4" />
         <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
         <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-beta.700-11.0.0-preview4" />
         <PackageReference Include="Material.Icons.Avalonia" Version="2.0.0-preview1" />
@@ -42,5 +42,17 @@
     <ItemGroup>
       <UpToDateCheckInput Remove="Assets\Dictionarys\Descriptions.axaml" />
       <UpToDateCheckInput Remove="src\Pandemizer\UISystems\ExplanationSystem\ExplFlyouts.axaml" />
+      <UpToDateCheckInput Remove="Assets\Icons\VirusIcons\png\Black.png" />
+      <UpToDateCheckInput Remove="Assets\Icons\VirusIcons\png\DarkGreen.png" />
+      <UpToDateCheckInput Remove="Assets\Icons\VirusIcons\png\Green.png" />
+      <UpToDateCheckInput Remove="Assets\Icons\VirusIcons\png\GreenOld.png" />
+      <UpToDateCheckInput Remove="Assets\Icons\VirusIcons\png\Orange.png" />
+      <UpToDateCheckInput Remove="Assets\Icons\VirusIcons\png\Petrol.png" />
+      <UpToDateCheckInput Remove="Assets\Icons\VirusIcons\png\Pink.png" />
+      <UpToDateCheckInput Remove="Assets\Icons\VirusIcons\png\Purple.png" />
+      <UpToDateCheckInput Remove="Assets\Icons\VirusIcons\png\Red.png" />
+      <UpToDateCheckInput Remove="Assets\Icons\VirusIcons\png\Turquoise.png" />
+      <UpToDateCheckInput Remove="Assets\Icons\VirusIcons\png\TurquoiseBad.png" />
+      <UpToDateCheckInput Remove="Assets\Icons\VirusIcons\png\White.png" />
     </ItemGroup>
 </Project>

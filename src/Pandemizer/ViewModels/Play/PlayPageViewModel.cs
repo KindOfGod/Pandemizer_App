@@ -1,5 +1,7 @@
-﻿using System.Reactive;
+﻿using System.Collections.ObjectModel;
+using System.Reactive;
 using Pandemizer.Services;
+using Pandemizer.Services.PandemicEngine;
 using Pandemizer.Services.PandemicEngine.DataModel;
 using ReactiveUI;
 
@@ -7,6 +9,22 @@ namespace Pandemizer.ViewModels.Play;
 
 public class PlayPageViewModel : ViewModelBase
 {
+    #region Fields
+
+    private ObservableCollection<SimInfo> _games;
+
+    #endregion
+
+    #region Properties
+
+    public ObservableCollection<SimInfo> Games
+    {
+        get => _games;
+        set => this.RaiseAndSetIfChanged(ref _games, value);
+    }
+
+    #endregion
+    
     #region Commands
     public ReactiveCommand<Unit, Unit> PlayClick { get; }
 
@@ -17,6 +35,24 @@ public class PlayPageViewModel : ViewModelBase
     public PlayPageViewModel()
     {
         PlayClick = ReactiveCommand.Create(OnPlayClick);
+
+        #if DEBUG
+            Games = new ObservableCollection<SimInfo>()
+            {
+                new()
+                {
+                    Name = "Sim 1"
+                }, 
+                new()
+                {
+                    Name = "Sim 2"
+                }, 
+                new()
+                {
+                    Name = "Sim 3"
+                }, 
+            };
+        #endif
     }
 
     #endregion
@@ -40,7 +76,7 @@ public class PlayPageViewModel : ViewModelBase
     {
         //Generate SaveGame
         
-        /*var newSim = SimEngine.CreateNewSim(new SimInfo()
+        /*var newSim = SimEngine.CreateNewSim(new SimInfo() 
             {
                 Name = "TestSim"
             },
@@ -49,12 +85,11 @@ public class PlayPageViewModel : ViewModelBase
                 Scope = 100_000_000
             });
         
-        for(var i = 0; i < 1000; i++)
+        for(var i = 0; i < 100; i++)
             SimEngine.IterateSimulation(newSim);
 
-        await ApplicationService._dataService.SaveSim(newSim);
-        */
-        
+        await ApplicationService._dataService.SaveSim(newSim);*/
+
         var sim = await ApplicationService._dataService.ReadSim(name);
         
         if(sim != null)

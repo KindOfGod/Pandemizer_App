@@ -13,7 +13,7 @@
     
     <Grid ColumnDefinitions="*,5*" Margin="15,10,10,10" RowDefinitions="40,*,40">
         <!-- List Box -->
-        <TextBlock Text="My Viruses" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="Light"/>
+        <TextBlock Text="My Viruses" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="Light" IsHitTestVisible="False"/>
         <Border Grid.Row="1" Grid.Column="0" Background="{DynamicResource AccentColorDark}" Opacity="0.6" CornerRadius="10"/>
         <ListBox Grid.Row="1" Grid.Column="0" Margin="5" SelectedItem="{Binding SelectedVirus}" SelectedIndex="0"
                  Items="{Binding VirusList}" Background="transparent" VirtualizationMode="Simple">
@@ -35,7 +35,7 @@
         </StackPanel>
         
         <!-- Title --> 
-        <Grid Grid.Column="1" Grid.Row="0" Margin="15,0, 30,0" ColumnDefinitions="*,*" HorizontalAlignment="Left">
+        <Grid Grid.Column="1" Grid.Row="0" Margin="15,0, 30,0" ColumnDefinitions="*,*" HorizontalAlignment="Left" IsHitTestVisible="False">
             <TextBlock Grid.Column="0" Text="Configuration of " HorizontalAlignment="Center" FontSize="24"/>
             <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding SelectedVirus.Name}" HorizontalAlignment="Center" FontSize="24"/>
         </Grid>

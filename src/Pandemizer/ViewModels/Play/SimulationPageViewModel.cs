@@ -166,6 +166,9 @@ public class SimulationPageViewModel : ViewModelBase
             p = _currentSim.SimSettings.IterationLimit;
         
         Iterate(p);
+
+        //save updated iteration
+        ApplicationService._dataService.SaveSim(_currentSim);
     }
 
     /// <summary>

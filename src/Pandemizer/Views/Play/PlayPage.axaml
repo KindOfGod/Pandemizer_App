@@ -19,40 +19,51 @@
             <ListBox Background="transparent" Items="{Binding Games}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid RowDefinitions="*,*" ColumnDefinitions="100, *">
-                            
-                            <Svg Path="E:\Projects\Pandemizer_App\Assets\Icons\VirusIcons\svg\Black.svg"/>
-                            
-                            <TextBlock Grid.Row="0"  Grid.Column="1" Text="{Binding Name}"/>
-                            
-                            <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,5,0,0">
-                            
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" ToolTip.Tip="Iterations" Background="Transparent">
-                                    <mi:MaterialIcon Kind="CircleArrows" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource IterationColor}" Focusable="True"/>
-                                    <TextBlock Text="{Binding Iteration, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
-                                </StackPanel>
-                                
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Healthy" Background="Transparent">
-                                    <mi:MaterialIcon Kind="SmileyExcited" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource HealthyColor}" Focusable="True"/>
-                                    <TextBlock Text="{Binding Healthy, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
-                                </StackPanel>
-                                
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Infected" Background="Transparent">
-                                    <mi:MaterialIcon Kind="Virus" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource InfectedColor}" Focusable="True"/>
-                                    <TextBlock Text="{Binding Infected, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
-                                </StackPanel>
+                        <Grid Margin="-5">
+                            <Border Grid.RowSpan="2" Grid.ColumnSpan="2" Background="Black" Opacity="0.1" CornerRadius="10"/>
 
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Immune" Background="Transparent">
-                                    <mi:MaterialIcon Kind="ShieldStar" Width="30" Height="30" Foreground="{DynamicResource ImmuneColor}" Focusable="True"/>
-                                    <TextBlock Text="{Binding Immune, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
-                                </StackPanel>
+                            <Grid RowDefinitions="*,*" ColumnDefinitions="100, *" Margin="5">
+                                <!-- virus icon -->
+                                <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Background="Black" Opacity="0.2" CornerRadius="10"/>
                                 
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Dead" Background="Transparent">
-                                    <mi:MaterialIcon Kind="Dead" Width="30" Height="30" Foreground="{DynamicResource DeadColor}" Focusable="True"/>
-                                    <TextBlock Text="{Binding Dead, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
-                                </StackPanel>
+                                <Svg Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="5"
+                                     Path="E:\Projects\Pandemizer_App\Assets\Icons\VirusIcons\svg\REd.svg"/>
                                 
-                            </StackPanel>
+                                <!-- simulation name -->
+                                <TextBlock Grid.Row="0"  Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"
+                                           Margin="20,0,0,0" FontSize="22" FontWeight="Light"/>
+                                
+                                <!-- visible stats -->
+                                <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal" Margin="20,5,0,0" VerticalAlignment="Center">
+                                
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal" ToolTip.Tip="Iterations" Background="Transparent">
+                                        <mi:MaterialIcon Kind="CircleArrows" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource IterationColor}" Focusable="True"/>
+                                        <TextBlock Text="{Binding Iteration, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Healthy" Background="Transparent">
+                                        <mi:MaterialIcon Kind="SmileyExcited" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource HealthyColor}" Focusable="True"/>
+                                        <TextBlock Text="{Binding Healthy, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Infected" Background="Transparent">
+                                        <mi:MaterialIcon Kind="Virus" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource InfectedColor}" Focusable="True"/>
+                                        <TextBlock Text="{Binding Infected, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                                    </StackPanel>
+
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Immune" Background="Transparent">
+                                        <mi:MaterialIcon Kind="ShieldStar" Width="30" Height="30" Foreground="{DynamicResource ImmuneColor}" Focusable="True"/>
+                                        <TextBlock Text="{Binding Immune, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Dead" Background="Transparent">
+                                        <mi:MaterialIcon Kind="Dead" Width="30" Height="30" Foreground="{DynamicResource DeadColor}" Focusable="True"/>
+                                        <TextBlock Text="{Binding Dead, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                                    </StackPanel>
+                                    
+                                </StackPanel>
+                            </Grid>
+                            
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

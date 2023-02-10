@@ -69,4 +69,14 @@ public static partial class SimEngine
         timer.Stop();
         state.StatsTime = timer.Elapsed;
     }
+
+    private static void CalculateSimInfo(Sim sim)
+    {
+        //Refresh SimInfo
+        sim.SimInfo.Iteration++;
+        sim.SimInfo.Healthy = sim.SimStates[^1].Healthy;
+        sim.SimInfo.Infected = sim.SimStates[^1].Infected;
+        sim.SimInfo.Dead = sim.SimStates[^1].Dead;
+        sim.SimInfo.Immune = sim.SimStates[^1].Immune;
+    }
 }

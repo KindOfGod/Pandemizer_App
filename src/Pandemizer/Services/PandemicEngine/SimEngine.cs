@@ -68,14 +68,13 @@ namespace Pandemizer.Services.PandemicEngine
 
             newState.PopIndex = newPopIndex;
             sim.SimStates.Add(newState);
-
-            //Refresh SimInfo
-            sim.SimInfo.Iteration++;
             
             timer.Stop();
             newState.IterationTime = timer.Elapsed;
             
             CalculateStateStats(sim);
+
+            CalculateSimInfo(sim);
         }
         
         #endregion

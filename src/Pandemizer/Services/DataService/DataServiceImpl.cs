@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Pandemizer.Services.DataService.Enums;
@@ -101,6 +103,24 @@ public class DataServiceImpl : IDataService
 
         return null;
     }
-    
+
+    public async Task<List<Sim?>> ReadAllSims()
+    {
+        var sims = new List<Sim?>();
+        
+        if (!Directory.Exists(GamesDirectory))
+            Directory.CreateDirectory(GamesDirectory);
+        
+        var subDirs = Directory.GetDirectories(GamesDirectory).Select(Path.GetFileName).ToArray();
+
+        foreach (var dir in subDirs)
+        {
+            if(dir != null)
+                sims.Add(await ReadSim(dir));
+        }
+
+        return sims;
+    }
+
     #endregion
 }

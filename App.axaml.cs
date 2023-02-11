@@ -25,7 +25,7 @@ namespace Pandemizer
                     DataContext = mainViewModel,
                 };
 
-                ApplicationService._mainWindowViewModel = mainViewModel;
+                ApplicationService.MainWindowViewModel = mainViewModel;
                 ApplicationService.OnStartUp();
             }
 

@@ -11,12 +11,12 @@
         <play:PlayPageViewModel/>
     </Design.DataContext>
     
-    <Grid Margin="15,10,10,10" ColumnDefinitions="*, 200">
+    <Grid Margin="15,10,10,10" ColumnDefinitions="*, 300" RowDefinitions="*, 100">
         
-        <Grid Margin="30">
+        <Grid Margin="30,30,0,30" RowSpan="2">
             <Border Background="{DynamicResource AccentColorDark}" Opacity="0.6" CornerRadius="10"/>
             
-            <ListBox Background="transparent" Items="{Binding Games}">
+            <ListBox Background="transparent" Items="{Binding Games}" SelectedItem="{Binding SelectedSim}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="-5">
@@ -27,10 +27,10 @@
                                 <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Background="Black" Opacity="0.2" CornerRadius="10"/>
                                 
                                 <Svg Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="5"
-                                     Path="E:\Projects\Pandemizer_App\Assets\Icons\VirusIcons\svg\REd.svg"/>
+                                     Path="..\..\..\..\Assets\Icons\VirusIcons\svg\Purple.svg"/>
                                 
                                 <!-- simulation name -->
-                                <TextBlock Grid.Row="0"  Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"
+                                <TextBlock Grid.Row="0"  Grid.Column="1" Text="{Binding SimInfo.Name}" VerticalAlignment="Center"
                                            Margin="20,0,0,0" FontSize="22" FontWeight="Light"/>
                                 
                                 <!-- visible stats -->
@@ -38,27 +38,27 @@
                                 
                                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal" ToolTip.Tip="Iterations" Background="Transparent">
                                         <mi:MaterialIcon Kind="CircleArrows" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource IterationColor}" Focusable="True"/>
-                                        <TextBlock Text="{Binding Iteration, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                                        <TextBlock Text="{Binding SimInfo.Iteration, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                                     </StackPanel>
                                     
                                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Healthy" Background="Transparent">
                                         <mi:MaterialIcon Kind="SmileyExcited" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource HealthyColor}" Focusable="True"/>
-                                        <TextBlock Text="{Binding Healthy, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                                        <TextBlock Text="{Binding SimInfo.Healthy, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                                     </StackPanel>
                                     
                                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Infected" Background="Transparent">
                                         <mi:MaterialIcon Kind="Virus" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource InfectedColor}" Focusable="True"/>
-                                        <TextBlock Text="{Binding Infected, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                                        <TextBlock Text="{Binding SimInfo.Infected, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                                     </StackPanel>
 
                                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Immune" Background="Transparent">
                                         <mi:MaterialIcon Kind="ShieldStar" Width="30" Height="30" Foreground="{DynamicResource ImmuneColor}" Focusable="True"/>
-                                        <TextBlock Text="{Binding Immune, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                                        <TextBlock Text="{Binding SimInfo.Immune, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                                     </StackPanel>
                                     
                                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" ToolTip.Tip="Dead" Background="Transparent">
                                         <mi:MaterialIcon Kind="Dead" Width="30" Height="30" Foreground="{DynamicResource DeadColor}" Focusable="True"/>
-                                        <TextBlock Text="{Binding Dead, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
+                                        <TextBlock Text="{Binding SimInfo.Dead, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                                     </StackPanel>
                                     
                                 </StackPanel>
@@ -68,6 +68,23 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+        </Grid>
+        
+        <Grid Column="1" Row="1" Margin="10,0,0,20">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Background="#1A8869" Width="80" Height="60" Margin="5" ToolTip.Tip="Play"
+                        Command="{Binding PlayClick}" VerticalAlignment="Bottom">
+                    <mi:MaterialIcon Kind="Play" Width="45" Height="45"/>
+                </Button>
+                <Button Background="{DynamicResource DeadColor}" Width="50" Height="50" Margin="5" ToolTip.Tip="Archive"
+                        VerticalAlignment="Bottom">
+                    <mi:MaterialIcon Kind="Archive" Width="40" Height="40"/>
+                </Button>
+                <Button Background="{DynamicResource IterationColor}" Width="50" Height="50" Margin="5" ToolTip.Tip="Delete"
+                        VerticalAlignment="Bottom">
+                    <mi:MaterialIcon Kind="Delete" Width="40" Height="40"/>
+                </Button>
+            </StackPanel>
         </Grid>
         
     </Grid>

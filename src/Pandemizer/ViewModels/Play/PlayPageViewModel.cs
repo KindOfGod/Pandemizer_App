@@ -11,16 +11,22 @@ public class PlayPageViewModel : ViewModelBase
 {
     #region Fields
 
-    private ObservableCollection<SimInfo> _games;
+    private Sim _selectedSim;
 
     #endregion
-
+    
     #region Properties
 
-    public ObservableCollection<SimInfo> Games
+    public Sim SelectedSim
     {
-        get => _games;
-        set => this.RaiseAndSetIfChanged(ref _games, value);
+        get => _selectedSim;
+        set => this.RaiseAndSetIfChanged(ref _selectedSim, value);
+    }
+    
+    public ObservableCollection<Sim> Games
+    {
+        get => ApplicationService.Simulations;
+        set => this.RaiseAndSetIfChanged(ref ApplicationService.Simulations, value);
     }
 
     #endregion
@@ -35,24 +41,6 @@ public class PlayPageViewModel : ViewModelBase
     public PlayPageViewModel()
     {
         PlayClick = ReactiveCommand.Create(OnPlayClick);
-
-        #if DEBUG
-            Games = new ObservableCollection<SimInfo>()
-            {
-                new()
-                {
-                    Name = "Sim 1"
-                }, 
-                new()
-                {
-                    Name = "Sim 2"
-                }, 
-                new()
-                {
-                    Name = "Sim 3"
-                }, 
-            };
-        #endif
     }
 
     #endregion
@@ -61,7 +49,8 @@ public class PlayPageViewModel : ViewModelBase
 
     private void OnPlayClick()
     {
-        LoadSimulation("TestSim");
+        if(_selectedSim != null)
+            LoadSimulation(SelectedSim.SimInfo.Name);
     }
 
     /// <summary>
@@ -90,7 +79,7 @@ public class PlayPageViewModel : ViewModelBase
 
         await ApplicationService._dataService.SaveSim(newSim);*/
 
-        var sim = await ApplicationService._dataService.ReadSim(name);
+        var sim = await ApplicationService.DataService.ReadSim(name);
         
         if(sim != null)
             StartSimulation(sim);

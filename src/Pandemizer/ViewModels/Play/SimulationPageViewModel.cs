@@ -168,7 +168,7 @@ public class SimulationPageViewModel : ViewModelBase
         Iterate(p);
 
         //save updated iteration
-        ApplicationService._dataService.SaveSim(_currentSim);
+        ApplicationService.DataService.SaveSim(_currentSim);
     }
 
     /// <summary>

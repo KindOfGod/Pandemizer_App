@@ -125,6 +125,9 @@ public class DataServiceImpl : IDataService
         return sims;
     }
 
+    /// <summary>
+    /// Deletes a sim with given name
+    /// </summary>
     public async Task DeleteSim(string simName)
     {
         await Task.Run(() =>

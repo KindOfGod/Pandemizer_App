@@ -51,15 +51,24 @@ public class PlayPageViewModel : ViewModelBase
     #endregion
 
     #region Private Method
-
-    private void OnPlayClick()
+    
+    /// <summary>
+    /// Opens a Sim on Command
+    /// </summary>
+    private async void OnPlayClick()
     {
-        if(_selectedSim == null)
+        if(SelectedSim == null)
             return;
-            
-        LoadSimulation(SelectedSim?.SimInfo.Name!);
+        
+        var sim = await ApplicationService.DataService.ReadSim(SelectedSim?.SimInfo.Name!);
+        
+        if(sim != null)
+            StartSimulation(sim);
     }
     
+    /// <summary>
+    /// Deletes a Sim on Command
+    /// </summary>
     private void OnDeleteClick()
     {
         if(_selectedSim == null)
@@ -69,6 +78,9 @@ public class PlayPageViewModel : ViewModelBase
         Games.Remove(Games.First(x => x.SimInfo.Name == SelectedSim?.SimInfo.Name));
     }
     
+    /// <summary>
+    /// Creates a Sim on Command
+    /// </summary>
     private async void OnCreateClick()
     {
         var newSim = SimEngine.CreateNewSim(new SimInfo() 
@@ -93,14 +105,6 @@ public class PlayPageViewModel : ViewModelBase
     {
         ApplicationService.ChangeFullscreenView(new SimulationPageViewModel(sim));
     }
-
-    private static async void LoadSimulation(string name)
-    {
-        var sim = await ApplicationService.DataService.ReadSim(name);
-        
-        if(sim != null)
-            StartSimulation(sim);
-    }
-
+    
     #endregion
 }

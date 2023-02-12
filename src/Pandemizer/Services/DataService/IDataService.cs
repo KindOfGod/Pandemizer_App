@@ -10,4 +10,5 @@ public interface IDataService
     public Task<SaveResult> SaveSim(Sim sim);
     public Task<Sim?> ReadSim(string simName);
     public Task<List<Sim?>> ReadAllSims();
+    public Task DeleteSim(string simName);
 }

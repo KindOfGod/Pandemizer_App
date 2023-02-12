@@ -103,7 +103,10 @@ public class DataServiceImpl : IDataService
 
         return null;
     }
-
+    
+    /// <summary>
+    /// Reads all non archived simulations
+    /// </summary>
     public async Task<List<Sim?>> ReadAllSims()
     {
         var sims = new List<Sim?>();
@@ -120,6 +123,22 @@ public class DataServiceImpl : IDataService
         }
 
         return sims;
+    }
+
+    public async Task DeleteSim(string simName)
+    {
+        await Task.Run(() =>
+        {
+            if (!Directory.Exists(GamesDirectory))
+                Directory.CreateDirectory(GamesDirectory);
+        
+            var gamePath = Path.Combine(GamesDirectory, simName);
+        
+            if(!Directory.Exists(gamePath))
+                return;
+        
+            Directory.Delete(gamePath, true);
+        });
     }
 
     #endregion

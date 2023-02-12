@@ -35,7 +35,8 @@ namespace Pandemizer.Services.PandemicEngine
             var sim = new Sim(simInfo, settings, new List<SimState> {GenerateInitialSimState(settings)});
             var iteration = sim.SimInfo.Iteration;
             
-            for(var i = 0; i < iteration; i++)
+            //0 iteration already calculated
+            for(var i = 1; i < iteration; i++)
                 IterateSimulation(sim);
 
             sim.SimInfo.Iteration = iteration;

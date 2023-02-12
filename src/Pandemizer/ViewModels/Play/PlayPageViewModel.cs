@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
 using Pandemizer.Services;
 using Pandemizer.Services.PandemicEngine;
@@ -11,13 +12,13 @@ public class PlayPageViewModel : ViewModelBase
 {
     #region Fields
 
-    private Sim _selectedSim;
+    private Sim? _selectedSim;
 
     #endregion
     
     #region Properties
 
-    public Sim SelectedSim
+    public Sim? SelectedSim
     {
         get => _selectedSim;
         set => this.RaiseAndSetIfChanged(ref _selectedSim, value);
@@ -33,6 +34,8 @@ public class PlayPageViewModel : ViewModelBase
     
     #region Commands
     public ReactiveCommand<Unit, Unit> PlayClick { get; }
+    public ReactiveCommand<Unit, Unit> DeleteClick { get; }
+    public ReactiveCommand<Unit, Unit> CreateClick { get; }
 
     #endregion
 
@@ -41,6 +44,8 @@ public class PlayPageViewModel : ViewModelBase
     public PlayPageViewModel()
     {
         PlayClick = ReactiveCommand.Create(OnPlayClick);
+        DeleteClick = ReactiveCommand.Create(OnDeleteClick);
+        CreateClick = ReactiveCommand.Create(OnCreateClick);
     }
 
     #endregion
@@ -49,9 +54,37 @@ public class PlayPageViewModel : ViewModelBase
 
     private void OnPlayClick()
     {
-        if(_selectedSim != null)
-            LoadSimulation(SelectedSim.SimInfo.Name);
+        if(_selectedSim == null)
+            return;
+            
+        LoadSimulation(SelectedSim?.SimInfo.Name!);
     }
+    
+    private void OnDeleteClick()
+    {
+        if(_selectedSim == null)
+            return;
+            
+        ApplicationService.DataService.DeleteSim(SelectedSim?.SimInfo.Name!);
+        Games.Remove(Games.First(x => x.SimInfo.Name == SelectedSim?.SimInfo.Name));
+    }
+    
+    private async void OnCreateClick()
+    {
+        var newSim = SimEngine.CreateNewSim(new SimInfo() 
+        {
+            Name = "TestSim"
+        },
+        new SimSettings()
+        {
+            Scope = 100_000_000
+        });
+        
+        ApplicationService.Simulations.Add(newSim);
+        SelectedSim = newSim;
+        await ApplicationService.DataService.SaveSim(newSim);
+    }
+
 
     /// <summary>
     /// Starts simulation with given Sim.
@@ -63,22 +96,6 @@ public class PlayPageViewModel : ViewModelBase
 
     private static async void LoadSimulation(string name)
     {
-        //Generate SaveGame
-        
-        /*var newSim = SimEngine.CreateNewSim(new SimInfo() 
-            {
-                Name = "TestSim"
-            },
-            new SimSettings()
-            {
-                Scope = 100_000_000
-            });
-        
-        for(var i = 0; i < 100; i++)
-            SimEngine.IterateSimulation(newSim);
-
-        await ApplicationService._dataService.SaveSim(newSim);*/
-
         var sim = await ApplicationService.DataService.ReadSim(name);
         
         if(sim != null)

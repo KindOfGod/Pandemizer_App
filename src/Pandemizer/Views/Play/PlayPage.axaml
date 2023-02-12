@@ -72,17 +72,22 @@
         
         <Grid Column="1" Row="1" Margin="10,0,0,20">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <Button Background="#1A8869" Width="80" Height="60" Margin="5" ToolTip.Tip="Play"
+                <Button Background="#1A8869" Width="65" Height="50" Margin="5" ToolTip.Tip="Play"
                         Command="{Binding PlayClick}" VerticalAlignment="Bottom">
-                    <mi:MaterialIcon Kind="Play" Width="45" Height="45"/>
+                    <mi:MaterialIcon Kind="Play" Width="35" Height="35"/>
                 </Button>
-                <Button Background="{DynamicResource DeadColor}" Width="50" Height="50" Margin="5" ToolTip.Tip="Archive"
+                <Button Background="{DynamicResource DeadColor}" Width="40" Height="40" Margin="5" ToolTip.Tip="Archive"
                         VerticalAlignment="Bottom">
-                    <mi:MaterialIcon Kind="Archive" Width="40" Height="40"/>
+                    <mi:MaterialIcon Kind="Archive" Width="35" Height="35"/>
                 </Button>
-                <Button Background="{DynamicResource IterationColor}" Width="50" Height="50" Margin="5" ToolTip.Tip="Delete"
-                        VerticalAlignment="Bottom">
-                    <mi:MaterialIcon Kind="Delete" Width="40" Height="40"/>
+                <Button Background="{DynamicResource IterationColor}" Width="40" Height="40" Margin="5" ToolTip.Tip="Delete"
+                        Command="{Binding DeleteClick}" VerticalAlignment="Bottom">
+                    <mi:MaterialIcon Kind="Delete" Width="35" Height="35"/>
+                </Button>
+                <Border Background="{DynamicResource AccentColorDark}" CornerRadius="10" Width="3" Height="50" Margin="20,0,20,0"/>
+                <Button Background="#1A8869" Width="40" Height="40" Margin="5" ToolTip.Tip="Create"
+                        Command="{Binding CreateClick}" VerticalAlignment="Bottom">
+                    <mi:MaterialIcon Kind="Plus" Width="35" Height="35"/>
                 </Button>
             </StackPanel>
         </Grid>

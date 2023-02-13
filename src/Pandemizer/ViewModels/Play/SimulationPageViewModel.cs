@@ -149,7 +149,9 @@ public class SimulationPageViewModel : ViewModelBase
         _currentSim = sim;
         
         Init();
-        RefreshUi(sim.SimInfo.Iteration);
+        
+        //+ 1 for iteration 0
+        RefreshUi(sim.SimInfo.Iteration + 1);
         
         ForwardCommand = ReactiveCommand.Create<string>(OnForwardCommand);
     }
@@ -220,7 +222,7 @@ public class SimulationPageViewModel : ViewModelBase
         //basic info
         Iteration = ApplicationHelper.IntToFormattedNum(stateNum);
         
-        Healthy = ApplicationHelper.IntToFormattedNum((int)state.Healthy);
+        Healthy = ApplicationHelper.IntToFormattedNum((int)state.Healthy + (int)state.ImperceptibleInfected); // show ImperceptibleInfected as Healthy
         Infected = ApplicationHelper.IntToFormattedNum((int)state.TotalInfected);
         Immune = ApplicationHelper.IntToFormattedNum((int)state.Immune);
         Dead = ApplicationHelper.IntToFormattedNum((int)state.Dead);

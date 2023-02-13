@@ -42,27 +42,27 @@ public static partial class SimEngine
                     state.Healthy += Convert.ToInt64(count);
                     break;
             }
-
-            //incidence
-            state.TotalInfected = state.Infected + state.HeavilyInfected;
-            state.UnknownTotalInfected = state.ImperceptibleInfected + state.Infected + state.HeavilyInfected;
-            
-            //immune
-            state.ImmuneRate = state.Immune - prevState.Immune;
-
-            var unknownInc = prevState.Healthy - state.Healthy;
-            state.UnknownIncidence = unknownInc >= 0 ? unknownInc : 0;
-
-            var inc = prevState.Healthy + prevState.ImperceptibleInfected - state.Healthy - prevState.ImperceptibleInfected;
-            state.Incidence = inc >= 0 ? inc : 0;
-            
-            //death
-            state.DeathRate = state.Dead - prevState.Dead;
-            
             //hospital
             if (pop.CheckIsHospitalized(IsHospitalized.True))
                 state.Hospitalized += count;
         }
+        
+        //incidence
+        state.TotalInfected = state.Infected + state.HeavilyInfected;
+        state.UnknownTotalInfected = state.ImperceptibleInfected + state.Infected + state.HeavilyInfected;
+        
+        var unknownInc = prevState.Healthy - state.Healthy;
+        state.UnknownIncidence = unknownInc >= 0 ? unknownInc : 0;
+
+        // calculate incidence counting ImperceptibleInfected as Healthy
+        var inc = prevState.Healthy + prevState.ImperceptibleInfected - state.Healthy - state.ImperceptibleInfected;
+        state.Incidence = inc >= 0 ? inc : 0;
+        
+        //immune
+        state.ImmuneRate = state.Immune - prevState.Immune;
+            
+        //death
+        state.DeathRate = state.Dead - prevState.Dead;
 
         state.HospitalizedPercent = state.Hospitalized * 100 / sim.SimSettings.HospitalCap;
         

@@ -10,9 +10,15 @@ namespace Pandemizer.Services.PandemicEngine
     /// </summary>
     public static class SimHelper
     {
-        //todo: use random seed! static seed only for debug use
-        private const int Seed = 1;
-        private static readonly Random Rnd = new(Seed);
+        private static Random Rnd = new(0);
+
+        /// <summary>
+        /// Set Seed for SimHelper
+        /// </summary>
+        public static void SetSeed(int seed)
+        {
+            Rnd =  new Random(seed);
+        }
         
         /// <summary>
         /// Merges two dictionaries with no duplicate key values.

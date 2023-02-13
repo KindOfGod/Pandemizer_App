@@ -57,6 +57,9 @@ namespace Pandemizer.Services.PandemicEngine
         {
             var newState = new SimState();
             var newPopIndex = new Dictionary<uint, uint>(0);
+            
+            //set seed for calculation
+            SimHelper.SetSeed(sim.SimInfo.Seed);
 
             _hospitalRestSpace = sim.SimSettings.HospitalCap - sim.SimStates[^1].Hospitalized;
             

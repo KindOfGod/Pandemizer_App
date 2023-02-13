@@ -11,7 +11,7 @@
         <play:PlayPageViewModel/>
     </Design.DataContext>
     
-    <Grid Margin="15,10,10,10" ColumnDefinitions="*, 300" RowDefinitions="*, 100">
+    <Grid Margin="15,10,10,10" ColumnDefinitions="*, 400" RowDefinitions="*, 100">
         
         <Grid Margin="30,30,0,30" RowSpan="2">
             <Border Background="{DynamicResource AccentColorDark}" Opacity="0.6" CornerRadius="10"/>
@@ -88,7 +88,7 @@
                     <mi:MaterialIcon Kind="Delete" Width="35" Height="35"/>
                 </Button>
                 
-                <Border Background="{DynamicResource AccentColorDark}" CornerRadius="10" Width="3" Height="50" Margin="20,0,20,0"/>
+                <Border Background="{DynamicResource AccentColorDark}" CornerRadius="10" Width="3" Height="50" Margin="80,0,20,0"/>
                 
                 <Button Background="#1A8869" Width="40" Height="40" Margin="5" ToolTip.Tip="Create"
                         Command="{Binding CreateClick}" VerticalAlignment="Bottom">

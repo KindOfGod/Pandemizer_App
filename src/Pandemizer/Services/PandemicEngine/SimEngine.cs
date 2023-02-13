@@ -35,8 +35,7 @@ namespace Pandemizer.Services.PandemicEngine
             var sim = new Sim(simInfo, settings, new List<SimState> {GenerateInitialSimState(settings)});
             var iteration = sim.SimInfo.Iteration;
             
-            //0 iteration already calculated
-            for(var i = 1; i < iteration; i++)
+            for(var i = 0; i < iteration; i++)
                 IterateSimulation(sim);
 
             sim.SimInfo.Iteration = iteration;
@@ -89,11 +88,11 @@ namespace Pandemizer.Services.PandemicEngine
             var settings = sim.SimSettings;
             var prevState = sim.SimStates[^1];
             
-            //handle hospitalized pops
+            //handle hospitalized pops --> default cycle
             if (pop.CheckIsHospitalized(IsHospitalized.True))
                 return EvaluatePopsHospitalized(pop, count, sim);
 
-            //handle non-hospitalized pops
+            //handle non-hospitalized pops --> default cycle
             var newPopIndex = IteratePopDefaultCycle(pop, count, sim);
             
             //evaluate hospitalization of non hospitalized pops

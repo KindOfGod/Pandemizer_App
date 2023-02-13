@@ -74,9 +74,9 @@ public static partial class SimEngine
     {
         //Refresh SimInfo
         sim.SimInfo.Iteration++;
-        sim.SimInfo.Healthy = sim.SimStates[^1].Healthy;
-        sim.SimInfo.Infected = sim.SimStates[^1].Infected;
-        sim.SimInfo.Dead = sim.SimStates[^1].Dead;
-        sim.SimInfo.Immune = sim.SimStates[^1].Immune;
+        sim.SimInfo.Healthy = ApplicationHelper.IntToFormattedNum((int)sim.SimStates[^1].Healthy);
+        sim.SimInfo.Infected = ApplicationHelper.IntToFormattedNum((int)sim.SimStates[^1].Infected);
+        sim.SimInfo.Dead = ApplicationHelper.IntToFormattedNum((int)sim.SimStates[^1].Dead);
+        sim.SimInfo.Immune = ApplicationHelper.IntToFormattedNum((int)sim.SimStates[^1].Immune);
     }
 }

@@ -9,8 +9,8 @@ public class SimInfo
     public int Iteration { get; set; } = 1;
     public string Name { get; set; } = "Unknown";
     
-    public long Healthy { get; set; } = 0;
-    public long Infected { get; set; } = 0;
-    public long Immune { get; set; } = 0;
-    public long Dead { get; set; } = 0;
+    public string? Healthy { get; set; } = "0";
+    public string? Infected { get; set; } = "0";
+    public string? Immune { get; set; } = "0";
+    public string? Dead { get; set; } = "0";
 }

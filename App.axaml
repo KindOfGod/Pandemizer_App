@@ -31,6 +31,7 @@
                     
                     <Color x:Key="IterationColor">#99093f</Color>
                     <Color x:Key="HealthyColor">#3BA084</Color>
+                    <Color x:Key="ImperceptiblyInfected">#BDDE7C</Color>
                     <Color x:Key="InfectedColor">#E5E27F</Color>
                     <Color x:Key="HeavilyInfectedColor">#c28d57</Color>
                     <Color x:Key="ImmuneColor">#77C3E5</Color>

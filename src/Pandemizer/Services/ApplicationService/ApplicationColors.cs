@@ -8,6 +8,8 @@ public static class ApplicationColors
     
     public static SKColor HealthyColor = new(59, 160, 132);
     
+    public static SKColor ImperceptiblyInfectedColor = new(189,222,124);
+    
     public static SKColor InfectedColor = new(229, 226, 127);
     
     public static SKColor HeavilyInfectedColor = new(194, 141, 87);

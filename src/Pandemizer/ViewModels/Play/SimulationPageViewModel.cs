@@ -23,6 +23,7 @@ public class SimulationPageViewModel : ViewModelBase
 
     //base info
     private string? _iteration;
+    private string? _simName;
     
     private string? _healthy;
     private string? _infected;
@@ -59,6 +60,11 @@ public class SimulationPageViewModel : ViewModelBase
     {
         get => _iteration;
         set => this.RaiseAndSetIfChanged(ref _iteration, value);
+    }
+    public string? SimName
+    {
+        get => _simName;
+        set => this.RaiseAndSetIfChanged(ref _simName, value);
     }
     public string? Healthy
     {
@@ -263,6 +269,8 @@ public class SimulationPageViewModel : ViewModelBase
         PopulationTab = new PopulationTabViewModel();
         
         OverviewTab.Init();
+
+        SimName = _currentSim.SimInfo.Name;
 
         IterationButtonsEnabled = true;
     }

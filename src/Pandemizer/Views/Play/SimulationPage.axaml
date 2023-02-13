@@ -44,6 +44,24 @@
                     <TextBlock Text="{Binding Dead, FallbackValue='NaN'}" Width="90" VerticalAlignment="Center" Margin="0,5,0,0" TextAlignment="Left" FontSize="15"/>
                 </StackPanel>
                 
+                <Border Background="{DynamicResource AccentColorLight}" CornerRadius="10" Opacity="0.3" Width="2" Height="30" Margin="20,0,5,0"/>
+                
+                <!-- Name & Icon -->
+                <Grid VerticalAlignment="Center" Margin="20,0,0,0" Background="Transparent">
+                    <Border Background="{StaticResource AccentColorDark}" Opacity="0.6" CornerRadius="10"/>
+                    <StackPanel Orientation="Horizontal">
+                        
+                        <!-- Virus Icon -->
+                        <Grid Margin="2.5">
+                            <Border Background="Black" Opacity="0.2" CornerRadius="10"/>
+                            <!-- TODO: Change static link -->
+                            <Svg Width="25" Height="25" Margin="5" Path="..\..\..\..\Assets\Icons\VirusIcons\svg\Purple.svg"/>
+                        </Grid>
+                        
+                        <TextBlock Text="{Binding SimName, FallbackValue='NaN'}" VerticalAlignment="Center" Margin="5,5,30,0" TextAlignment="Left" FontSize="15"/>
+                    </StackPanel>
+                </Grid>
+                
             </StackPanel>
             
             <!-- Additional Information -->

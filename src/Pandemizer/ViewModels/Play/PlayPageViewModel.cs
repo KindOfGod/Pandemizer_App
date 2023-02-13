@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using Pandemizer.Services;
@@ -85,7 +86,7 @@ public class PlayPageViewModel : ViewModelBase
     {
         var newSim = SimEngine.CreateNewSim(new SimInfo() 
         {
-            Name = "TestSim"
+            Name = "TestSim_" + Guid.NewGuid()
         },
         new SimSettings()
         {

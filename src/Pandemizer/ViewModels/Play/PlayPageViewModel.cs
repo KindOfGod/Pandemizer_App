@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using System.Threading.Tasks;
 using Pandemizer.Services;
 using Pandemizer.Services.PandemicEngine;
 using Pandemizer.Services.PandemicEngine.DataModel;
@@ -63,8 +64,13 @@ public class PlayPageViewModel : ViewModelBase
         
         var sim = await ApplicationService.DataService.ReadSim(SelectedSim?.SimInfo.Name!);
         
-        if(sim != null)
-            StartSimulation(sim);
+        if(sim == null)
+            return;
+        
+        // recalculate sim
+        sim = await Task.Run(() => SimEngine.RecalculateSim(sim));
+        
+        StartSimulation(sim);
     }
     
     /// <summary>

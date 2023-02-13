@@ -32,7 +32,14 @@ namespace Pandemizer.Services.PandemicEngine
         /// </summary>
         public static Sim LoadSim(SimInfo simInfo, SimSettings settings)
         {
-            var sim = new Sim(simInfo, settings, new List<SimState> {GenerateInitialSimState(settings)});
+            return new Sim(simInfo, settings, new List<SimState> {GenerateInitialSimState(settings)});
+        }
+
+        /// <summary>
+        /// Recalculates a sim to its defined iteration (SimInfo)
+        /// </summary>
+        public static Sim RecalculateSim(Sim sim)
+        {
             var iteration = sim.SimInfo.Iteration;
             
             for(var i = 0; i < iteration; i++)

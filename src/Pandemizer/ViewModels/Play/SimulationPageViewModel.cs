@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Reactive;
 using System.Threading;
@@ -248,7 +249,15 @@ public class SimulationPageViewModel : ViewModelBase
             OverviewTab?.DeadData.Add(new ObservablePoint(stateNum, state.Dead));
             OverviewTab?.ImmuneData.Add(new ObservablePoint(stateNum, state.Immune));
             OverviewTab?.ImmuneRateData.Add(new ObservablePoint(stateNum, state.ImmuneRate));
+            
+            HealthcareTab?.HospitalizedData.Add(new ObservablePoint(stateNum, state.HospitalizedPercent));
         }
+
+        HealthcareTab!.AgeData = new ObservableCollection<int>
+        {
+            (int)state.HospitalizedChildren, (int)state.HospitalizedYoungAdults, (int)state.HospitalizedAdults,
+            (int)state.HospitalizedPensioner
+        };
 
         PopCount = ApplicationHelper.IntToFormattedNum(state.PopIndex.Count);
         
@@ -261,6 +270,7 @@ public class SimulationPageViewModel : ViewModelBase
     private void RefreshChartsAndData()
     {
         OverviewTab?.RefreshCharts();
+        HealthcareTab?.RefreshCharts();
         PopulationTab?.RefreshData(_currentSim.SimStates[^1].PopIndex);
     }
     
@@ -271,6 +281,7 @@ public class SimulationPageViewModel : ViewModelBase
         PopulationTab = new PopulationTabViewModel();
         
         OverviewTab.Init();
+        HealthcareTab.Init();
 
         SimName = _currentSim.SimInfo.Name;
 

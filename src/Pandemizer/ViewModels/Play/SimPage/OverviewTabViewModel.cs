@@ -18,17 +18,6 @@ public class OverviewTabViewModel : ViewModelBase
 
     private ISeries[]? _healthStateSeries;
     private ISeries[]? _ratesSeries;
-
-    public ObservableCollection<ObservablePoint> HealthyData { get; set; } = new();
-    public ObservableCollection<ObservablePoint> InfectedData { get; set; } = new();
-    public ObservableCollection<ObservablePoint> HeavilyInfectedData { get; set; } = new();
-    public ObservableCollection<ObservablePoint> DeadData { get; set; } = new();
-    public ObservableCollection<ObservablePoint> ImmuneData { get; set; } = new();
-    public ObservableCollection<ObservablePoint> ImmuneRateData { get; set; } = new();
-    public ObservableCollection<ObservablePoint> IncidenceData { get; set; } = new();
-    public ObservableCollection<ObservablePoint> DeathRateData { get; set; } = new();
-
-    public long[] HealthStatePieData { get; set; } = {0, 0, 0, 0};
     
     private static readonly Axis _iterationAxis = new()
     {
@@ -54,6 +43,15 @@ public class OverviewTabViewModel : ViewModelBase
     #endregion
     
     #region Properties
+    
+    public ObservableCollection<ObservablePoint> HealthyData { get; set; } = new();
+    public ObservableCollection<ObservablePoint> InfectedData { get; set; } = new();
+    public ObservableCollection<ObservablePoint> HeavilyInfectedData { get; set; } = new();
+    public ObservableCollection<ObservablePoint> DeadData { get; set; } = new();
+    public ObservableCollection<ObservablePoint> ImmuneData { get; set; } = new();
+    public ObservableCollection<ObservablePoint> ImmuneRateData { get; set; } = new();
+    public ObservableCollection<ObservablePoint> IncidenceData { get; set; } = new();
+    public ObservableCollection<ObservablePoint> DeathRateData { get; set; } = new();
     public ISeries[]? HealthStatesSeries 
     {
         get => _healthStateSeries;

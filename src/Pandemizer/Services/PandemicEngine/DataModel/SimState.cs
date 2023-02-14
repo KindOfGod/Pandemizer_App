@@ -12,7 +12,8 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         public Dictionary<uint, uint> PopIndex;
 
         #region Stats
-
+        
+        //base stats
         public long Incidence = 0; // new infected / heavilyInfected
         public long UnknownIncidence = 0; // Incidence + imperceptibly infected
 
@@ -21,7 +22,8 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
 
         public long TotalInfected = 0;
         public long UnknownTotalInfected = 0;
-
+        
+        //StateOfLive
         public long Healthy = 0;
         public long ImperceptibleInfected = 0;
         public long Infected = 0;
@@ -29,8 +31,19 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         public long Dead = 0;
         public long Immune = 0;
         
+        //Hospital
         public long Hospitalized = 0;
-        public long HospitalizedPercent = 0;
+        public long ReleasedHospitalized = 0;
+        public double HospitalizedPercent = 0;
+
+        public long HospitalizedChildren = 0;
+        public long HospitalizedYoungAdults = 0;
+        public long HospitalizedAdults = 0;
+        public long HospitalizedPensioner = 0;
+        
+        public long HospitalizedPreExistingCondition = 0;
+        public long HospitalizedNoPreExistingCondition = 0;
+
 
         public TimeSpan IterationTime = TimeSpan.Zero;
         public TimeSpan StatsTime = TimeSpan.Zero;

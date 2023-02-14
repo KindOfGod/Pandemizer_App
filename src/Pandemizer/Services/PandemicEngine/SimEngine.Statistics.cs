@@ -42,9 +42,33 @@ public static partial class SimEngine
                     state.Healthy += Convert.ToInt64(count);
                     break;
             }
+            
             //hospital
             if (pop.CheckIsHospitalized(IsHospitalized.True))
+            {
                 state.Hospitalized += count;
+
+                if (pop.CheckPreExistingCondition(PreExistingCondition.True))
+                    state.HospitalizedPreExistingCondition += count;
+                else
+                    state.HospitalizedNoPreExistingCondition += count;
+
+                switch (pop.GetAge())
+                {
+                    case Age.Child:
+                        state.HospitalizedChildren += count;
+                        break;
+                    case Age.YoungAdult:
+                        state.HospitalizedYoungAdults += count;
+                        break;
+                    case Age.Adult:
+                        state.HospitalizedAdults += count;
+                        break;
+                    case Age.Pensioner:
+                        state.HospitalizedPensioner += count;
+                        break;
+                }
+            }
         }
         
         //incidence
@@ -64,8 +88,10 @@ public static partial class SimEngine
         //death
         state.DeathRate = state.Dead - prevState.Dead;
 
-        state.HospitalizedPercent = state.Hospitalized * 100 / sim.SimSettings.HospitalCap;
-        
+        //hospitalized
+        //account people who left in the end of iteration --> 100% cap can be reached this way
+        state.HospitalizedPercent = Math.Round((double)(state.Hospitalized + state.ReleasedHospitalized) * 100 / sim.SimSettings.HospitalCap, 2);
+
         timer.Stop();
         state.StatsTime = timer.Elapsed;
     }

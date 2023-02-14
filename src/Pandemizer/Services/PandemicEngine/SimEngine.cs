@@ -14,6 +14,7 @@ namespace Pandemizer.Services.PandemicEngine
         #region Fields
 
         private static long _hospitalRestSpace = 0;
+        private static long _releasedHospitalized = 0;
 
         #endregion
         
@@ -62,6 +63,7 @@ namespace Pandemizer.Services.PandemicEngine
             SimHelper.SetSeed(sim.SimInfo.Seed);
 
             _hospitalRestSpace = sim.SimSettings.HospitalCap - sim.SimStates[^1].Hospitalized;
+            _releasedHospitalized = 0;
             
             var timer = new Stopwatch();
             timer.Start();
@@ -78,6 +80,8 @@ namespace Pandemizer.Services.PandemicEngine
 
             newState.PopIndex = newPopIndex;
             sim.SimStates.Add(newState);
+
+            sim.SimStates[^1].ReleasedHospitalized = _releasedHospitalized;
             
             timer.Stop();
             newState.IterationTime = timer.Elapsed;
@@ -262,6 +266,9 @@ namespace Pandemizer.Services.PandemicEngine
                     virus.HospitalizedHeavilyInfectedGetHealthy, settings.ProbabilityDeviation)),
                 _ => (uint)0
             };
+            
+            //count leaving
+            _releasedHospitalized += cntLeaveHospital;
             
             newPopIndex.AddValueToDictionary(pop.OverrideStateOfLive(StateOfLife.Immune).OverrideIsHospitalized(IsHospitalized.False), cntLeaveHospital);
             SimHelper.MergeDictionaries(newPopIndex, IteratePopDefaultCycle(pop, count - cntLeaveHospital, sim));

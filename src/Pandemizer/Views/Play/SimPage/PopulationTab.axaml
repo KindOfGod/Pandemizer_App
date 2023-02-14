@@ -3,7 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:play="clr-namespace:Pandemizer.ViewModels.Play.SimPage"
-             xmlns:dataModel="clr-namespace:Pandemizer.Services.PandemicEngine.DataModel"
              mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="620"
              x:Class="Pandemizer.Views.Play.SimPage.PopulationTab">
     

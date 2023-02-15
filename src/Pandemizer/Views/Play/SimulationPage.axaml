@@ -65,7 +65,7 @@
             </StackPanel>
             
             <!-- Additional Information -->
-            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,5,0,0" Height="30">
+            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Height="30">
                 
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" ToolTip.Tip="Incidence" Background="Transparent">
                     <mi:MaterialIcon Kind="GraphBar" Width="20" Height="20" Opacity="0.7" Focusable="True"/>

@@ -253,12 +253,16 @@ public class SimulationPageViewModel : ViewModelBase
             HealthcareTab?.HospitalizedData.Add(new ObservablePoint(stateNum, state.HospitalizedPercent));
         }
 
-        HealthcareTab!.AgeData = new ObservableCollection<int>
-        {
-            (int)state.HospitalizedChildren, (int)state.HospitalizedYoungAdults, (int)state.HospitalizedAdults,
-            (int)state.HospitalizedPensioner
-        };
-
+        //healthcare polar charts
+        HealthcareTab!.AgeData[0].Value = (int) state.HospitalizedChildren;
+        HealthcareTab!.AgeData[1].Value = (int) state.HospitalizedYoungAdults;
+        HealthcareTab!.AgeData[2].Value = (int) state.HospitalizedAdults;
+        HealthcareTab!.AgeData[3].Value = (int) state.HospitalizedPensioner;
+        
+        //healthcare pie charts
+        HealthcareTab!.PreExistingConditionData[0].Value = (int) state.HospitalizedNoPreExistingCondition;
+        HealthcareTab!.PreExistingConditionData[1].Value = (int) state.HospitalizedPreExistingCondition;
+        
         PopCount = ApplicationHelper.IntToFormattedNum(state.PopIndex.Count);
         
         RefreshChartsAndData();

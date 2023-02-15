@@ -14,20 +14,40 @@
     <Grid RowDefinitions="*,*" ColumnDefinitions="*,150">
 
         <!-- Heath States Chart -->
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" RowDefinitions="20,*">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" RowDefinitions="25,*">
 
             <Border Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
             
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Heath States" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Hospitalized" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
             
             <lvc:CartesianChart Grid.Row="1" Grid.Column="0" ZoomMode="X" XAxes="{Binding XHospitalized}" YAxes="{Binding YHospitalized}"
                                 Series="{Binding HospitalizedSeries, FallbackValue=null}" TooltipPosition="Right"/>
         </Grid>
         
-        <Grid Grid.Row="1" Grid.Column="0" Margin="5">
-            <Grid ColumnDefinitions="*,*">
-                <Border Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
-                <lvc:PolarChart Grid.Column="0" Series="{Binding AgeSeries}" AngleAxes="{Binding AgeAxis}" InitialRotation="-45"/>
+        <Grid Grid.Row="1" Grid.Column="0" Margin="5" Grid.ColumnSpan="2">
+            <Grid ColumnDefinitions="3*,4*,3*">
+                
+                <!-- Age Distribution -->
+                <Grid RowDefinitions="25,*" Margin="0,0,5,0">
+                    <Border Grid.RowSpan="2" Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Age Distribution" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
+                    <lvc:PolarChart Grid.Row="1" Grid.Column="0" Series="{Binding AgeSeries}" AngleAxes="{Binding AgeAngleAxis}" 
+                                    RadiusAxes="{Binding AgeRadialAxis}" InitialRotation="-45" />
+                </Grid>
+                
+                <!-- PreExistingCondition Distribution -->
+                <Grid Grid.Column="1" RowDefinitions="25,*" Margin="5,0,5,0">
+                    <Border Grid.RowSpan="2" Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="PreExistingCondition" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
+                    <lvc:PieChart  Grid.Row="1" Grid.Column="0" Series="{Binding PreExistingConditionSeries}" LegendPosition="Right" LegendTextPaint="{Binding CustomLegend}"/>
+                </Grid>
+                
+                <!-- ?? -->
+                <Grid Grid.Column="2" RowDefinitions="25,*" Margin="5,0,5,0">
+                    <Border Grid.RowSpan="2" Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="PreExistingCondition" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
+                </Grid>
+                
             </Grid>
         </Grid>
         

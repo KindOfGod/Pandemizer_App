@@ -54,13 +54,13 @@ namespace Pandemizer.Services.PandemicEngine
         /// Adds entry with a possibility of an existing key.
         /// </summary>
         public static void AddValueToDictionary(this Dictionary<uint, uint> destination, 
-            uint key, uint value)
+            uint key, uint count)
         {
             if (destination.ContainsKey(key))
-                    destination[key] += value;
+                    destination[key] += count;
             else
-                if(value != 0)
-                    destination.Add(key, value);
+                if(count != 0)
+                    destination.Add(key, count);
         }
 
         /// <summary>

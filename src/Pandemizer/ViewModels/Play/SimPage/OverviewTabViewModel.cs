@@ -27,7 +27,7 @@ public class OverviewTabViewModel : ViewModelBase
         LabelsPaint = new SolidColorPaint(SKColors.White),
         NamePaint = new SolidColorPaint(SKColors.White),
         MinStep = 1,
-        Labeler = x => $"{ApplicationHelper.DoubleToFormattedNum(x)}"
+        Labeler = x => $"{ApplicationHelper.IntToFormattedNum((int)x)}"
     };
 
     private static readonly Axis _peopleAxis = new()

@@ -44,7 +44,7 @@ public class HealthcareTabViewModel : ViewModelBase
         LabelsPaint = new SolidColorPaint(SKColors.White),
         NamePaint = new SolidColorPaint(SKColors.White),
         MinStep = 0.01,
-        Labeler = x => $"{x} %"
+        Labeler = x => $"{Math.Round(x, 2)} %"
     };
 
     private static readonly PolarAxis _ageAngleAxis = new()

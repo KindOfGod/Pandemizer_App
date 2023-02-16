@@ -258,9 +258,12 @@ public class SimulationPageViewModel : ViewModelBase
         //healthcare pie charts
         HealthcareTab!.PreExistingConditionData[0].Value = (int) state.HospitalizedNoPreExistingCondition;
         HealthcareTab!.PreExistingConditionData[1].Value = (int) state.HospitalizedPreExistingCondition;
+
+        if (state is {HospitalizedNoPreExistingCondition: 0, HospitalizedPreExistingCondition: 0})
+            HealthcareTab!.PreExistingConditionData[0].Value = 1;
         
         PopCount = ApplicationHelper.IntToFormattedNum(state.PopIndex.Count);
-        
+
         RefreshChartsAndData();
     }
 

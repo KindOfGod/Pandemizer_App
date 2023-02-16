@@ -56,11 +56,13 @@ namespace Pandemizer.Services.PandemicEngine
         public static void AddValueToDictionary(this Dictionary<uint, uint> destination, 
             uint key, uint count)
         {
+            if (count == 0)
+                return;
+            
             if (destination.ContainsKey(key))
                     destination[key] += count;
             else
-                if(count != 0)
-                    destination.Add(key, count);
+                destination.Add(key, count);
         }
 
         /// <summary>

@@ -6,6 +6,7 @@
 public class Pop
 {
     #region Properties
+    public uint ID { get; set; }
     public uint Count { get; set; }
     
     public StateOfLife StateOfLife { get; set; }
@@ -22,6 +23,7 @@ public class Pop
 
     public Pop(uint key, uint count)
     {
+        ID = key;
         Count = count;
         StateOfLife = key.GetStateOfLive();
         Age = key.GetAge();

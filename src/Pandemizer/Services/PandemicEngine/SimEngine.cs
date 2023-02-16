@@ -47,7 +47,6 @@ namespace Pandemizer.Services.PandemicEngine
                 IterateSimulation(sim);
 
             sim.SimInfo.Iteration = iteration;
-            
             return sim;
         }
         
@@ -166,7 +165,7 @@ namespace Pandemizer.Services.PandemicEngine
                 var newImmune = SimHelper.DecideCountWithDeviation(count - newDead, rateOfImmune, settings.ProbabilityDeviation);
                 
                 newPopIndex.AddValueToDictionary(pop.OverrideStateOfLive(StateOfLife.Dead).OverrideIsHospitalized(IsHospitalized.False), newDead);
-                newPopIndex.AddValueToDictionary(pop.OverrideStateOfLive(StateOfLife.Immune), newImmune);
+                newPopIndex.AddValueToDictionary(pop.OverrideStateOfLive(StateOfLife.Immune).OverrideIsHospitalized(IsHospitalized.False), newImmune);
                 newPopIndex.AddValueToDictionary(pop, count - newDead - newImmune);
             }
             //immune
@@ -202,7 +201,7 @@ namespace Pandemizer.Services.PandemicEngine
                 var newImmune = SimHelper.DecideCountWithDeviation(count - newWorse, rateOfImmune, settings.ProbabilityDeviation);
 
                 newPopIndex.AddValueToDictionary(pop.OverrideStateOfLive(severity), newWorse);
-                newPopIndex.AddValueToDictionary(pop.OverrideStateOfLive(StateOfLife.Immune), newImmune);
+                newPopIndex.AddValueToDictionary(pop.OverrideStateOfLive(StateOfLife.Immune).OverrideIsHospitalized(IsHospitalized.False), newImmune);
                 newPopIndex.AddValueToDictionary(pop, count - newWorse - newImmune);
             }
             
@@ -254,7 +253,6 @@ namespace Pandemizer.Services.PandemicEngine
         /// </summary>
         private static Dictionary<uint, uint> EvaluatePopsHospitalized(uint pop, uint count, Sim sim)
         {
-            var newPopIndex = new Dictionary<uint, uint>(0);
             var settings = sim.SimSettings;
             var virus = sim.SimSettings.Virus;
 
@@ -269,9 +267,9 @@ namespace Pandemizer.Services.PandemicEngine
             
             //count leaving
             _releasedHospitalized += cntLeaveHospital;
-            
+
+            var newPopIndex = IteratePopDefaultCycle(pop, count - cntLeaveHospital, sim);
             newPopIndex.AddValueToDictionary(pop.OverrideStateOfLive(StateOfLife.Immune).OverrideIsHospitalized(IsHospitalized.False), cntLeaveHospital);
-            SimHelper.MergeDictionaries(newPopIndex, IteratePopDefaultCycle(pop, count - cntLeaveHospital, sim));
 
             return newPopIndex;
         }

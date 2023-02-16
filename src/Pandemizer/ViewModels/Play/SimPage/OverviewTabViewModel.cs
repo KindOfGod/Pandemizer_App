@@ -26,7 +26,8 @@ public class OverviewTabViewModel : ViewModelBase
         NameTextSize = 15,
         LabelsPaint = new SolidColorPaint(SKColors.White),
         NamePaint = new SolidColorPaint(SKColors.White),
-        MinStep = 1
+        MinStep = 1,
+        Labeler = x => $"{ApplicationHelper.DoubleToFormattedNum(x)}"
     };
 
     private static readonly Axis _peopleAxis = new()
@@ -46,7 +47,6 @@ public class OverviewTabViewModel : ViewModelBase
     
     public ObservableCollection<ObservablePoint> HealthyData { get; set; } = new();
     public ObservableCollection<ObservablePoint> InfectedData { get; set; } = new();
-    public ObservableCollection<ObservablePoint> HeavilyInfectedData { get; set; } = new();
     public ObservableCollection<ObservablePoint> DeadData { get; set; } = new();
     public ObservableCollection<ObservablePoint> ImmuneData { get; set; } = new();
     public ObservableCollection<ObservablePoint> ImmuneRateData { get; set; } = new();
@@ -128,16 +128,6 @@ public class OverviewTabViewModel : ViewModelBase
                 GeometrySize = 5,
                 Values = InfectedData,
                 Name = "Infected",
-                Fill = null
-            },
-            new LineSeries<ObservablePoint>
-            {
-                Stroke = new SolidColorPaint(ApplicationColors.HeavilyInfectedColor, 3),
-                GeometryFill = new SolidColorPaint(ApplicationColors.HeavilyInfectedColor,3),
-                GeometryStroke = null,
-                GeometrySize = 5,
-                Values = HeavilyInfectedData,
-                Name = "Heavily Infected",
                 Fill = null
             },
             new LineSeries<ObservablePoint>

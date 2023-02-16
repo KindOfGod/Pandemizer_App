@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Reactive;
-using System.Threading;
 using System.Threading.Tasks;
 using LiveChartsCore.Defaults;
 using Pandemizer.Services;
@@ -160,7 +158,6 @@ public class SimulationPageViewModel : ViewModelBase
     #endregion
     
     #region Commands
-
     public ReactiveCommand<string, Unit>? ForwardCommand { get; }
 
     #endregion
@@ -244,8 +241,7 @@ public class SimulationPageViewModel : ViewModelBase
             OverviewTab?.DeathRateData.Add(new ObservablePoint(stateNum, state.DeathRate));
 
             OverviewTab?.HealthyData.Add(new ObservablePoint(stateNum, state.Healthy + state.ImperceptibleInfected));
-            OverviewTab?.InfectedData.Add(new ObservablePoint(stateNum, state.Infected));
-            OverviewTab?.HeavilyInfectedData.Add(new ObservablePoint(stateNum, state.HeavilyInfected));
+            OverviewTab?.InfectedData.Add(new ObservablePoint(stateNum, state.Infected + state.HeavilyInfected));
             OverviewTab?.DeadData.Add(new ObservablePoint(stateNum, state.Dead));
             OverviewTab?.ImmuneData.Add(new ObservablePoint(stateNum, state.Immune));
             OverviewTab?.ImmuneRateData.Add(new ObservablePoint(stateNum, state.ImmuneRate));

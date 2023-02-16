@@ -14,11 +14,11 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         #region Stats
         
         //base stats
-        public long Incidence = 0; // new infected / heavilyInfected
-        public long UnknownIncidence = 0; // Incidence + imperceptibly infected
+        public double Incidence = 0; // new infected / heavilyInfected
+        public double UnknownIncidence = 0; // Incidence + imperceptibly infected
 
-        public long DeathRate = 0;
-        public long ImmuneRate = 0;
+        public double DeathRate = 0;
+        public double ImmuneRate = 0;
 
         public long TotalInfected = 0;
         public long UnknownTotalInfected = 0;

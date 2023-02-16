@@ -35,7 +35,7 @@
                     <Color x:Key="InfectedColor">#E5E27F</Color>
                     <Color x:Key="HeavilyInfectedColor">#c28d57</Color>
                     <Color x:Key="ImmuneColor">#77C3E5</Color>
-                    <Color x:Key="DeadColor">#7F6743</Color>
+                    <Color x:Key="DeadColor">#9E5C28</Color>
                     
                     <Color x:Key="HighlightColor">#EFCF7C</Color>
                 </ResourceDictionary>

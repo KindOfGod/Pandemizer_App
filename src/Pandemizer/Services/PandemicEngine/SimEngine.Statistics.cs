@@ -80,13 +80,13 @@ public static partial class SimEngine
 
         // calculate incidence counting ImperceptibleInfected as Healthy
         var inc = prevState.Healthy + prevState.ImperceptibleInfected - state.Healthy - state.ImperceptibleInfected;
-        state.Incidence = inc >= 0 ? inc : 0;
+        state.Incidence = inc >= 0 ? Math.Round((double)inc / sim.SimSettings.Scope * 100_000, 2) : 0;
         
         //immune
-        state.ImmuneRate = state.Immune - prevState.Immune;
+        state.ImmuneRate = Math.Round((double)(state.Immune - prevState.Immune) / sim.SimSettings.Scope * 100_000, 2);
             
         //death
-        state.DeathRate = state.Dead - prevState.Dead;
+        state.DeathRate = Math.Round((double)(state.Dead - prevState.Dead) / sim.SimSettings.Scope * 100_000, 2);
 
         //hospitalized
         //account people who left in the end of iteration --> 100% cap can be reached this way

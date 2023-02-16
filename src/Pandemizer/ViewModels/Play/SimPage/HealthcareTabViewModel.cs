@@ -32,17 +32,19 @@ public class HealthcareTabViewModel : ViewModelBase
         NameTextSize = 15,
         LabelsPaint = new SolidColorPaint(SKColors.White),
         NamePaint = new SolidColorPaint(SKColors.White),
-        MinStep = 1
+        MinStep = 1,
+        Labeler = x => $"{ApplicationHelper.DoubleToFormattedNum(x)}"
     };
 
     private static readonly Axis _utilizationAxis = new()
     {
-        Name = "Utilization in %",
+        Name = "Utilization",
         NamePadding = new Padding(0, 5),
         NameTextSize = 15,
         LabelsPaint = new SolidColorPaint(SKColors.White),
         NamePaint = new SolidColorPaint(SKColors.White),
-        MinStep = 0.01
+        MinStep = 0.01,
+        Labeler = x => $"{x} %"
     };
 
     private static readonly PolarAxis _ageAngleAxis = new()
@@ -135,8 +137,8 @@ public class HealthcareTabViewModel : ViewModelBase
         {
             new LineSeries<ObservablePoint>
             {
-                Stroke = new SolidColorPaint(ApplicationColors.IterationColor, 3),
-                GeometryFill = new SolidColorPaint(ApplicationColors.IterationColor),
+                Stroke = new SolidColorPaint(ApplicationColors.HospitalColor, 3),
+                GeometryFill = new SolidColorPaint(ApplicationColors.HospitalColor),
                 GeometryStroke = null,
                 GeometrySize = 5,
                 Values = HospitalizedData,
@@ -150,24 +152,26 @@ public class HealthcareTabViewModel : ViewModelBase
             new PolarLineSeries<ObservableValue>
             {
                 Values = AgeData,
-                LineSmoothness = 0.5,
-                GeometrySize = 0,
-                GeometryFill = new SolidColorPaint(ApplicationColors.IterationColor),
-                GeometryStroke = new SolidColorPaint(ApplicationColors.IterationColor),
-                Stroke = new SolidColorPaint(ApplicationColors.IterationColor, 3),
-                Fill = new SolidColorPaint(new SKColor(ApplicationColors.IterationColor.Red, ApplicationColors.IterationColor.Green,ApplicationColors.IterationColor.Blue, 69)),
+                LineSmoothness = 0.3,
+                GeometrySize = 10,
+                GeometryFill = new SolidColorPaint(ApplicationColors.HospitalColor),
+                GeometryStroke = new SolidColorPaint(ApplicationColors.HospitalColor),
+                Stroke = new SolidColorPaint(ApplicationColors.HospitalColor, 3),
+                Fill = new SolidColorPaint(new SKColor(ApplicationColors.HospitalColor.Red, ApplicationColors.HospitalColor.Green,ApplicationColors.HospitalColor.Blue, 69)),
                 Name = "AgeDistribution"
             }
         };
 
-        var name = "Not Conditioned";
+        var name = "No";
         PreExistingConditionSeries = PreExistingConditionData?.AsLiveChartsPieSeries((value, series) =>
         {
             series.Name = $"{name}";
-            name = name == "Not Conditioned" ? "Conditioned" : "Not Conditioned";
-            series.Fill = name == "Not Conditioned" ? new SolidColorPaint(ApplicationColors.HealthyColor) : new SolidColorPaint(ApplicationColors.IterationColor);
+            name = name == "No" ? "Yes" : "No";
+            series.Fill = name == "No" ? new SolidColorPaint(ApplicationColors.HospitalColor) : new SolidColorPaint(ApplicationColors.HealthyColor);
             series.DataLabelsPaint = new SolidColorPaint(new SKColor(255,255,255));
             series.DataLabelsPosition = PolarLabelsPosition.Outer;
+            series.Stroke = new SolidColorPaint(new SKColor(255,255,255));
+            series.Stroke.StrokeThickness = 3;
             series.DataLabelsFormatter = p => $"{p.StackedValue!.Share:P2}";
         });
 

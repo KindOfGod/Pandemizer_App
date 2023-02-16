@@ -14,4 +14,12 @@ public static class ApplicationHelper
     {
         return i.ToString("#,##0", _numberFormat);
     }
+    
+    /// <summary>
+    /// Returns Double as formatted string. 1000 -> 1.000
+    /// </summary>
+    public static string? DoubleToFormattedNum(double d)
+    {
+        return d.ToString("#,##0", _numberFormat);
+    }
 }

@@ -7,7 +7,7 @@
     </Application.DataTemplates>
 
     <Application.Styles>
-        <FluentTheme Mode="Dark"/>
+        <FluentTheme/>
         <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml"></StyleInclude>
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Simple.xaml"/>
         

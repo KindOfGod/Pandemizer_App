@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Pandemizer.Services.PandemicEngine.DataModel;
 
 namespace Pandemizer.Services.PandemicEngine
 {

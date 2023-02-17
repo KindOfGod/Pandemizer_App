@@ -13,8 +13,8 @@ namespace Pandemizer.Services.PandemicEngine
     {
         #region Fields
 
-        private static long _hospitalRestSpace = 0;
-        private static long _releasedHospitalized = 0;
+        private static long _hospitalRestSpace;
+        private static long _releasedHospitalized;
 
         #endregion
         

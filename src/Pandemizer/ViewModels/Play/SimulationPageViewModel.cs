@@ -141,7 +141,19 @@ public class SimulationPageViewModel : ViewModelBase
     //default constructor for design time
     public SimulationPageViewModel()
     {
+        var testSim = SimEngine.CreateNewSim(new SimInfo()
+            {
+                Name = "TestSim"
+            },
+            new SimSettings());
+
+        for (var i = 0; i < 5; i++)
+            SimEngine.IterateSimulation(testSim);
+
+        _currentSim = testSim;
+        
         Init();
+        RefreshUi(testSim.SimInfo.Iteration + 1);
     }
     public SimulationPageViewModel(Sim sim)
     {

@@ -2,6 +2,8 @@
 using Avalonia.ReactiveUI;
 using System;
 using Avalonia.Svg.Skia;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
 
 namespace Pandemizer
 {
@@ -20,7 +22,7 @@ namespace Pandemizer
             //svg image support
             GC.KeepAlive(typeof(SvgImageExtension).Assembly);
             GC.KeepAlive(typeof(Avalonia.Svg.Skia.Svg).Assembly);
-            
+
             return  AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()

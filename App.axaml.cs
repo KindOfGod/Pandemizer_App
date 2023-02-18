@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
 using Pandemizer.Services;
 using Pandemizer.ViewModels;
 using MainWindow = Pandemizer.Views.MainWindow;

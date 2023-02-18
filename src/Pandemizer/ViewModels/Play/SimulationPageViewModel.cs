@@ -260,6 +260,12 @@ public class SimulationPageViewModel : ViewModelBase
             
             HealthcareTab?.HospitalizedData.Add(new ObservablePoint(stateNum, state.HospitalizedPercent));
         }
+        
+        //overview healthcare pie chart
+        OverviewTab!.HealthStateDistributionData[0].Value = (int) state.Healthy + state.ImperceptibleInfected;
+        OverviewTab!.HealthStateDistributionData[1].Value = (int) state.Infected + state.HeavilyInfected;
+        OverviewTab!.HealthStateDistributionData[2].Value = (int) state.Immune;
+        OverviewTab!.HealthStateDistributionData[3].Value = (int) state.Dead;
 
         //healthcare polar charts
         HealthcareTab!.AgeData[0].Value = (int) state.HospitalizedChildren;
@@ -267,12 +273,19 @@ public class SimulationPageViewModel : ViewModelBase
         HealthcareTab!.AgeData[2].Value = (int) state.HospitalizedAdults;
         HealthcareTab!.AgeData[3].Value = (int) state.HospitalizedPensioner;
         
-        //healthcare pie charts
+        //healthcare PreExistingCondition pie chart
         HealthcareTab!.PreExistingConditionData[0].Value = (int) state.HospitalizedNoPreExistingCondition;
         HealthcareTab!.PreExistingConditionData[1].Value = (int) state.HospitalizedPreExistingCondition;
-
+        
         if (state is {HospitalizedNoPreExistingCondition: 0, HospitalizedPreExistingCondition: 0})
             HealthcareTab!.PreExistingConditionData[0].Value = 1;
+        
+        //healthcare HeavilyInfected pie chart
+        HealthcareTab!.HeavilyInfectedDistributionData[0].Value = (int) state.Hospitalized - state.HospitalizedHeavilyInfected;
+        HealthcareTab!.HeavilyInfectedDistributionData[1].Value = state.HospitalizedHeavilyInfected;
+        
+        if (((int) state.Hospitalized - state.HospitalizedHeavilyInfected) == 0 && state.HospitalizedHeavilyInfected == 0)
+            HealthcareTab!.HeavilyInfectedDistributionData[0].Value = 1;
         
         PopCount = ApplicationHelper.IntToFormattedNum(state.PopIndex.Count);
 

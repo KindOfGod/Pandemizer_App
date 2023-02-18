@@ -43,6 +43,8 @@ namespace Pandemizer.Services.PandemicEngine.DataModel
         
         public long HospitalizedPreExistingCondition = 0;
         public long HospitalizedNoPreExistingCondition = 0;
+        
+        public long HospitalizedHeavilyInfected = 0;
 
 
         public TimeSpan IterationTime = TimeSpan.Zero;

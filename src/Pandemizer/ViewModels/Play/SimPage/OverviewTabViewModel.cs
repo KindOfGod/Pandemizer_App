@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using ExCSS;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
+using LiveChartsCore.Measure;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using Pandemizer.Services;
@@ -18,6 +21,8 @@ public class OverviewTabViewModel : ViewModelBase
 
     private ISeries[]? _healthStateSeries;
     private ISeries[]? _ratesSeries;
+    
+    private IEnumerable<ISeries>? _healthStateDistributionSeries;
     
     private static readonly Axis _iterationAxis = new()
     {
@@ -52,6 +57,14 @@ public class OverviewTabViewModel : ViewModelBase
     public ObservableCollection<ObservablePoint> ImmuneRateData { get; set; } = new();
     public ObservableCollection<ObservablePoint> IncidenceData { get; set; } = new();
     public ObservableCollection<ObservablePoint> DeathRateData { get; set; } = new();
+    public ObservableCollection<ObservableValue> HealthStateDistributionData { get; set; } = new()
+    {
+        new ObservableValue(),
+        new ObservableValue(),
+        new ObservableValue(),
+        new ObservableValue()
+    };
+    public SolidColorPaint CustomLegend { get; set; } = new() {Color = new SKColor(255, 255, 255)};
     public ISeries[]? HealthStatesSeries 
     {
         get => _healthStateSeries;
@@ -62,6 +75,11 @@ public class OverviewTabViewModel : ViewModelBase
     {
         get => _ratesSeries;
         set => this.RaiseAndSetIfChanged(ref _ratesSeries, value);
+    }
+    public IEnumerable<ISeries>? HealthStateDistributionSeries 
+    {
+        get => _healthStateDistributionSeries;
+        set => this.RaiseAndSetIfChanged(ref _healthStateDistributionSeries, value);
     }
 
     #endregion
@@ -186,6 +204,24 @@ public class OverviewTabViewModel : ViewModelBase
             }
         };
         
+        string[] states = {"Healthy", "Infected", "Immune", "Dead"};
+        var stateColors = new List<SolidColorPaint>()
+        {
+            new(ApplicationColors.HealthyColor), 
+            new(ApplicationColors.InfectedColor), 
+            new(ApplicationColors.ImmuneColor), 
+            new(ApplicationColors.DeadColor)
+        };
+        var stateIndex = 0;
+        HealthStateDistributionSeries = HealthStateDistributionData.AsLiveChartsPieSeries((_, series) =>
+        {
+            series.Name = $"{states[stateIndex]}";
+            series.Fill = stateColors[stateIndex];
+            series.Stroke = new SolidColorPaint(new SKColor(255,255,255));
+            series.Stroke.StrokeThickness = 3;
+            stateIndex = stateIndex == 3 ? stateIndex = 0 : stateIndex + 1;
+        });
+        
         RefreshCharts();
     }
 
@@ -196,9 +232,12 @@ public class OverviewTabViewModel : ViewModelBase
     private void OnToggleHealthStatesAxis(string parameter)
     {
         var p = Convert.ToInt32(parameter);
+
+        if (HealthStatesSeries == null) 
+            return;
         
-        if (HealthStatesSeries != null) 
-            HealthStatesSeries[p].IsVisible = !HealthStatesSeries[p].IsVisible;
+        HealthStatesSeries[p].IsVisible = !HealthStatesSeries[p].IsVisible;
+        //HealthStateDistributionSeries!.ElementAt(p).IsVisible = !HealthStateDistributionSeries!.ElementAt(p).IsVisible;
     }
     
     private void OnToggleRatesAxis(string parameter)

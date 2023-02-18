@@ -25,12 +25,12 @@
         </Grid>
         
         <Grid Grid.Row="1" Grid.Column="0" Margin="5" Grid.ColumnSpan="2">
-            <Grid ColumnDefinitions="3*,4*,3*">
+            <Grid ColumnDefinitions="3*,4*,4*">
                 
                 <!-- Age Distribution -->
                 <Grid RowDefinitions="25,*" Margin="0,0,5,0">
                     <Border Grid.RowSpan="2" Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Age Distribution" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Age - Distribution" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
                     <lvc:PolarChart Grid.Row="1" Grid.Column="0" Series="{Binding AgeSeries}" AngleAxes="{Binding AgeAngleAxis}"
                                     RadiusAxes="{Binding AgeRadialAxis}" InitialRotation="-45" />
                 </Grid>
@@ -38,15 +38,17 @@
                 <!-- PreExistingCondition Distribution -->
                 <Grid Grid.Column="1" RowDefinitions="25,*" Margin="5,0,5,0">
                     <Border Grid.RowSpan="2" Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="PreExistingCondition" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="PreExistingCondition - Distribution" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
                     <lvc:PieChart  Grid.Row="1" Grid.Column="0" Series="{Binding PreExistingConditionSeries}" LegendPosition="Right" Margin="0,30,0,30"
                                    LegendTextPaint="{Binding CustomLegend}"/>
                 </Grid>
                 
-                <!-- ?? -->
+                <!-- HeavilyInfected Distribution -->
                 <Grid Grid.Column="2" RowDefinitions="25,*" Margin="5,0,5,0">
                     <Border Grid.RowSpan="2" Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="??" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="HeavilyInfected - Distribution" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
+                    <lvc:PieChart  Grid.Row="1" Grid.Column="0" Series="{Binding HeavilyInfectedSeries}" LegendPosition="Right" Margin="0,30,0,30"
+                                   LegendTextPaint="{Binding CustomLegend}"/>
                 </Grid>
                 
             </Grid>

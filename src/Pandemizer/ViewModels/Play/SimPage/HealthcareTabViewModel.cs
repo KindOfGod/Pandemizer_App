@@ -21,6 +21,7 @@ public class HealthcareTabViewModel : ViewModelBase
     private ISeries[]? _hospitalizedSeries;
     private ISeries[]? _ageSeries;
     private IEnumerable<ISeries>? _preExistingConditionSeries;
+    private IEnumerable<ISeries>? _heavilyInfectedSeries;
 
     private static readonly Axis _iterationAxis = new()
     {
@@ -81,6 +82,12 @@ public class HealthcareTabViewModel : ViewModelBase
         new ObservableValue()
     };
     
+    public ObservableCollection<ObservableValue> HeavilyInfectedDistributionData { get; set; } = new()
+    {
+        new ObservableValue(),
+        new ObservableValue()
+    };
+    
     public ISeries[]? HospitalizedSeries 
     {
         get => _hospitalizedSeries;
@@ -98,6 +105,12 @@ public class HealthcareTabViewModel : ViewModelBase
         get => _preExistingConditionSeries;
         set => this.RaiseAndSetIfChanged(ref _preExistingConditionSeries, value);
     }
+    
+    public IEnumerable<ISeries>? HeavilyInfectedSeries 
+    {
+        get => _heavilyInfectedSeries;
+        set => this.RaiseAndSetIfChanged(ref _heavilyInfectedSeries, value);
+    }
     #endregion
 
     #region Axis
@@ -110,11 +123,6 @@ public class HealthcareTabViewModel : ViewModelBase
     #endregion
     
     #region Constructor
-
-    public HealthcareTabViewModel()
-    {
-        
-    }
 
     #endregion
 
@@ -159,17 +167,32 @@ public class HealthcareTabViewModel : ViewModelBase
             }
         };
 
-        var name = "No";
-        PreExistingConditionSeries = PreExistingConditionData?.AsLiveChartsPieSeries((value, series) =>
+        var preExistingCondition = "No";
+        PreExistingConditionSeries = PreExistingConditionData.AsLiveChartsPieSeries((_, series) =>
         {
-            series.Name = $"{name}";
-            name = name == "No" ? "Yes" : "No";
-            series.Fill = name == "No" ? new SolidColorPaint(ApplicationColors.HospitalColor) : new SolidColorPaint(ApplicationColors.HealthyColor);
+            series.Name = $"{preExistingCondition}";
+            series.Fill = preExistingCondition == "No" ? new SolidColorPaint(ApplicationColors.HealthyColor) : new SolidColorPaint(ApplicationColors.HospitalColor);
             series.DataLabelsPaint = new SolidColorPaint(new SKColor(255,255,255));
-            series.DataLabelsPosition = PolarLabelsPosition.Outer;
+            series.DataLabelsPosition = PolarLabelsPosition.Middle;
             series.Stroke = new SolidColorPaint(new SKColor(255,255,255));
             series.Stroke.StrokeThickness = 3;
             series.DataLabelsFormatter = p => $"{p.StackedValue!.Share:P2}";
+            
+            preExistingCondition = preExistingCondition == "No" ? "Yes" : "No";
+        });
+        
+        var heavilyInfected = "No";
+        HeavilyInfectedSeries = HeavilyInfectedDistributionData.AsLiveChartsPieSeries((_, series) =>
+        {
+            series.Name = $"{heavilyInfected}";
+            series.Fill = heavilyInfected == "No" ? new SolidColorPaint(ApplicationColors.InfectedColor) : new SolidColorPaint(ApplicationColors.HeavilyInfectedColor);
+            series.DataLabelsFormatter = p => $"{p.StackedValue!.Share:P2}";
+            series.DataLabelsPaint = new SolidColorPaint(new SKColor(255,255,255));
+            series.DataLabelsPosition = PolarLabelsPosition.Middle;
+            series.Stroke = new SolidColorPaint(new SKColor(255,255,255));
+            series.Stroke.StrokeThickness = 3;
+            
+            heavilyInfected = heavilyInfected == "No" ? "Yes" : "No";
         });
 
         RefreshCharts();

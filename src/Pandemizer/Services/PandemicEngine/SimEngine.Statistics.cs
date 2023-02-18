@@ -51,6 +51,9 @@ public static partial class SimEngine
                     state.HospitalizedPreExistingCondition += count;
                 else
                     state.HospitalizedNoPreExistingCondition += count;
+                
+                if(pop.CheckStateOfLive(StateOfLife.HeavilyInfected))
+                    state.HospitalizedHeavilyInfected += count;
 
                 switch (pop.GetAge())
                 {

@@ -31,6 +31,15 @@
                                  Series="{Binding HealthStatesSeries, FallbackValue=null}" TooltipPosition="Right"/>
         </Grid>
         
+        <!-- Heath States Distribution -->
+        <Grid Grid.Row="0" Grid.Column="1" RowDefinitions="25,*" Margin="5">
+            <Border Grid.RowSpan="2" Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Heath States - Distribution" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
+            
+            <chrt:PieChart Grid.Row="1" Grid.Column="0" Series="{Binding HealthStateDistributionSeries}" LegendPosition="Right" Margin="0,30,0,30"
+                           LegendTextPaint="{Binding CustomLegend}"/>
+        </Grid>
+        
         <!-- Rates Chart -->
         <Grid Grid.Row="1" Grid.Column="0" Margin="5" RowDefinitions="20,*,40">
 

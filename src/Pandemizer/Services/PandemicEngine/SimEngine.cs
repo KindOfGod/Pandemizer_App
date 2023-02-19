@@ -134,9 +134,7 @@ namespace Pandemizer.Services.PandemicEngine
                 var rateOfInfection = isEndangeredAge ? virus.EndangeredAgeInfectionRate : virus.BaseInfectionRate;
                 
                 //calculate modifier based on infection count
-                rateOfInfection += virus.InfectionSpreadRate * rateOfInfection * (((double)prevState.UnknownTotalInfected - prevState.Hospitalized) / (settings.Scope - prevState.Dead - prevState.Immune));
-                
-                //rateOfInfection can be 0.1 and 0.5 in worst case
+                rateOfInfection += (virus.MaxInfectionsRate - settings.ProbabilityDeviation) * (((double)prevState.UnknownTotalInfected - prevState.Hospitalized) / (settings.Scope - prevState.Dead));
                 
                 // FEATURES
                 rateOfInfection *= preConditionModifier; // pre-existing condition

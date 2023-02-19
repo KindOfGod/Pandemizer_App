@@ -2,9 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:handbook="clr-namespace:Pandemizer.ViewModels.Handbook"
              mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="690"
              x:Class="Pandemizer.Views.Handbook.HandbookPage" Margin="15,40,10,10">
+    
+    <Design.DataContext>
+        <handbook:HandbookPageViewModel/>
+    </Design.DataContext>
     
     <UserControl.Styles>
         <Style Selector="TextBlock.Title">
@@ -37,7 +41,7 @@
     
     <ScrollViewer HorizontalAlignment="Center">
         
-        <VirtualizingStackPanel Margin="5,30,20,100">
+        <StackPanel Margin="5,30,20,100">
             
             <!-- Title -->
             <StackPanel Orientation="Horizontal" Height="80" Margin="0,0,0,20">
@@ -272,9 +276,8 @@
                         🔸 The BaseInfectionRate is the rate at which pops are infected by default. <LineBreak/>
                         🔸 The EndangeredAgeInfectionRate is the rate at which endangered pops are infected by default. <LineBreak/><LineBreak/>
                         
-                        🔸 The EndangeredAgeGroup indicates which age group is particularly at risk from the disease. <LineBreak/>
-                        🔸 The InfectionSpreadRate is a multiplier that increases the rate of infections depending on the number of infected pops. <LineBreak/>
-                        If all pops are infected, BaseInfectionRate times InfectionSpreadRate applies.
+                        🔸 The EndangeredAgeGroup indicates which age group is particularly at risk from the disease. <LineBreak/><LineBreak/>
+                        🔸 The MaxInfectionsRate is the maximum infectious rate. It defines the maximum virus spread rate.
                     </TextBlock>
                     
                     <LineBreak/><LineBreak/><LineBreak/>
@@ -364,7 +367,7 @@
                 </TextBlock>
             </Grid>
         
-        </VirtualizingStackPanel>
+        </StackPanel>
             
     </ScrollViewer>
     

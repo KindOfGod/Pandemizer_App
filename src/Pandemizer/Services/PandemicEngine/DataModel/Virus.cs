@@ -7,10 +7,10 @@ public class Virus
 {
     //General
     public string Name { get; set; } = "Virus";
-    public double BaseInfectionRate { get; set; } = 0.000_001; // can't be greater than 1
-    public double EndangeredAgeInfectionRate  { get; set; } = 0.000_005; //can't be greater than 1
+    public double BaseInfectionRate { get; set; } = 0.000_01; // can't be greater than 1
+    public double EndangeredAgeInfectionRate  { get; set; } = 0.000_05; //can't be greater than 1
     public Age? EndangeredAgeGroup { get; set; } = Age.Pensioner; // can be null
-    public double InfectionSpreadRate { get; set; } = 100_000; //0 -> no influence if more people infected, x > 0 -> x-times as infective
+    public double MaxInfectionsRate { get; set; } = 0.5; // can't be greater than 1
         
     //infection kind
     public StateOfLife InfectionSeverity { get; set; } = StateOfLife.ImperceptiblyInfected;

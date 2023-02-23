@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 422 448" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-miterlimit:10;">
+    <g>
+        <path d="M160.5,87.5L60.5,87.5L60.5,117.38" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M60.5,126.38L56,117.38L65,117.38L60.5,126.38Z" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <g transform="matrix(1,0,0,1,151,81)">
+            <g>
+                <text x="-8.972px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:11px;fill:white;">Y<tspan x="-2.645px 3.472px " y="0px 0px ">es</tspan></text>
+            </g>
+        </g>
+        <path d="M260.5,87.5L360.5,87.5L360.5,117.38" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M360.5,126.38L356,117.38L365,117.38L360.5,126.38Z" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <g transform="matrix(1,0,0,1,270,80)">
+            <g>
+                <text x="-7.031px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:11px;fill:white;">No</text>
+            </g>
+        </g>
+        <path d="M168.31,81.25L202.69,53.75C207.897,49.583 213.103,49.583 218.31,53.75L252.69,81.25C257.897,85.417 257.897,89.583 252.69,93.75L218.31,121.25C213.103,125.417 207.897,125.417 202.69,121.25L168.31,93.75C163.103,89.583 163.103,85.417 168.31,81.25Z" style="fill:rgb(237,237,237);fill-rule:nonzero;"/>
+        <g transform="matrix(1,0,0,1,-5.3687,5.03316)">
+            <text x="200.411px" y="74.408px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:11px;">Is Pop</text>
+            <text x="198.883px" y="86.408px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:11px;">heavily</text>
+            <g transform="matrix(11,0,0,11,238.326,98.4083)">
+            </g>
+            <text x="193.681px" y="98.408px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:11px;">infected?</text>
+        </g>
+        <path d="M360.5,167.5L360.5,199.38" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M360.5,206.38L357,199.38L364,199.38L360.5,206.38Z" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M420.5,133.5C420.5,130.189 417.811,127.5 414.5,127.5L306.5,127.5C303.189,127.5 300.5,130.189 300.5,133.5L300.5,161.5C300.5,164.811 303.189,167.5 306.5,167.5L414.5,167.5C417.811,167.5 420.5,164.811 420.5,161.5L420.5,133.5Z" style="fill:rgb(229,226,127);"/>
+        <g transform="matrix(1,0,0,1,360,151)">
+            <g>
+                <text x="-21.349px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;">Infected</text>
+            </g>
+        </g>
+        <path d="M60.5,167.5L60.5,199.38" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M60.5,206.38L57,199.38L64,199.38L60.5,206.38Z" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M120.5,133.5C120.5,130.189 117.811,127.5 114.5,127.5L6.5,127.5C3.189,127.5 0.5,130.189 0.5,133.5L0.5,161.5C0.5,164.811 3.189,167.5 6.5,167.5L114.5,167.5C117.811,167.5 120.5,164.811 120.5,161.5L120.5,133.5Z" style="fill:rgb(194,141,87);"/>
+        <g transform="matrix(1,0,0,1,60,151)">
+            <g>
+                <text x="-42.688px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;">Heavily Infected</text>
+            </g>
+        </g>
+        <path d="M60.5,287.5L60.5,319.38" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M60.5,326.38L57,319.38L64,319.38L60.5,326.38Z" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <g transform="matrix(1,0,0,1,70,300)">
+            <g>
+                <text x="-7.031px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:11px;fill:white;">No</text>
+            </g>
+        </g>
+        <path d="M110.5,247.5L210.5,247.5L210.5,319.38" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M210.5,326.38L207,319.38L214,319.38L210.5,326.38Z" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <g transform="matrix(1,0,0,1,121,241)">
+            <g>
+                <text x="-8.972px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:11px;fill:white;">Y<tspan x="-2.645px 3.472px " y="0px 0px ">es</tspan></text>
+            </g>
+        </g>
+        <path d="M18.31,241.25L52.69,213.75C57.897,209.583 63.103,209.583 68.31,213.75L102.69,241.25C107.897,245.417 107.897,249.583 102.69,253.75L68.31,281.25C63.103,285.417 57.897,285.417 52.69,281.25L18.31,253.75C13.103,249.583 13.103,245.417 18.31,241.25Z" style="fill:rgb(237,221,205);fill-rule:nonzero;"/>
+        <g transform="matrix(1,0,0,1,-0.5,-0.5)">
+            <g transform="matrix(1,0,0,1,2.59715,-2.2263)">
+                <text x="35.383px" y="246.639px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:11px;">Develops</text>
+                <g transform="matrix(11,0,0,11,83.3734,258.639)">
+                </g>
+                <text x="33.25px" y="258.639px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:11px;">immunity?</text>
+            </g>
+        </g>
+        <path d="M310.5,247.5L210.5,247.5L210.5,319.38" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M210.5,326.38L207,319.38L214,319.38L210.5,326.38Z" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <g transform="matrix(1,0,0,1,301,241)">
+            <g>
+                <text x="-8.972px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:11px;fill:white;">Y<tspan x="-2.645px 3.472px " y="0px 0px ">es</tspan></text>
+            </g>
+        </g>
+        <path d="M360.5,287.5L360.5,319.38" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M360.5,326.38L357,319.38L364,319.38L360.5,326.38Z" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <g transform="matrix(1,0,0,1,351,301)">
+            <g>
+                <text x="-7.031px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:11px;fill:white;">No</text>
+            </g>
+        </g>
+        <path d="M318.31,241.25L352.69,213.75C357.897,209.583 363.103,209.583 368.31,213.75L402.69,241.25C407.897,245.417 407.897,249.583 402.69,253.75L368.31,281.25C363.103,285.417 357.897,285.417 352.69,281.25L318.31,253.75C313.103,249.583 313.103,245.417 318.31,241.25Z" style="fill:rgb(247,246,217);fill-rule:nonzero;"/>
+        <g transform="matrix(1,0,0,1,-16.1481,1.2583)">
+            <text x="353.625px" y="243.703px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:11px;">Develops</text>
+            <g transform="matrix(11,0,0,11,401.616,255.703)">
+            </g>
+            <text x="351.493px" y="255.703px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:11px;">immunity?</text>
+        </g>
+        <path d="M210.5,367.5L210.5,399.38" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M210.5,406.38L207,399.38L214,399.38L210.5,406.38Z" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M270.5,333.5C270.5,330.189 267.811,327.5 264.5,327.5L156.5,327.5C153.189,327.5 150.5,330.189 150.5,333.5L150.5,361.5C150.5,364.811 153.189,367.5 156.5,367.5L264.5,367.5C267.811,367.5 270.5,364.811 270.5,361.5L270.5,333.5Z" style="fill:rgb(119,195,229);"/>
+        <g transform="matrix(1,0,0,1,210,351)">
+            <g>
+                <text x="-21.674px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;">Immune</text>
+            </g>
+        </g>
+        <path d="M270.5,413.5C270.5,410.189 267.811,407.5 264.5,407.5L156.5,407.5C153.189,407.5 150.5,410.189 150.5,413.5L150.5,441.5C150.5,444.811 153.189,447.5 156.5,447.5L264.5,447.5C267.811,447.5 270.5,444.811 270.5,441.5L270.5,413.5Z" style="fill:rgb(237,237,237);stroke:black;stroke-width:1px;stroke-miterlimit:4;stroke-dasharray:3,3;"/>
+        <g transform="matrix(1,0,0,1,210,431)">
+            <g>
+                <text x="-35.681px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;">Default Cycle</text>
+            </g>
+        </g>
+        <path d="M60.5,367.5L60.5,387.5L210.5,387.5L210.5,399.38" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M210.5,406.38L207,399.38L214,399.38L210.5,406.38Z" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M120.5,333.5C120.5,330.189 117.811,327.5 114.5,327.5L6.5,327.5C3.189,327.5 0.5,330.189 0.5,333.5L0.5,361.5C0.5,364.811 3.189,367.5 6.5,367.5L114.5,367.5C117.811,367.5 120.5,364.811 120.5,361.5L120.5,333.5Z" style="fill:rgb(194,141,87);"/>
+        <g transform="matrix(1,0,0,1,60,351)">
+            <g>
+                <text x="-42.688px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;">Heavily Infected</text>
+            </g>
+        </g>
+        <path d="M360.5,367.5L360.5,387.5L210.5,387.5L210.5,399.38" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M210.5,406.38L207,399.38L214,399.38L210.5,406.38Z" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M420.5,333.5C420.5,330.189 417.811,327.5 414.5,327.5L306.5,327.5C303.189,327.5 300.5,330.189 300.5,333.5L300.5,361.5C300.5,364.811 303.189,367.5 306.5,367.5L414.5,367.5C417.811,367.5 420.5,364.811 420.5,361.5L420.5,333.5Z" style="fill:rgb(229,226,127);"/>
+        <g transform="matrix(1,0,0,1,360,351)">
+            <g>
+                <text x="-21.349px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;">Infected</text>
+            </g>
+        </g>
+        <path d="M210.5,7.5L210.5,39.38" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M210.5,46.38L207,39.38L214,39.38L210.5,46.38Z" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+    </g>
+</svg>

@@ -209,7 +209,7 @@
                 <Border Classes="Outline"/>
                 <StackPanel Orientation="Vertical">
                     <TextBlock Classes="Text" Text="📍 StateOfLife - Default Cycle"/>
-                    <Svg Path="../../../../Assets/Charts/svg/DefaultCycleChart.svg" Width="1200" Margin="20,0,20,0"/>
+                    <Svg Path="../../../../Assets/Charts/svg/DefaultCycleChart.svg" Width="1200" Margin="20,5,20,5"/>
                 </StackPanel>
             </Grid>
             
@@ -240,6 +240,15 @@
                         <Italic> 🔸 Dead/Immune/Healthy pops can't be in hospital.</Italic>
                     </TextBlock>
                 </TextBlock>
+            </Grid>
+            
+            <!-- HealthCare System-->
+            <Grid Margin="0,10,0,0">
+                <Border Classes="Outline"/>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Classes="Text" Text="📍 HealthCare System"/>
+                    <Svg Path="../../../../Assets/Charts/svg/HealthcareSystem.svg" Height="400" Margin="20,5,20,5"/>
+                </StackPanel>
             </Grid>
             
             <Separator Margin="40"/>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Avalonia.Controls;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.Drawing;
@@ -45,20 +46,17 @@ public class HealthcareTabViewModel : ViewModelBase
         Labeler = x => $"{Math.Round(x, 2)} %"
     };
 
-    private static readonly PolarAxis _ageAngleAxis = new()
+    private static readonly Axis _ageXAxis = new()
     {
         LabelsRotation = LiveCharts.TangentAngle,
-        LabelsBackground = LvcColor.Empty,
         LabelsPaint = new SolidColorPaint(SKColors.White),
-        TextSize = 18,
-        LabelsVerticalAlignment = Align.End,
-        Labels = new[] {"Child", "YoungAdult", "Adult", "Pensioner"}
+        TextSize = 18
     };
 
-    private static readonly PolarAxis _ageRadialAxes = new()
+    private static readonly Axis _ageYAxes = new()
     {
-        LabelsPaint = new SolidColorPaint(SKColors.Transparent),
-        LabelsBackground = LvcColor.Empty
+        LabelsPaint = new SolidColorPaint(SKColors.White),
+        Labels = new List<string>{"Children", "YoungAdults", "Adults", "Pensioner"}
     };
     
     #endregion
@@ -75,7 +73,7 @@ public class HealthcareTabViewModel : ViewModelBase
         new ObservableValue(),
         new ObservableValue()
     };
-    
+
     public ObservableCollection<ObservableValue> PreExistingConditionData { get; set; } = new()
     {
         new ObservableValue(),
@@ -117,8 +115,8 @@ public class HealthcareTabViewModel : ViewModelBase
 
     public Axis[] XHospitalized { get; set; } = {_iterationAxis};
     public Axis[] YHospitalized { get; set; } = {_utilizationAxis};
-    public PolarAxis[] AgeAngleAxis { get; set; } = {_ageAngleAxis};
-    public PolarAxis[] AgeRadialAxis { get; set; } = {_ageRadialAxes};
+    public Axis[] XAge { get; set; } = {_ageXAxis};
+    public Axis[] YAge { get; set; } = {_ageYAxes};
 
     #endregion
     
@@ -130,6 +128,10 @@ public class HealthcareTabViewModel : ViewModelBase
 
     public void RefreshCharts()
     {
+        XAge.First().MinLimit = null;
+        XAge.First().MaxLimit = null;
+        YAge.First().MinLimit = null;
+        YAge.First().MaxLimit = null;
         XHospitalized.First().MinLimit = null;
         XHospitalized.First().MaxLimit = null;
         YHospitalized.First().MinLimit = null;
@@ -154,16 +156,15 @@ public class HealthcareTabViewModel : ViewModelBase
         
         AgeSeries = new ISeries[]
         {
-            new PolarLineSeries<ObservableValue>
+            new RowSeries<ObservableValue>
             {
                 Values = AgeData,
-                LineSmoothness = 0.3,
-                GeometrySize = 10,
-                GeometryFill = new SolidColorPaint(ApplicationColors.HospitalColor),
-                GeometryStroke = new SolidColorPaint(ApplicationColors.HospitalColor),
                 Stroke = new SolidColorPaint(ApplicationColors.HospitalColor, 3),
-                Fill = new SolidColorPaint(new SKColor(ApplicationColors.HospitalColor.Red, ApplicationColors.HospitalColor.Green,ApplicationColors.HospitalColor.Blue, 69)),
-                Name = "AgeDistribution"
+                Fill = new SolidColorPaint(new SKColor(ApplicationColors.HospitalColor.Red, ApplicationColors.HospitalColor.Green, ApplicationColors.HospitalColor.Blue, 69)),
+                DataLabelsPaint = new SolidColorPaint(new SKColor(245, 245, 245)),
+                DataLabelsPosition = DataLabelsPosition.End,
+                DataLabelsFormatter = p => $"{Math.Round(p.PrimaryValue, 2)}",
+                TooltipLabelFormatter = p => $"{Math.Round(p.PrimaryValue, 2)}%"
             }
         };
 

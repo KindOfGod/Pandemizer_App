@@ -268,10 +268,10 @@ public class SimulationPageViewModel : ViewModelBase
         OverviewTab!.HealthStateDistributionData[3].Value = (int) state.Dead;
 
         //healthcare polar charts
-        HealthcareTab!.AgeData[0].Value = (int) state.HospitalizedChildren;
-        HealthcareTab!.AgeData[1].Value = (int) state.HospitalizedYoungAdults;
-        HealthcareTab!.AgeData[2].Value = (int) state.HospitalizedAdults;
-        HealthcareTab!.AgeData[3].Value = (int) state.HospitalizedPensioner;
+        HealthcareTab!.AgeData[0].Value = (double) state.HospitalizedChildren / state.Hospitalized * 100;
+        HealthcareTab!.AgeData[1].Value = (double) state.HospitalizedYoungAdults / state.Hospitalized  * 100;
+        HealthcareTab!.AgeData[2].Value = (double) state.HospitalizedAdults / state.Hospitalized * 100;
+        HealthcareTab!.AgeData[3].Value = (double) state.HospitalizedPensioner / state.Hospitalized * 100;
         
         //healthcare PreExistingCondition pie chart
         HealthcareTab!.PreExistingConditionData[0].Value = (int) state.HospitalizedNoPreExistingCondition;

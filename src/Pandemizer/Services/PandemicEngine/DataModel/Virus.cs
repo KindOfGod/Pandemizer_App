@@ -6,7 +6,7 @@
 public class Virus
 {
     //General
-    public string Name { get; set; } = "Virus";
+    public string Name { get; set; } = "Default_Virus";
     public double BaseInfectionRate { get; set; } = 0.000_01; // can't be greater than 1
     public double EndangeredAgeInfectionRate  { get; set; } = 0.000_05; //can't be greater than 1
     public Age? EndangeredAgeGroup { get; set; } = Age.Pensioner; // can be null

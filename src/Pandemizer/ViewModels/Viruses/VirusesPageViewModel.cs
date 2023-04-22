@@ -1,4 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reactive;
+using DynamicData;
+using Newtonsoft.Json;
+using Pandemizer.Services;
+using Pandemizer.Services.PandemicEngine;
 using Pandemizer.Services.PandemicEngine.DataModel;
 using ReactiveUI;
 
@@ -27,6 +35,20 @@ public class VirusesPageViewModel : ViewModelBase
         get => _virusList;
         set => this.RaiseAndSetIfChanged(ref _virusList, value);
     }
+    
+    public Age[] AgeValues => Enum.GetValues(typeof(Age)).Cast<Age>().Where(a => a != Age.Compare).ToArray();
+    public StateOfLife[] InfectionSeverityValues => Enum.GetValues(typeof(StateOfLife)).Cast<StateOfLife>()
+        .Where(a => a is not (StateOfLife.Healthy or StateOfLife.Immune or StateOfLife.Dead or StateOfLife.Compare)).ToArray();
+
+    #endregion
+
+    #region Commands
+
+    public ReactiveCommand<Unit, Unit> CreateVirusCommand { get; }
+    
+    public ReactiveCommand<Unit, Unit> DuplicateVirusCommand { get; }
+    
+    public ReactiveCommand<Unit, Unit> DeleteVirusCommand { get; }
 
     #endregion
 
@@ -34,16 +56,65 @@ public class VirusesPageViewModel : ViewModelBase
 
     public VirusesPageViewModel()
     {
-        for (var i = 0; i < 100; i++)
-        {
-            VirusList.Add(new Virus()
-                {
-                    Name = $"Virus {i}"
-                });
-        }
+        CreateVirusCommand = ReactiveCommand.Create(OnCreateVirusCommand);
+        DuplicateVirusCommand = ReactiveCommand.Create(OnDuplicateVirusCommand);
+        DeleteVirusCommand = ReactiveCommand.Create(OnDeleteVirusCommand);
 
-        SelectedVirus = VirusList[0];
+        LoadViruses();
     }
 
+    #endregion
+
+    #region Private Methods
+
+    private async void LoadViruses()
+    {
+        var viruses = await ApplicationService.DataService.ReadAllViruses();
+
+        foreach (var virus in viruses)
+        {
+            if(virus == null)
+                continue;
+            
+            VirusList.Add(virus);
+        }
+        
+        if (VirusList.Count > 0)
+            SelectedVirus = VirusList[0];
+        else
+            OnCreateVirusCommand();
+    }
+
+    private void OnCreateVirusCommand()
+    {
+        var virus = new Virus();
+        ApplicationService.DataService.SaveVirus(virus);
+        
+        VirusList.Add(virus);
+        SelectedVirus = virus;
+    }
+    
+    private void OnDuplicateVirusCommand()
+    {
+        var json = JsonConvert.SerializeObject(_selectedVirus, Formatting.Indented);
+        var copy = JsonConvert.DeserializeObject<Virus>(json);
+
+        copy!.Name += "_copy";
+        ApplicationService.DataService.SaveVirus(copy);
+
+        VirusList.Add(copy);
+    }
+    
+    private void OnDeleteVirusCommand()
+    {
+        ApplicationService.DataService.DeleteVirus(_selectedVirus.Name);
+        VirusList.Remove(_selectedVirus);
+        
+        if (VirusList.Count > 0)
+            SelectedVirus = VirusList[0];
+        else
+            OnCreateVirusCommand();
+    }
+    
     #endregion
 }

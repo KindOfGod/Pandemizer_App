@@ -11,4 +11,8 @@ public interface IDataService
     public Task<Sim?> ReadSim(string simName);
     public Task<List<Sim?>> ReadAllSims();
     public Task DeleteSim(string simName);
+    public Task<SaveResult> SaveVirus(Virus virus);
+    public Task<Virus?> ReadVirus(string virusName);
+    public Task<List<Virus?>> ReadAllViruses();
+    public Task DeleteVirus(string virusName);
 }

@@ -46,6 +46,17 @@
         <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
             <Setter Property="BorderBrush" Value="{DynamicResource AccentColorLight}"/>
         </Style>
+        <!-- Combo Box -->
+        <Style Selector="ComboBox">
+            <Setter Property="Background" Value="{DynamicResource AccentColorDark}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+        <Style Selector="ComboBox:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentColorLight}"/>
+        </Style>
+        <Style Selector="ComboBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentColorLight}"/>
+        </Style>
         <!-- Check Box -->
         <Style Selector="CheckBox:checked /template/ Border#NormalRectangle">
             <Setter Property="Background" Value="{DynamicResource AccentColorDark}"/>

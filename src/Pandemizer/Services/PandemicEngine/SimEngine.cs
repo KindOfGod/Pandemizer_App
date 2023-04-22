@@ -138,10 +138,7 @@ namespace Pandemizer.Services.PandemicEngine
                 
                 // FEATURES
                 rateOfInfection *= preConditionModifier; // pre-existing condition
-
-                if (rateOfInfection > 1 - settings.ProbabilityDeviation)
-                    rateOfInfection = 1 - settings.ProbabilityDeviation;
-
+                
                 var newInfected = SimHelper.DecideCountWithDeviation(count, rateOfInfection, settings.ProbabilityDeviation);
                 
                 newPopIndex.AddValueToDictionary(pop.OverrideStateOfLive(virus.InfectionSeverity), newInfected);

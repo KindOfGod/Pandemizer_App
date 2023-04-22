@@ -78,6 +78,9 @@ namespace Pandemizer.Services.PandemicEngine
         /// </summary>
         public static uint DecideCountWithDeviation(uint count, double percentage, double deviation)
         {
+            if (percentage > 1 - deviation)
+                return count;
+            
             var dev = deviation * 100;
             var resDev = (double)Rnd.Next(-(int)dev, (int)dev);
             var cnt = (int) (count * (percentage * (1 + resDev / 100)));

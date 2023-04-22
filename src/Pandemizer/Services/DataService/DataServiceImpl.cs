@@ -17,6 +17,7 @@ public class DataServiceImpl : IDataService
     #region Fields
 
     private const string GamesDirectory = "Games";
+    private const string VirusesDirectory = "Viruses";
 
     #endregion
     
@@ -141,6 +142,109 @@ public class DataServiceImpl : IDataService
                 return;
         
             Directory.Delete(gamePath, true);
+        });
+    }
+    
+    /// <summary>
+    /// Save a virus to the default virus folder.
+    /// </summary>
+    public async Task<SaveResult> SaveVirus(Virus virus)
+    {
+        SaveResult res;
+        
+        try
+        {
+            res = await Task.Run( async () =>
+            {
+                if (!Directory.Exists(VirusesDirectory))
+                    Directory.CreateDirectory(VirusesDirectory);
+                
+                var virusPath = Path.Combine(VirusesDirectory, virus.Name);
+                
+                if (!Directory.Exists(virusPath))
+                    Directory.CreateDirectory(virusPath);
+                
+                await File.WriteAllTextAsync(Path.Combine(virusPath, $"{virus.Name}.json"), JsonConvert.SerializeObject(virus, Formatting.Indented));
+
+                return SaveResult.Successful;
+            });
+        }
+        catch (DirectoryNotFoundException)
+        {
+            res = SaveResult.InvalidDirectory;
+        }
+        catch
+        {
+            res = SaveResult.Failed;
+        }
+        
+        return res;
+    }
+    
+    /// <summary>
+    /// Reads a virus from the default virus folder.
+    /// </summary>
+    public async Task<Virus?> ReadVirus(string virusName)
+    {
+        try
+        {
+            var virus = await Task.Run(async () =>
+            {
+                if (!Directory.Exists(VirusesDirectory))
+                    Directory.CreateDirectory(VirusesDirectory);
+
+                var virusPath = Path.Combine(VirusesDirectory, $"{virusName}\\{virusName}.json");
+                
+                return !File.Exists(virusPath) ? null : JsonConvert.DeserializeObject<Virus>(await File.ReadAllTextAsync(virusPath));
+            });
+
+            return virus;
+        }
+        catch
+        {
+            // ignored
+        }
+
+        return null;
+    }
+    
+    /// <summary>
+    /// Reads all viruses
+    /// </summary>
+    public async Task<List<Virus?>> ReadAllViruses()
+    {
+        var viruses = new List<Virus?>();
+        
+        if (!Directory.Exists(VirusesDirectory))
+            Directory.CreateDirectory(VirusesDirectory);
+        
+        var subDirs = Directory.GetDirectories(VirusesDirectory).Select(Path.GetFileName).ToArray();
+
+        foreach (var dir in subDirs)
+        {
+            if(dir != null)
+                viruses.Add(await ReadVirus(dir));
+        }
+
+        return viruses;
+    }
+    
+    /// <summary>
+    /// Deletes a virus with given name
+    /// </summary>
+    public async Task DeleteVirus(string virusName)
+    {
+        await Task.Run(() =>
+        {
+            if (!Directory.Exists(VirusesDirectory))
+                Directory.CreateDirectory(VirusesDirectory);
+        
+            var virusPath = Path.Combine(VirusesDirectory, virusName);
+        
+            if(!Directory.Exists(virusPath))
+                return;
+        
+            Directory.Delete(virusPath, true);
         });
     }
 

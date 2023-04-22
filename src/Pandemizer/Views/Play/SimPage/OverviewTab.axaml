@@ -4,12 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:chrt="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
              xmlns:play="clr-namespace:Pandemizer.ViewModels.Play.SimPage"
+             xmlns:mi="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:converters="clr-namespace:Pandemizer.Core.Converters"
              mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="620"
              x:Class="Pandemizer.Views.Play.SimPage.OverviewTab">
     
     <Design.DataContext>
         <play:OverviewTabViewModel/>
     </Design.DataContext>
+    
+    <UserControl.Resources>
+        <converters:FormattedPercentageConverter x:Key="FormattedPercentageConverter"/>
+        <converters:PercentageColorConverter x:Key="PercentageColorConverter"/>
+        <converters:PercentageColorInvertedConverter x:Key="PercentageColorInvertedConverter"/>
+    </UserControl.Resources>
     
     <Grid RowDefinitions="*,*" ColumnDefinitions="3*,*">
 
@@ -38,6 +46,65 @@
             
             <chrt:PieChart Grid.Row="1" Grid.Column="0" Series="{Binding HealthStateDistributionSeries}" LegendPosition="Right" Margin="0,30,0,30"
                            LegendTextPaint="{Binding CustomLegend}"/>
+        </Grid>
+        
+        <!--Rates Changes -->
+        <Grid Grid.Row="1" Grid.Column="1" RowDefinitions="25,*" Margin="5">
+            <Border Grid.RowSpan="2" Background="{DynamicResource AccentColorLight}" Opacity="0.1" CornerRadius="10"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Rate Changes per Iteration" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
+            
+            <Grid Grid.Row="1" RowDefinitions="*,*,*,*" ColumnDefinitions="*,*,*,*,*" Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                
+                <!-- Table Header -->
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Background="{DynamicResource AccentColorLight}" Opacity="0.4" CornerRadius="10" Margin="5"/>
+                <mi:MaterialIcon Grid.Row="0" Grid.Column="0" Kind="CircleArrows" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource IterationColor}" Focusable="True"/>
+                
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="5" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Grid.Row="0" Grid.Column="3" Text="10" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Grid.Row="0" Grid.Column="4" Text="25" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                
+                <!-- Infected Changes -->
+                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10" Margin="5"/>
+                <mi:MaterialIcon Grid.Row="1" Grid.Column="0" Kind="Virus" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource InfectedColor}" Focusable="True"/>
+                
+                <TextBlock Grid.Row="1" Grid.Column="1" Foreground="{Binding IncidenceRateChangedData[0].Value, Converter={StaticResource PercentageColorConverter}}"
+                           Text="{Binding IncidenceRateChangedData[0].Value, Converter={StaticResource FormattedPercentageConverter}, FallbackValue='0%'}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Foreground="{Binding IncidenceRateChangedData[1].Value, Converter={StaticResource PercentageColorConverter}}"
+                           Text="{Binding IncidenceRateChangedData[1].Value, Converter={StaticResource FormattedPercentageConverter}, FallbackValue='0%'}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Grid.Row="1" Grid.Column="3" Foreground="{Binding IncidenceRateChangedData[2].Value, Converter={StaticResource PercentageColorConverter}}"
+                           Text="{Binding IncidenceRateChangedData[2].Value, Converter={StaticResource FormattedPercentageConverter}, FallbackValue='0%'}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Grid.Row="1" Grid.Column="4" Foreground="{Binding IncidenceRateChangedData[3].Value, Converter={StaticResource PercentageColorConverter}}"
+                           Text="{Binding IncidenceRateChangedData[3].Value, Converter={StaticResource FormattedPercentageConverter}, FallbackValue='0%'}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                
+                <!-- Immune Changes -->
+                <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10" Margin="5"/>
+                <mi:MaterialIcon Grid.Row="2" Grid.Column="0" Kind="ShieldStar" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource ImmuneColor}" Focusable="True"/>
+                
+                <TextBlock Grid.Row="2" Grid.Column="1" Foreground="{Binding ImmuneRateChangedData[0].Value, Converter={StaticResource PercentageColorInvertedConverter}}"
+                           Text="{Binding ImmuneRateChangedData[0].Value, Converter={StaticResource FormattedPercentageConverter}, FallbackValue='0%'}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Grid.Row="2" Grid.Column="2" Foreground="{Binding ImmuneRateChangedData[1].Value, Converter={StaticResource PercentageColorInvertedConverter}}"
+                           Text="{Binding ImmuneRateChangedData[1].Value, Converter={StaticResource FormattedPercentageConverter}, FallbackValue='0%'}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Grid.Row="2" Grid.Column="3" Foreground="{Binding ImmuneRateChangedData[2].Value, Converter={StaticResource PercentageColorInvertedConverter}}"
+                           Text="{Binding ImmuneRateChangedData[2].Value, Converter={StaticResource FormattedPercentageConverter}, FallbackValue='0%'}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Grid.Row="2" Grid.Column="4" Foreground="{Binding ImmuneRateChangedData[3].Value, Converter={StaticResource PercentageColorInvertedConverter}}"
+                           Text="{Binding ImmuneRateChangedData[3].Value, Converter={StaticResource FormattedPercentageConverter}, FallbackValue='0%'}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                
+                <!-- Dead Changes -->
+                <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Background="{DynamicResource AccentColorLight}" Opacity="0.2" CornerRadius="10" Margin="5"/>
+                <mi:MaterialIcon Grid.Row="3" Grid.Column="0" Kind="Dead" Width="30" Height="30" Margin="0,0,5,0" Foreground="{DynamicResource DeadColor}" Focusable="True"/>
+                
+                <TextBlock Grid.Row="3" Grid.Column="1" Foreground="{Binding DeathRateChangedData[0].Value, Converter={StaticResource PercentageColorConverter}}"
+                           Text="{Binding DeathRateChangedData[0].Value, Converter={StaticResource FormattedPercentageConverter}, FallbackValue='0%'}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Grid.Row="3" Grid.Column="2" Foreground="{Binding DeathRateChangedData[1].Value, Converter={StaticResource PercentageColorConverter}}"
+                           Text="{Binding DeathRateChangedData[1].Value, Converter={StaticResource FormattedPercentageConverter}, FallbackValue='0%'}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Grid.Row="3" Grid.Column="3" Foreground="{Binding DeathRateChangedData[2].Value, Converter={StaticResource PercentageColorConverter}}"
+                           Text="{Binding DeathRateChangedData[2].Value, Converter={StaticResource FormattedPercentageConverter}, FallbackValue='0%'}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Grid.Row="3" Grid.Column="4" Foreground="{Binding DeathRateChangedData[3].Value, Converter={StaticResource PercentageColorConverter}}"
+                           Text="{Binding DeathRateChangedData[3].Value, Converter={StaticResource FormattedPercentageConverter}, FallbackValue='0%'}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                
+            </Grid>
+            
         </Grid>
         
         <!-- Rates Chart -->

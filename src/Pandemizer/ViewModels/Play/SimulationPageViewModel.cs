@@ -241,7 +241,7 @@ public class SimulationPageViewModel : ViewModelBase
         Incidence = ApplicationHelper.IntToFormattedNum((int)state.Incidence);
         DeathRate = ApplicationHelper.IntToFormattedNum((int)state.DeathRate);
         HospitalRate = ApplicationHelper.IntToFormattedNum((int)state.HospitalizedPercent) + "%";
-
+        
         //charts
         for (var i = missingIterations; i > 0; i--)
         {

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using ExCSS;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
-using LiveChartsCore.Measure;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using Pandemizer.Services;
@@ -64,6 +62,31 @@ public class OverviewTabViewModel : ViewModelBase
         new ObservableValue(),
         new ObservableValue()
     };
+
+    public ObservableCollection<ObservableValue> IncidenceRateChangedData { get; set; } = new()
+    {
+        new ObservableValue(0),
+        new ObservableValue(0),
+        new ObservableValue(0),
+        new ObservableValue(0)
+    };
+    
+    public ObservableCollection<ObservableValue> ImmuneRateChangedData { get; set; } = new()
+    {
+        new ObservableValue(0),
+        new ObservableValue(0),
+        new ObservableValue(0),
+        new ObservableValue(0)
+    };
+    
+    public ObservableCollection<ObservableValue> DeathRateChangedData { get; set; } = new()
+    {
+        new ObservableValue(0),
+        new ObservableValue(0),
+        new ObservableValue(0),
+        new ObservableValue(0)
+    };
+    
     public SolidColorPaint CustomLegend { get; set; } = new() {Color = new SKColor(255, 255, 255)};
     public ISeries[]? HealthStatesSeries 
     {
@@ -121,6 +144,8 @@ public class OverviewTabViewModel : ViewModelBase
         XRate.First().MaxLimit = null;
         YRate.First().MinLimit = null;
         YRate.First().MaxLimit = null;
+
+        UpdateChangedRates();
     }
     
     public void Init()
@@ -237,7 +262,6 @@ public class OverviewTabViewModel : ViewModelBase
             return;
         
         HealthStatesSeries[p].IsVisible = !HealthStatesSeries[p].IsVisible;
-        //HealthStateDistributionSeries!.ElementAt(p).IsVisible = !HealthStateDistributionSeries!.ElementAt(p).IsVisible;
     }
     
     private void OnToggleRatesAxis(string parameter)
@@ -246,6 +270,52 @@ public class OverviewTabViewModel : ViewModelBase
         
         if (RatesSeries != null)
             RatesSeries[p].IsVisible = !RatesSeries[p].IsVisible;
+    }
+
+    private void UpdateChangedRates()
+    {
+        var state = HealthyData.Count - 1;
+
+        if (state > 1)
+        {
+            ImmuneRateChangedData[0].Value = 1 - ImmuneRateData[^1].Y / ImmuneRateData[^2].Y;
+            IncidenceRateChangedData[0].Value =  1 - IncidenceData[^1].Y / IncidenceData[^2].Y;
+            DeathRateChangedData[0].Value =  1 - DeathRateData[^1].Y / DeathRateData[^2].Y;
+        }
+        
+        if (state > 5)
+        {
+            ImmuneRateChangedData[1].Value = 1 - ImmuneRateData[^1].Y / ImmuneRateData[^6].Y;
+            IncidenceRateChangedData[1].Value = 1 - IncidenceData[^1].Y / IncidenceData[^6].Y;
+            DeathRateChangedData[1].Value = 1 - DeathRateData[^1].Y / DeathRateData[^6].Y;
+        }
+        
+        if (state > 10)
+        {
+            ImmuneRateChangedData[2].Value = 1 - ImmuneRateData[^1].Y / ImmuneRateData[^11].Y;
+            IncidenceRateChangedData[2].Value = 1 - IncidenceData[^1].Y / IncidenceData[^11].Y;
+            DeathRateChangedData[2].Value = 1 - DeathRateData[^1].Y / DeathRateData[^11].Y;
+        }
+        
+        if (state > 25)
+        {
+            ImmuneRateChangedData[3].Value = 1 - ImmuneRateData[^1].Y / ImmuneRateData[^26].Y;
+            IncidenceRateChangedData[3].Value = 1 - IncidenceData[^1].Y / IncidenceData[^26].Y;
+            DeathRateChangedData[3].Value = 1 - DeathRateData[^1].Y / DeathRateData[^26].Y;
+        }
+
+        for (var i = 0; i < 4; i++)
+        {
+            var immuneValue = ImmuneRateChangedData[i].Value > 1 ? ImmuneRateChangedData[i].Value! : -ImmuneRateChangedData[i].Value;
+            ImmuneRateChangedData[i].Value = Math.Round(immuneValue!.Value * 100, 1);
+            
+            var infectedValue = IncidenceRateChangedData[i].Value > 1 ? IncidenceRateChangedData[i].Value! : -IncidenceRateChangedData[i].Value;
+            IncidenceRateChangedData[i].Value = Math.Round(infectedValue!.Value * 100, 1);
+            
+            var deadValue = DeathRateChangedData[i].Value > 1 ? DeathRateChangedData[i].Value! : -DeathRateChangedData[i].Value;
+            DeathRateChangedData[i].Value = Math.Round(deadValue!.Value * 100, 1);
+            
+        }
     }
     
     #endregion

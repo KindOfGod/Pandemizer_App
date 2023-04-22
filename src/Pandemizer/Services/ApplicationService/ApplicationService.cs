@@ -31,9 +31,15 @@ namespace Pandemizer.Services
         #endregion
 
         #region Public Methods
+        
         public static void ChangeFullscreenView(ViewModelBase viewModel)
         {
             MainWindowViewModel?.ChangeFullscreenView(viewModel);
+        }
+        
+        public static void ResetFullScreenView()
+        {
+            MainWindowViewModel?.ResetFullscreenView();
         }
 
         public static void OnStartUp()

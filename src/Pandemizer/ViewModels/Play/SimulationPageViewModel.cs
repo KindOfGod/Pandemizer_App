@@ -15,7 +15,7 @@ public class SimulationPageViewModel : ViewModelBase
 {
     #region Fields
 
-    private readonly Sim _currentSim = null!;
+    private readonly Sim _currentSim;
 
     private string? _iterationTime;
     private string? _popCount;
@@ -165,12 +165,14 @@ public class SimulationPageViewModel : ViewModelBase
         RefreshUi(sim.SimInfo.Iteration + 1);
         
         ForwardCommand = ReactiveCommand.Create<string>(OnForwardCommand);
+        BackCommand = ReactiveCommand.Create(OnBackCommand);
     }
 
     #endregion
     
     #region Commands
     public ReactiveCommand<string, Unit>? ForwardCommand { get; }
+    public ReactiveCommand<Unit, Unit>? BackCommand { get; }
 
     #endregion
 
@@ -187,6 +189,14 @@ public class SimulationPageViewModel : ViewModelBase
 
         //save updated iteration
         ApplicationService.DataService.SaveSim(_currentSim);
+    }
+
+    /// <summary>
+    /// Closes simulation view.
+    /// </summary>
+    private static void OnBackCommand()
+    {
+        ApplicationService.ResetFullScreenView();
     }
 
     /// <summary>

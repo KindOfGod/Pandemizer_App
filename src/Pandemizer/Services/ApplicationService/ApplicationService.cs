@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using Pandemizer.Services.DataService;
 using Pandemizer.Services.PandemicEngine.DataModel;
@@ -32,11 +31,17 @@ namespace Pandemizer.Services
 
         #region Public Methods
         
+        /// <summary>
+        /// Change the viewModel the application is displaying in (app)full screen
+        /// </summary>
         public static void ChangeFullscreenView(ViewModelBase viewModel)
         {
             MainWindowViewModel?.ChangeFullscreenView(viewModel);
         }
         
+        /// <summary>
+        /// Reset (app)full screen
+        /// </summary>
         public static void ResetFullScreenView()
         {
             MainWindowViewModel?.ResetFullscreenView();
@@ -51,12 +56,14 @@ namespace Pandemizer.Services
 
         #region Private Methods
 
+        /// <summary>
+        /// Load all simulations
+        /// </summary>
         private static async void LoadSimulations()
         {
-            foreach (var sim in await DataService.ReadAllSims())
+            foreach (var sim in (await DataService.ReadAllSims()).Where(sim => sim != null))
             {
-                if(sim != null)
-                    Simulations.Add(sim!);
+                Simulations.Add(sim!);
             }
         }
 

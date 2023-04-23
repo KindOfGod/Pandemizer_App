@@ -58,14 +58,14 @@
                     <!-- Name -->
                     <Grid ColumnDefinitions="*,*">
                         <TextBlock Grid.Column="0" Text="Virus name:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
-                        <TextBox Grid.Column="1" Text="{Binding SelectedVirus.Name, FallbackValue=NaN}" HorizontalAlignment="Right" Width="400"/>
+                        <TextBox Grid.Column="1" Text="{Binding SelectedVirus.Name, FallbackValue=NaN}" HorizontalAlignment="Right" Width="400" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                     </Grid>
                     
                     <!-- BaseInfectionRate -->
                     <Grid ColumnDefinitions="*,*,100">
                         <TextBlock Grid.Column="0" Text="BaseInfectionRate:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
                         <Slider x:Name="slider_BaseInfectionRate" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="0.000001" Maximum="0.0001" TickFrequency="0.000001" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
-                                Value="{Binding SelectedVirus.BaseInfectionRate, FallbackValue=NaN}"/>
+                                Value="{Binding SelectedVirus.BaseInfectionRate, FallbackValue=NaN}" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                         <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_BaseInfectionRate, StringFormat={}{0:F6}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     
@@ -73,14 +73,14 @@
                     <Grid ColumnDefinitions="*,*,100">
                         <TextBlock Grid.Column="0" Text="EndangeredAgeInfectionRate:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
                         <Slider x:Name="slider_EndangeredAgeInfectionRate" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="0.000001" Maximum="0.0001" TickFrequency="0.000001" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
-                                Value="{Binding SelectedVirus.EndangeredAgeInfectionRate, FallbackValue=NaN}"/>
+                                Value="{Binding SelectedVirus.EndangeredAgeInfectionRate, FallbackValue=NaN}" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                         <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_EndangeredAgeInfectionRate, StringFormat={}{0:F6}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     
                     <!-- EndangeredAgeGroup -->
                     <Grid ColumnDefinitions="*,*">
                         <TextBlock  Grid.Column="0" Text="Endangered age group:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
-                        <ComboBox Grid.Column="1" Items="{Binding AgeValues}"
+                        <ComboBox Grid.Column="1" Items="{Binding AgeValues}" PropertyChanged="AvaloniaObject_OnPropertyChanged"
                                   SelectedItem="{Binding SelectedVirus.EndangeredAgeGroup, FallbackValue=NaN}" HorizontalAlignment="Right" Width="200"/>
                     </Grid>
                     
@@ -88,7 +88,7 @@
                     <Grid ColumnDefinitions="*,*,100">
                         <TextBlock Grid.Column="0" Text="EndangeredAgeInfectionRate:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
                         <Slider x:Name="slider_MaxInfectionsRate" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="0.1" Maximum="1" TickFrequency="0.05" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
-                                Value="{Binding SelectedVirus.MaxInfectionsRate, FallbackValue=NaN}"/>
+                                Value="{Binding SelectedVirus.MaxInfectionsRate, FallbackValue=NaN}" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                         <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_MaxInfectionsRate, StringFormat={}{0:F2}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     
@@ -97,7 +97,7 @@
                     <!-- InfectionSeverity -->
                     <Grid ColumnDefinitions="*,*">
                         <TextBlock  Grid.Column="0" Text="InfectionSeverity:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
-                        <ComboBox Grid.Column="1" Items="{Binding InfectionSeverityValues}"
+                        <ComboBox Grid.Column="1" Items="{Binding InfectionSeverityValues}" PropertyChanged="AvaloniaObject_OnPropertyChanged"
                                   SelectedItem="{Binding SelectedVirus.InfectionSeverity, FallbackValue=NaN}" HorizontalAlignment="Right" Width="200"/>
                     </Grid>
                     
@@ -105,7 +105,7 @@
                     <Grid ColumnDefinitions="*,*,100">
                         <TextBlock Grid.Column="0" Text="EndangeredAgeInfectionRate:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
                         <Slider x:Name="slider_RateOfGettingWorse" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="0.01" Maximum="1" TickFrequency="0.05" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
-                                Value="{Binding SelectedVirus.RateOfGettingWorse, FallbackValue=NaN}"/>
+                                Value="{Binding SelectedVirus.RateOfGettingWorse, FallbackValue=NaN}" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                         <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_RateOfGettingWorse, StringFormat={}{0:F2}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     
@@ -113,7 +113,7 @@
                     <Grid ColumnDefinitions="*,*,100">
                         <TextBlock Grid.Column="0" Text="EndangeredAgeInfectionRate:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
                         <Slider x:Name="slider_EndangeredAgeRateOfGettingWorse" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="0.01" Maximum="1" TickFrequency="0.05" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
-                                Value="{Binding SelectedVirus.EndangeredAgeRateOfGettingWorse, FallbackValue=NaN}"/>
+                                Value="{Binding SelectedVirus.EndangeredAgeRateOfGettingWorse, FallbackValue=NaN}" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                         <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_EndangeredAgeRateOfGettingWorse, StringFormat={}{0:F2}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     
@@ -123,7 +123,7 @@
                     <Grid ColumnDefinitions="*,*,100">
                         <TextBlock Grid.Column="0" Text="BaseDeathRate:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
                         <Slider x:Name="slider_BaseDeathRate" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="0" Maximum="1" TickFrequency="0.05" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
-                                Value="{Binding SelectedVirus.BaseDeathRate, FallbackValue=NaN}"/>
+                                Value="{Binding SelectedVirus.BaseDeathRate, FallbackValue=NaN}" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                         <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_BaseDeathRate, StringFormat={}{0:F2}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     
@@ -131,7 +131,7 @@
                     <Grid ColumnDefinitions="*,*,100">
                         <TextBlock Grid.Column="0" Text="EndangeredAgeDeathRate:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
                         <Slider x:Name="slider_EndangeredAgeDeathRate" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="0" Maximum="1" TickFrequency="0.05" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
-                                Value="{Binding SelectedVirus.EndangeredAgeDeathRate, FallbackValue=NaN}"/>
+                                Value="{Binding SelectedVirus.EndangeredAgeDeathRate, FallbackValue=NaN}" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                         <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_EndangeredAgeDeathRate, StringFormat={}{0:F2}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     
@@ -141,7 +141,7 @@
                     <Grid ColumnDefinitions="*,*,100">
                         <TextBlock Grid.Column="0" Text="BaseImmunityRate:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
                         <Slider x:Name="slider_BaseImmunityRate" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="0" Maximum="0.1" TickFrequency="0.001" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
-                                Value="{Binding SelectedVirus.BaseImmunityRate, FallbackValue=NaN}"/>
+                                Value="{Binding SelectedVirus.BaseImmunityRate, FallbackValue=NaN}" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                         <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_BaseImmunityRate, StringFormat={}{0:F3}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     
@@ -149,7 +149,7 @@
                     <Grid ColumnDefinitions="*,*,100">
                         <TextBlock Grid.Column="0" Text="EndangeredImmunityRate:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
                         <Slider x:Name="slider_EndangeredImmunityRate" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="0" Maximum="0.1" TickFrequency="0.0001" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
-                                Value="{Binding SelectedVirus.EndangeredImmunityRate, FallbackValue=NaN}"/>
+                                Value="{Binding SelectedVirus.EndangeredImmunityRate, FallbackValue=NaN}" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                         <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_EndangeredImmunityRate, StringFormat={}{0:F4}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     
@@ -157,7 +157,7 @@
                     <Grid ColumnDefinitions="*,*,100">
                         <TextBlock Grid.Column="0" Text="SurvivalInstinctMultiplier:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
                         <Slider x:Name="slider_SurvivalInstinctMultiplier" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="1" Maximum="10" TickFrequency="0.25" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
-                                Value="{Binding SelectedVirus.SurvivalInstinctMultiplier, FallbackValue=NaN}"/>
+                                Value="{Binding SelectedVirus.SurvivalInstinctMultiplier, FallbackValue=NaN}" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                         <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_SurvivalInstinctMultiplier, StringFormat={}{0:F2}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     
@@ -167,7 +167,7 @@
                     <Grid ColumnDefinitions="*,*,100">
                         <TextBlock Grid.Column="0" Text="ImmunityLostRate:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
                         <Slider x:Name="slider_ImmunityLostRate" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="0" Maximum="1" TickFrequency="0.001" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
-                                Value="{Binding SelectedVirus.ImmunityLostRate, FallbackValue=NaN}"/>
+                                Value="{Binding SelectedVirus.ImmunityLostRate, FallbackValue=NaN}" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                         <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_ImmunityLostRate, StringFormat={}{0:F3}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     
@@ -177,7 +177,7 @@
                     <Grid ColumnDefinitions="*,*,100">
                         <TextBlock Grid.Column="0" Text="PreConditionModifier:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
                         <Slider x:Name="slider_PreConditionModifier" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="0" Maximum="5" TickFrequency="0.25" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
-                                Value="{Binding SelectedVirus.PreConditionModifier, FallbackValue=NaN}"/>
+                                Value="{Binding SelectedVirus.PreConditionModifier, FallbackValue=NaN}" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                         <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_PreConditionModifier, StringFormat={}{0:F2}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     
@@ -187,7 +187,7 @@
                     <Grid ColumnDefinitions="*,*,100">
                         <TextBlock Grid.Column="0" Text="HospitalizedInfectedGetHealthy:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
                         <Slider x:Name="slider_HospitalizedInfectedGetHealthy" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="0" Maximum="1" TickFrequency="0.05" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
-                                Value="{Binding SelectedVirus.HospitalizedInfectedGetHealthy, FallbackValue=NaN}"/>
+                                Value="{Binding SelectedVirus.HospitalizedInfectedGetHealthy, FallbackValue=NaN}" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                         <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_HospitalizedInfectedGetHealthy, StringFormat={}{0:F2}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     
@@ -195,7 +195,7 @@
                     <Grid ColumnDefinitions="*,*,100">
                         <TextBlock Grid.Column="0" Text="HospitalizedHeavilyInfectedGetHealthy:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"/>
                         <Slider x:Name="slider_HospitalizedHeavilyInfectedGetHealthy" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="0" Maximum="1" TickFrequency="0.05" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
-                                Value="{Binding SelectedVirus.HospitalizedHeavilyInfectedGetHealthy, FallbackValue=NaN}"/>
+                                Value="{Binding SelectedVirus.HospitalizedHeavilyInfectedGetHealthy, FallbackValue=NaN}" PropertyChanged="AvaloniaObject_OnPropertyChanged"/>
                         <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_HospitalizedHeavilyInfectedGetHealthy, StringFormat={}{0:F2}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     

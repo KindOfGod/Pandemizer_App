@@ -15,6 +15,8 @@ namespace Pandemizer.ViewModels.Viruses;
 public class VirusesPageViewModel : ViewModelBase
 {
     #region Fields
+
+    private bool _isInitRunning = true;
     
     private Virus _selectedVirus = new ();
 
@@ -65,6 +67,18 @@ public class VirusesPageViewModel : ViewModelBase
 
     #endregion
 
+    #region Public Methods
+
+    public async void SaveVirus()
+    {
+        if(_isInitRunning)
+            return;
+        
+        _ = await ApplicationService.DataService.SaveVirus(SelectedVirus);
+    }
+
+    #endregion
+
     #region Private Methods
 
     private async void LoadViruses()
@@ -83,6 +97,8 @@ public class VirusesPageViewModel : ViewModelBase
             SelectedVirus = VirusList[0];
         else
             OnCreateVirusCommand();
+
+        _isInitRunning = false;
     }
 
     private async void OnCreateVirusCommand()

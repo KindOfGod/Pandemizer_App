@@ -81,6 +81,9 @@ public class CreateSimDialogViewModel : ViewModelBase
             if(virus != null)
                 Viruses.Add(virus);
         }
+        
+        if(Viruses.Count == 0)
+            Viruses.Add(new Virus());
 
         SelectedVirus = Viruses[0];
         _simInfo.Name = SimName;

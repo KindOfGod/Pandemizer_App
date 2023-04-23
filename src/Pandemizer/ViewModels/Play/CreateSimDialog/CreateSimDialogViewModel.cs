@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
 using Pandemizer.Services;
 using Pandemizer.Services.PandemicEngine;
@@ -49,6 +51,9 @@ public class CreateSimDialogViewModel : ViewModelBase
             CheckIfNameExists(_simName);
         }
     }
+    
+    public StateOfLife[] HealthIllnessSeverityValues => Enum.GetValues(typeof(StateOfLife)).Cast<StateOfLife>()
+        .Where(a => a is not (StateOfLife.Healthy or StateOfLife.Immune or StateOfLife.Dead or StateOfLife.Compare)).ToArray();
 
     #endregion
     

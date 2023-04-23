@@ -55,4 +55,10 @@
       <UpToDateCheckInput Remove="Assets\Icons\VirusIcons\png\TurquoiseBad.png" />
       <UpToDateCheckInput Remove="Assets\Icons\VirusIcons\png\White.png" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="src\Pandemizer\Views\Play\CreateSimDialog\CreateSimDialog.axaml.cs">
+        <DependentUpon>CreateSimDialog.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 </Project>

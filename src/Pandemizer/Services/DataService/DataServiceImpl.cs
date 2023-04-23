@@ -87,7 +87,7 @@ public class DataServiceImpl : IDataService
                 
                 var setPath = Path.Combine(gamePath, "SimSettings.json");
                 if (File.Exists(setPath))
-                    simSettings = JsonConvert.DeserializeObject<SimSettings>(await File.ReadAllTextAsync(infPath));
+                    simSettings = JsonConvert.DeserializeObject<SimSettings>(await File.ReadAllTextAsync(setPath));
                 
                 if(simInfo != null && simSettings != null)
                     return SimEngine.LoadSim(simInfo, simSettings);

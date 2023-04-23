@@ -1,0 +1,85 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Pandemizer.ViewModels.Play.CreateSimDialog"
+        xmlns:mi="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        mc:Ignorable="d" Width="1280" Height="720"
+        x:Class="Pandemizer.Views.Play.CreateSimDialog.CreateSimDialog"
+        Title="CreateSimDialog"
+        TransparencyLevelHint="AcrylicBlur"
+        ExtendClientAreaToDecorationsHint="True"
+        UseLayoutRounding="True"
+        WindowStartupLocation="CenterOwner">
+        
+        <Design.DataContext>
+                <vm:CreateSimDialogViewModel/>
+        </Design.DataContext>
+        
+        <Grid Background="{x:Null}" RowDefinitions="*, 100">
+            <!--Acrylic Effects-->
+            <ExperimentalAcrylicBorder IsHitTestVisible="False" CornerRadius="10" Grid.RowSpan="2">
+                    <ExperimentalAcrylicBorder.Material>
+                            <ExperimentalAcrylicMaterial BackgroundSource="Digger" TintColor="{DynamicResource MainColor}" TintOpacity="1" MaterialOpacity="0.85" />
+                    </ExperimentalAcrylicBorder.Material>
+            </ExperimentalAcrylicBorder>
+            
+            <ScrollViewer Grid.Row="0" Margin="30" HorizontalAlignment="Stretch" FontWeight="Light">
+                <Grid Margin="10,0,10,0">
+                    <StackPanel Spacing="15" Margin="15,0, 30,0">
+                        
+                        <TextBlock Text="General" Margin="0,20,0,0" HorizontalAlignment="Left" FontSize="24"/>
+                        
+                        <!-- Name -->
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Grid.Column="0" Text="Simulation name:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
+                            <TextBox Grid.Column="1" Text="{Binding SimName, FallbackValue=NaN}" HorizontalAlignment="Right" Width="400"/>
+                        </Grid>
+                        
+                        <!-- Scope -->
+                        <Grid ColumnDefinitions="*,*,100">
+                            <TextBlock Grid.Column="0" Text="Scope:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
+                            <Slider x:Name="slider_Scope" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="100000" Maximum="100000000" TickFrequency="100000" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
+                                    Value="{Binding SimSettings.Scope, FallbackValue=NaN}"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_Scope, StringFormat={}{0:F0}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        
+                        <!-- IterationLimit -->
+                        <Grid ColumnDefinitions="*,*,100">
+                            <TextBlock Grid.Column="0" Text="IterationLimit:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
+                            <Slider x:Name="slider_IterationLimit" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="1" Maximum="10000" TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
+                                    Value="{Binding SimSettings.IterationLimit, FallbackValue=NaN}"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_IterationLimit, StringFormat={}{0:F0}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        
+                        <!-- ProbabilityDeviation -->
+                        <Grid ColumnDefinitions="*,*,100">
+                            <TextBlock Grid.Column="0" Text="ProbabilityDeviation:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
+                            <Slider x:Name="slider_ProbabilityDeviation" Grid.Column="1" HorizontalAlignment="Right" Width="600" Minimum="0" Maximum="0.5" TickFrequency="0.05" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
+                                    Value="{Binding SimSettings.ProbabilityDeviation, FallbackValue=NaN}"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=slider_ProbabilityDeviation, StringFormat={}{0:F2}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        
+                        <!-- Virus -->
+                        <Grid ColumnDefinitions="*,*,100">
+                            <TextBlock Grid.Column="0" Text="Virus:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
+                            <ComboBox Grid.Column="1" Items="{Binding Viruses}"
+                                      SelectedItem="{Binding SelectedVirus, FallbackValue=NaN}" HorizontalAlignment="Right" Width="200">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+            
+            <!-- Accept Button -->
+            <Button Grid.Row="1" Background="{StaticResource HealthyColor}" Width="60" Height="60" Margin="5" ToolTip.Tip="Create" HorizontalAlignment="Center"
+                    Command="{Binding CreateSimCommand}">
+                <mi:MaterialIcon Kind="Check" Width="35" Height="35"/>
+            </Button>
+        </Grid>
+</Window>

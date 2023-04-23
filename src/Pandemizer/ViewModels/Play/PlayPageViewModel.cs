@@ -2,10 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Pandemizer.Services;
 using Pandemizer.Services.PandemicEngine;
 using Pandemizer.Services.PandemicEngine.DataModel;
+using Pandemizer.ViewModels.Play.CreateSimDialog;
 using ReactiveUI;
 
 namespace Pandemizer.ViewModels.Play;
@@ -90,14 +92,10 @@ public class PlayPageViewModel : ViewModelBase
     /// </summary>
     private async void OnCreateClick()
     {
-        var newSim = SimEngine.CreateNewSim(new SimInfo() 
-        {
-            Name = "TestSim_" + Guid.NewGuid()
-        },
-        new SimSettings()
-        {
-            Scope = 100_000_000
-        });
+        var newSim = await ApplicationService.OpenCreateDialog();
+        
+        if(newSim == null)
+            return;
         
         ApplicationService.Simulations.Add(newSim);
         SelectedSim = newSim;

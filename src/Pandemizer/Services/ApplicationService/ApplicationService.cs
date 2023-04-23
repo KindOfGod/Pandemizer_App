@@ -1,8 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
 using Pandemizer.Services.DataService;
 using Pandemizer.Services.PandemicEngine.DataModel;
 using Pandemizer.ViewModels;
+using Pandemizer.ViewModels.Play.CreateSimDialog;
 
 namespace Pandemizer.Services
 {
@@ -45,6 +48,15 @@ namespace Pandemizer.Services
         public static void ResetFullScreenView()
         {
             MainWindowViewModel?.ResetFullscreenView();
+        }
+        
+        /// <summary>
+        /// OpenCreateDialog
+        /// </summary>
+        public static async Task<Sim?> OpenCreateDialog()
+        {
+            var viewModel = new CreateSimDialogViewModel();
+            return await MainWindowViewModel?.ShowCreateDialog.Handle(viewModel)!;
         }
 
         public static void OnStartUp()

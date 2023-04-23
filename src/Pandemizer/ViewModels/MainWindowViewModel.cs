@@ -4,10 +4,12 @@ using System.Linq;
 using System.Reactive;
 using Avalonia.Controls;
 using Material.Icons;
+using Pandemizer.Services.PandemicEngine.DataModel;
 using Pandemizer.ViewModels.Compare;
 using Pandemizer.ViewModels.Handbook;
 using Pandemizer.ViewModels.Library;
 using Pandemizer.ViewModels.Play;
+using Pandemizer.ViewModels.Play.CreateSimDialog;
 using Pandemizer.ViewModels.Sandbox;
 using Pandemizer.ViewModels.Viruses;
 using ReactiveUI;
@@ -85,13 +87,16 @@ namespace Pandemizer.ViewModels
             _navigationPageInstances = new List<ViewModelBase>();
 
             HamburgerMenuClick = ReactiveCommand.Create(OnHamburgerMenuClick);
+            
+            ShowCreateDialog = new Interaction<CreateSimDialogViewModel, Sim?>();
         }
 
         #endregion
 
         #region Commands
-
         public ReactiveCommand<Unit, Unit> HamburgerMenuClick { get; }
+        
+        public Interaction<CreateSimDialogViewModel, Sim?> ShowCreateDialog { get; }
 
         #endregion
 

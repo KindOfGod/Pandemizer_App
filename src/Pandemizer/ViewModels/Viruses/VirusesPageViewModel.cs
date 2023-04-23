@@ -85,29 +85,29 @@ public class VirusesPageViewModel : ViewModelBase
             OnCreateVirusCommand();
     }
 
-    private void OnCreateVirusCommand()
+    private async void OnCreateVirusCommand()
     {
         var virus = new Virus();
-        ApplicationService.DataService.SaveVirus(virus);
+        _ = await ApplicationService.DataService.SaveVirus(virus);
         
         VirusList.Add(virus);
         SelectedVirus = virus;
     }
     
-    private void OnDuplicateVirusCommand()
+    private async void OnDuplicateVirusCommand()
     {
         var json = JsonConvert.SerializeObject(_selectedVirus, Formatting.Indented);
         var copy = JsonConvert.DeserializeObject<Virus>(json);
 
         copy!.Name += "_copy";
-        ApplicationService.DataService.SaveVirus(copy);
+        _ = await ApplicationService.DataService.SaveVirus(copy);
 
         VirusList.Add(copy);
     }
     
-    private void OnDeleteVirusCommand()
+    private async void OnDeleteVirusCommand()
     {
-        ApplicationService.DataService.DeleteVirus(_selectedVirus.Name);
+        await ApplicationService.DataService.DeleteVirus(_selectedVirus.Name);
         VirusList.Remove(_selectedVirus);
         
         if (VirusList.Count > 0)

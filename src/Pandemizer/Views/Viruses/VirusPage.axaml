@@ -26,15 +26,15 @@
         
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
             
-            <Button Background="{StaticResource HealthyColor}" Width="50" Height="40" Margin="5" ToolTip.Tip="Iterate" HorizontalAlignment="Right"
+            <Button Background="{StaticResource HealthyColor}" Width="50" Height="40" Margin="5" ToolTip.Tip="Create" HorizontalAlignment="Right"
                     Command="{Binding CreateVirusCommand}">
                 <mi:MaterialIcon Kind="Add" Width="35" Height="35"/>
             </Button>
-            <Button Background="{StaticResource ImmuneColor}" Width="50" Height="40" Margin="5" ToolTip.Tip="Iterate" HorizontalAlignment="Right"
+            <Button Background="{StaticResource ImmuneColor}" Width="50" Height="40" Margin="5" ToolTip.Tip="Duplicate" HorizontalAlignment="Right"
                     Command="{Binding DuplicateVirusCommand}">
                 <mi:MaterialIcon Kind="ContentCopy" Width="35" Height="35"/>
             </Button>
-            <Button Background="{StaticResource IterationColor}" Width="50" Height="40" Margin="5" ToolTip.Tip="Iterate" HorizontalAlignment="Right"
+            <Button Background="{StaticResource IterationColor}" Width="50" Height="40" Margin="5" ToolTip.Tip="Delete" HorizontalAlignment="Right"
                     Command="{Binding DeleteVirusCommand}">
                 <mi:MaterialIcon Kind="Delete" Width="35" Height="35"/>
             </Button>

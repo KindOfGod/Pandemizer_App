@@ -16,7 +16,8 @@
         Title="Pandemizer" 
         TransparencyLevelHint="AcrylicBlur"
         ExtendClientAreaToDecorationsHint="True"
-        UseLayoutRounding="True">
+        UseLayoutRounding="True"
+        WindowStartupLocation="CenterScreen">
     
     <!-- Global Styles for Application -->
     <Window.Styles>
@@ -51,11 +52,10 @@
             <Setter Property="Background" Value="{DynamicResource AccentColorDark}"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
         </Style>
-        <Style Selector="ComboBox:pointerover /template/ Border#PART_BorderElement">
-            <Setter Property="BorderBrush" Value="{DynamicResource AccentColorLight}"/>
-        </Style>
-        <Style Selector="ComboBox:focus /template/ Border#PART_BorderElement">
-            <Setter Property="BorderBrush" Value="{DynamicResource AccentColorLight}"/>
+        <!-- Slider -->
+        <Style Selector="Slider">
+            <Setter Property="Background" Value="{DynamicResource AccentColorDark}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
         </Style>
         <!-- Check Box -->
         <Style Selector="CheckBox:checked /template/ Border#NormalRectangle">

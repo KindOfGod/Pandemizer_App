@@ -104,6 +104,7 @@ public class VirusesPageViewModel : ViewModelBase
     private async void OnCreateVirusCommand()
     {
         var virus = new Virus();
+        
         _ = await ApplicationService.DataService.SaveVirus(virus);
         
         VirusList.Add(virus);

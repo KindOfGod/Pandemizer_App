@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Pandemizer.Services;
 using Pandemizer.ViewModels.Viruses;
 
 namespace Pandemizer.Views.Viruses;
@@ -21,7 +22,15 @@ public partial class VirusPage : UserControl
     {
         if (DataContext is not VirusesPageViewModel viewModel)
             return;
-
+        
+        if (sender is Control {Name: "VirusName"})
+        {
+            var oldValue = e.OldValue?.ToString();
+            
+            if(oldValue != null)
+                ApplicationService.DataService.DeleteVirus(oldValue);
+        }
+        
         switch (e.Property.Name)
         {
             case "Value":

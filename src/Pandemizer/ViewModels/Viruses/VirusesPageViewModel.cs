@@ -96,15 +96,24 @@ public class VirusesPageViewModel : ViewModelBase
         if (VirusList.Count > 0)
             SelectedVirus = VirusList[0];
         else
-            OnCreateVirusCommand();
+        {
+            var virus = new Virus();
+            _ = await ApplicationService.DataService.SaveVirus(virus);
+            
+            VirusList.Add(virus);
+            SelectedVirus = virus;
+        }
 
         _isInitRunning = false;
     }
 
     private async void OnCreateVirusCommand()
     {
-        var virus = new Virus();
-        
+        var virus = new Virus
+        {
+            Name = "NewVirus"
+        };
+
         _ = await ApplicationService.DataService.SaveVirus(virus);
         
         VirusList.Add(virus);

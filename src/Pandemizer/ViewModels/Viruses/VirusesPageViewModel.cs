@@ -111,7 +111,7 @@ public class VirusesPageViewModel : ViewModelBase
     {
         var virus = new Virus
         {
-            Name = "NewVirus"
+            Name = "BaseVirus"
         };
 
         _ = await ApplicationService.DataService.SaveVirus(virus);

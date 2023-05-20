@@ -26,9 +26,14 @@ public partial class VirusPage : UserControl
         if (sender is Control {Name: "VirusName"})
         {
             var oldValue = e.OldValue?.ToString();
-            
-            if(oldValue != null)
-                ApplicationService.DataService.DeleteVirus(oldValue);
+            var newValue = e.NewValue?.ToString();
+
+            if (oldValue != null && newValue != null && oldValue != "" && newValue != "")
+            {
+                if(newValue.Contains(oldValue) || oldValue.Contains(newValue))
+                    ApplicationService.DataService.DeleteVirus(oldValue);
+            }
+                
         }
         
         switch (e.Property.Name)

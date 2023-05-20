@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Reactive;
 using System.Threading.Tasks;
 using LiveChartsCore.Defaults;
+using Material.Icons;
 using Pandemizer.Services;
 using Pandemizer.Services.PandemicEngine;
 using Pandemizer.Services.PandemicEngine.DataModel;
@@ -39,6 +40,8 @@ public class SimulationPageViewModel : ViewModelBase
     private OverviewTabViewModel? _overviewTab;
     private HealthcareTabViewModel? _healthcareTab;
     private PopulationTabViewModel? _populationTab;
+    
+    private MaterialIconKind _lockdownIcon = MaterialIconKind.Virus;
     
     #endregion
 
@@ -127,6 +130,13 @@ public class SimulationPageViewModel : ViewModelBase
         get => _populationTab;
         set => this.RaiseAndSetIfChanged(ref _populationTab, value);
     }
+    
+    public MaterialIconKind LockdownIcon
+    {
+        get => _lockdownIcon;
+        set => this.RaiseAndSetIfChanged(ref _lockdownIcon, value);
+    }
+
     //rest
     
     public bool IterationButtonsEnabled
@@ -166,6 +176,7 @@ public class SimulationPageViewModel : ViewModelBase
         
         ForwardCommand = ReactiveCommand.Create<string>(OnForwardCommand);
         BackCommand = ReactiveCommand.Create(OnBackCommand);
+        ToggleLockdownCommand = ReactiveCommand.Create(OnToggleLockdownCommand);
     }
 
     #endregion
@@ -173,6 +184,7 @@ public class SimulationPageViewModel : ViewModelBase
     #region Commands
     public ReactiveCommand<string, Unit>? ForwardCommand { get; }
     public ReactiveCommand<Unit, Unit>? BackCommand { get; }
+    public ReactiveCommand<Unit, Unit>? ToggleLockdownCommand { get; }
 
     #endregion
 
@@ -310,6 +322,20 @@ public class SimulationPageViewModel : ViewModelBase
         OverviewTab?.RefreshCharts();
         HealthcareTab?.RefreshCharts();
         PopulationTab?.RefreshData(_currentSim.SimStates[^1].PopIndex);
+    }
+
+    private void OnToggleLockdownCommand()
+    {
+        if (LockdownIcon == MaterialIconKind.Virus)
+        {
+            _currentSim.SimInfo.IsLockdownActive = true;
+            LockdownIcon = MaterialIconKind.VirusOff;
+        }
+        else
+        {
+            _currentSim.SimInfo.IsLockdownActive = false;
+            LockdownIcon = MaterialIconKind.Virus;
+        }
     }
     
     private void Init()

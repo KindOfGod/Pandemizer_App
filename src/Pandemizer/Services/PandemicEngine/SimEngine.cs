@@ -133,8 +133,10 @@ namespace Pandemizer.Services.PandemicEngine
             {
                 var rateOfInfection = isEndangeredAge ? virus.EndangeredAgeInfectionRate : virus.BaseInfectionRate;
                 
-                //calculate modifier based on infection count
-                rateOfInfection += (virus.MaxInfectionsRate - settings.ProbabilityDeviation) * (((double)prevState.UnknownTotalInfected - prevState.Hospitalized) / (settings.Scope - prevState.Dead));
+                //check if lockdown is enabled
+                if(!sim.SimInfo.IsLockdownActive)
+                    //calculate modifier based on infection count
+                    rateOfInfection += (virus.MaxInfectionsRate - settings.ProbabilityDeviation) * (((double)prevState.UnknownTotalInfected - prevState.Hospitalized) / (settings.Scope - prevState.Dead));
                 
                 // FEATURES
                 rateOfInfection *= preConditionModifier; // pre-existing condition
